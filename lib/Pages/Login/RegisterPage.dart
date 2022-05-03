@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
@@ -118,135 +115,78 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
 //  发送请求
-  // _getIPAddress() async {
-  //   var url = 'http://1.117.249.72:8080/user?userID='+_account+'&password='+_password;
-  //   print(url);
-  //   var httpClient = HttpClient();
-  //
-  //   String result;
-  //   try {
-  //     var request = await httpClient.getUrl(Uri.parse(url));
-  //     var response = await request.close();
-  //     if (response.statusCode == HttpStatus.OK) {
-  //       var json = await response.transform(utf8.decoder).join();
-  //       var data = jsonDecode(json);
-  //       result = data['meta']['msg'];
-  //     } else {
-  //       result =
-  //       'Error getting IP address:\nHttp status ${response.statusCode}';
-  //     }
-  //   } catch (exception) {
-  //     result = 'Failed getting IP address';
-  //   }
-  //
-  //   // If the widget was removed from the tree while the message was in flight,
-  //   // we want to discard the reply rather than calling setState to update our
-  //   // non-existent appearance.
-  //   if (!mounted) return;
-  //   print(result);
-  // }
+//   _getIPAddress() async {
+//     var url = 'http://1.117.249.72:8080/user?userID='+_account+'&password='+_password;
+//     print(url);
+//     var httpClient = HttpClient();
+//
+//     String result;
+//     try {
+//       var request = await httpClient.getUrl(Uri.parse(url));
+//       var response = await request.close();
+//       if (response.statusCode == HttpStatus.OK) {
+//         var json = await response.transform(utf8.decoder).join();
+//         var data = jsonDecode(json);
+//         result = data['meta']['msg'];
+//       } else {
+//         result =
+//         'Error getting IP address:\nHttp status ${response.statusCode}';
+//       }
+//     } catch (exception) {
+//       result = 'Failed getting IP address';
+//     }
+//
+//     // If the widget was removed from the tree while the message was in flight,
+//     // we want to discard the reply rather than calling setState to update our
+//     // non-existent appearance.
+//     if (!mounted) return;
+//     print(result);
+//   }
 
-  // Widget buildCodeTextField() {
-  //   return TextFormField(
-  //     decoration: const InputDecoration(
-  //       labelText: 'Code',
-  //       hintText: '请输入验证码',
-  //       /// 边框
-  //       border: OutlineInputBorder(
-  //         borderRadius: BorderRadius.all(
-  //           /// 里面的数值尽可能大才是左右半圆形，否则就是普通的圆角形
-  //           Radius.circular(50),
-  //         ),
-  //       ),
-  //
-  //       ///设置内容内边距
-  //       contentPadding: EdgeInsets.only(
-  //         top: 0,
-  //         bottom: 0,
-  //       ),
-  //       /// 前缀图标
-  //       prefixIcon: Icon(Icons.verified_user),
-  //     ),
-  //     onSaved: (v) => _code = v!,
-  //   );
-  // }
 
   Widget buildCodeTextField() {
     double width = MediaQuery.of(context).size.width;
-
-    return Container(
-        height: 48,
-        decoration: UnderlineTabIndicator(
-            borderSide:
-            BorderSide(width: 0.5, color: Color.fromRGBO(237, 237, 237, 1)),
-            insets: EdgeInsets.zero),
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              left: 15,
-              right: 120,
-              top: 20,
-              height: 20,
-              child: TextField(
-                controller: _phoneCodeEditController,
-                focusNode: _phoneCodeFocusNode,
-                decoration: InputDecoration(
-                  hintText: "请输入验证码",
-                ),
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly, //只输入数字
-                  LengthLimitingTextInputFormatter(6) //限制长度
-                ],
-              ),
-            ),
-            Positioned(
-              // right: width-15,
-              left: width - 115,
-              top: 10,
-              // bottom: 10,
-              child: Container(
-                  width: 100,
-                  height: 28,
-                  decoration: new BoxDecoration(
-                    border: new Border.all(
-                        color: _isAvailableGetVCode
-                            ? Color(0xFF47CCA0)
-                            : Color(0xFFCCCCCC),
-                        width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                  ),
-                  child: FlatButton(
-                    // disabledColor: Color(0xFFCCCCCC),
-                    onPressed: _seconds == widget.countdown
-                        ? () {
-                      if (checkPhoneNumber()) {
-                        _startTimer();
-                        print('1111');
-                        gettestPhoneCode().then((data) {
-                        });
-                      } else {
-                        ToastUtils.showText(context, msg: '请输入正确的手机号码');
-                      }
-                    }
-                        : null,
-                    child: Text(
-                      '获取验证码',
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: _isAvailableGetVCode
-                            ? Color(0xFF47CCA0)
-                            : Color(0xFFCCCCCC),
-                      ),
-                    ),
-                  )),
-            ),
-          ],
-        ));
+    return Stack(
+      children: <Widget>[
+         const TextField(
+           decoration: InputDecoration(
+             labelText: 'Code',
+             hintText: '请输入验证码',
+             /// 边框
+             border: OutlineInputBorder(
+               borderRadius: BorderRadius.all(
+                 /// 里面的数值尽可能大才是左右半圆形，否则就是普通的圆角形
+                 Radius.circular(50),
+               ),
+             ),
+             ///设置内容内边距
+             contentPadding: EdgeInsets.only(
+               top: 0,
+               bottom: 0,
+             ),
+             /// 前缀图标
+             prefixIcon: Icon(Icons.verified_user),
+           ),
+          ),
+        Positioned(
+          left: width - 138,
+          top: 1,
+          child:  RaisedButton(
+            child: const Text("获取验证码"),
+            color: Colors.white60, //按钮的背景颜色
+            textColor: MyColors.mPrimaryColor, //字体颜色
+            elevation: 10.0, //阴影
+            shape: RoundedRectangleBorder(
+              //设置圆角
+                borderRadius: BorderRadius.circular(10)),
+            onPressed: () {
+              print("验证码来了");
+            },
+          ),
+        ),
+      ],
+    );
   }
-
-
-
 
   Widget buildTelTextField() {
     return TextFormField(
@@ -414,6 +354,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
 
 
 

@@ -7,6 +7,7 @@ class MyColors {
   static const Color mDealColor = Color(0xFFACCA8E);
   static const Color mPrimaryColor = Color(0xFFC7B98D);
   static const Color mSecondColor = Color(0xFF888E74);
+  static const Color mThirdLight = Color(0xFFF7EBC5);
 }
 
 Color mPrimaryTextColor = Color(0xFF8C746A);
