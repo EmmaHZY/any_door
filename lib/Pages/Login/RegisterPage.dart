@@ -54,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(height: 25),
             buildRegisterButton(context), // 按钮
             const SizedBox(height: 10),
-            buildLoginText(context), // 注册
+            buildLoginText(context), // 返回登录
           ],
         ),
       ),
@@ -113,36 +113,6 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-
-//  发送请求
-//   _getIPAddress() async {
-//     var url = 'http://1.117.249.72:8080/user?userID='+_account+'&password='+_password;
-//     print(url);
-//     var httpClient = HttpClient();
-//
-//     String result;
-//     try {
-//       var request = await httpClient.getUrl(Uri.parse(url));
-//       var response = await request.close();
-//       if (response.statusCode == HttpStatus.OK) {
-//         var json = await response.transform(utf8.decoder).join();
-//         var data = jsonDecode(json);
-//         result = data['meta']['msg'];
-//       } else {
-//         result =
-//         'Error getting IP address:\nHttp status ${response.statusCode}';
-//       }
-//     } catch (exception) {
-//       result = 'Failed getting IP address';
-//     }
-//
-//     // If the widget was removed from the tree while the message was in flight,
-//     // we want to discard the reply rather than calling setState to update our
-//     // non-existent appearance.
-//     if (!mounted) return;
-//     print(result);
-//   }
-
 
   Widget buildCodeTextField() {
     double width = MediaQuery.of(context).size.width;
