@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: const ColorScheme.light(//有colorscheme属性修改才生效
               primary: MyColors.mPrimaryColor,//主题颜色
-              onPrimary: Colors.black26,//主题字体颜色
+              onPrimary: Colors.white,//主题字体颜色
               onBackground: Colors.white,
-              secondary: Colors.yellowAccent),//辅助色，如页面滑动的波纹，与主题色保持类似
+              secondary: MyColors.mThirdLight),//辅助色，如页面滑动的波纹，与主题色保持类似
         ),
         // 注册路由表
         routes: {

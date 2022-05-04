@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:any_door/Pages/Home/BottomTabBar.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
@@ -102,7 +103,15 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () {
             (_formKey.currentState as FormState).save();
             //TODO 执行登录方法
-            _getIPAddress();
+            //_getIPAddress();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const BottomTabBar(title: 'title',);
+                },
+              ),
+            );
           },
         ),
       ),
@@ -110,33 +119,33 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //发送请求
-  _getIPAddress() async {
-    var url = 'http://1.117.249.72:8080/user?userID='+_account+'&password='+_password;
-    print(url);
-    var httpClient = HttpClient();
-
-    String result;
-    try {
-      var request = await httpClient.getUrl(Uri.parse(url));
-      var response = await request.close();
-      if (response.statusCode == HttpStatus.OK) {
-        var json = await response.transform(utf8.decoder).join();
-        var data = jsonDecode(json);
-        result = data['meta']['msg'];
-      } else {
-        result =
-        'Error getting IP address:\nHttp status ${response.statusCode}';
-      }
-    } catch (exception) {
-      result = 'Failed getting IP address';
-    }
-
-    // If the widget was removed from the tree while the message was in flight,
-    // we want to discard the reply rather than calling setState to update our
-    // non-existent appearance.
-    if (!mounted) return;
-    print(result);
-  }
+  // _getIPAddress() async {
+  //   var url = 'http://1.117.249.72:8080/user?userID='+_account+'&password='+_password;
+  //   print(url);
+  //   var httpClient = HttpClient();
+  //
+  //   String result;
+  //   try {
+  //     var request = await httpClient.getUrl(Uri.parse(url));
+  //     var response = await request.close();
+  //     if (response.statusCode == HttpStatus.OK) {
+  //       var json = await response.transform(utf8.decoder).join();
+  //       var data = jsonDecode(json);
+  //       result = data['meta']['msg'];
+  //     } else {
+  //       result =
+  //       'Error getting IP address:\nHttp status ${response.statusCode}';
+  //     }
+  //   } catch (exception) {
+  //     result = 'Failed getting IP address';
+  //   }
+  //
+  //   // If the widget was removed from the tree while the message was in flight,
+  //   // we want to discard the reply rather than calling setState to update our
+  //   // non-existent appearance.
+  //   if (!mounted) return;
+  //   print(result);
+  // }
 
   Widget buildForgetPasswordText(BuildContext context) {
     return Padding(

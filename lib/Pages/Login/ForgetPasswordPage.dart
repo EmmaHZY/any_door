@@ -162,7 +162,7 @@ class _ResetOnePageState extends State<ResetOnePage> {
           "向左滑进入下一步 →",
           textAlign: TextAlign.center,//水平居中
           style: TextStyle(
-              fontSize: 26,
+              fontSize: 20,
               color:MyColors.mPrimaryColor),
         ),
       ),
@@ -344,7 +344,7 @@ class _ResetTwoPageState extends State<ResetTwoPage> {
           "← 向右滑返回上一步",
           textAlign: TextAlign.center,//水平居中
           style: TextStyle(
-              fontSize: 26,
+              fontSize: 20,
               color:MyColors.mPrimaryColor),
         ),
       ),
