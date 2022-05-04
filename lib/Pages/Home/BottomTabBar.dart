@@ -64,7 +64,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.assignment_turned_in),label:"任务"),
           BottomNavigationBarItem(icon: Icon(Icons.gavel),label:"交易"),
-          BottomNavigationBarItem(icon: Icon(Icons.gavel),label:"发布"),
+          BottomNavigationBarItem(icon: Icon(Icons.add),label:"发布"),
           BottomNavigationBarItem(icon: Icon(Icons.textsms),label:"消息"),
           BottomNavigationBarItem(icon: Icon(Icons.account_circle_rounded),label:"我的"),
         ],
