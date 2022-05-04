@@ -51,18 +51,18 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage>
               minHeight: const Size.fromHeight(kMinInteractiveDimension).height,
             ),
             child: Container(
-              color: MyColors.mPrimaryColor,
+              color: Colors.white,
               child: TabBar(
                 tabs: tabs,
                 controller: tabController,
                 onTap: (int index) {
                   print('Selected......$index');
                 },
-                unselectedLabelColor: Colors.white12,
+                unselectedLabelColor: Colors.grey,
                 //设置未选中时的字体颜色
                 unselectedLabelStyle: const TextStyle(fontSize: 16),
                 //设置未选中时的字体样式
-                labelColor: Colors.white,
+                labelColor: MyColors.mPrimaryColor,
                 //设置选中时的字体颜色
                 labelStyle: const TextStyle(fontSize: 16),
                 //设置选中时的字体样式
@@ -117,9 +117,7 @@ class _ResetOnePageState extends State<ResetOnePage> {
             buildTelTextField(), // 手机号输入
             const SizedBox(height: 30),
             buildCodeTextField(), // 验证码输入
-            const SizedBox(height: 60),
-            buildNotice(), // 提示
-            const SizedBox(height: 40),
+            const SizedBox(height: 80),
             buildLoginText(context), // 登录
           ],
         ),
@@ -149,21 +147,6 @@ class _ResetOnePageState extends State<ResetOnePage> {
               },
             )
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildNotice() {
-    return const Padding(
-      padding: EdgeInsets.all(1),
-      child: Center(//控件居中
-        child: Text(
-          "向左滑进入下一步 →",
-          textAlign: TextAlign.center,//水平居中
-          style: TextStyle(
-              fontSize: 20,
-              color:MyColors.mPrimaryColor),
         ),
       ),
     );
@@ -272,8 +255,6 @@ class _ResetTwoPageState extends State<ResetTwoPage> {
             const SizedBox(height: 30),
             buildVerifyPassTextField(context), // 密码验证
             const SizedBox(height: 60),
-            buildNotice(),//提示
-            const SizedBox(height: 60),
             buildModifyButton(context), // 按钮
             const SizedBox(height: 40),
             buildLoginText(context), // 登录
@@ -331,21 +312,6 @@ class _ResetTwoPageState extends State<ResetTwoPage> {
             //TODO 执行注册方法
             print("修改");
           },
-        ),
-      ),
-    );
-  }
-
-  Widget buildNotice(){
-    return const Padding(
-      padding: EdgeInsets.all(1),
-      child: Center(//控件居中
-        child: Text(
-          "← 向右滑返回上一步",
-          textAlign: TextAlign.center,//水平居中
-          style: TextStyle(
-              fontSize: 20,
-              color:MyColors.mPrimaryColor),
         ),
       ),
     );
