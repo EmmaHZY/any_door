@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
+import '../../HttpTools.dart';
 import 'LoginPage.dart';
 
 
@@ -150,6 +151,8 @@ class _RegisterPageState extends State<RegisterPage> {
               //设置圆角
                 borderRadius: BorderRadius.circular(10)),
             onPressed: () {
+              NetUtils.postCode("{\"mobile\":15531052168,\"message\":\"验证码：453217【铁壳测试】\"}").then((value) => print(value));
+
               print("验证码来了");
             },
           ),

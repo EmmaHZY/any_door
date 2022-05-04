@@ -5,6 +5,7 @@ import 'package:any_door/Pages/Home/BottomTabBar.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
+import '../../HttpTools.dart';
 import 'ForgetPasswordPage.dart';
 import 'RegisterPage.dart';
 
@@ -103,7 +104,11 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () {
             (_formKey.currentState as FormState).save();
             //TODO 执行登录方法
-            //_getIPAddress();
+            //调用工具类与后端交互
+            Future<String> back=NetUtils.getJson('http://1.117.249.72:8080/user?userID='+_account+'&password='+_password);
+            back.then((value) => print(value));
+
+
             Navigator.push(
               context,
               MaterialPageRoute(
