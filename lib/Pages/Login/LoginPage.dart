@@ -4,8 +4,10 @@ import 'dart:convert';
 import 'package:any_door/Pages/Home/BottomTabBar.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
+import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 
 import '../../HttpTools.dart';
+import '../../account.dart';
 import 'ForgetPasswordPage.dart';
 import 'RegisterPage.dart';
 
@@ -84,6 +86,56 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  //对登录结果的处理
+  handingResult(String value) async {
+    Map<String, dynamic> result = json.decode(value); //结果的map对象
+    if (result["meta"]["status"] == "201") //登录成功
+        {
+          //初始化聊天的第三方平台客户端
+      EMOptions options = EMOptions(appKey: "1127220429113032#test");
+      EMClient.getInstance.init(options);
+      try {
+        await EMClient.getInstance.login(_account, _password);
+      } on EMError catch (e) {
+        debugPrint("error code: ${e.code}, desc: ${e.description}");
+      }
+
+      Account.account = _account; //账号赋值，用于传参
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const BottomTabBar(title: 'title',);
+          },
+        ),
+      );
+    }
+    else { //弹窗提示登录失败
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("提示"),
+            content: Text("账号或密码错误，请重试"),
+            actions: [
+              FlatButton(onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const LoginPage(title: 'title',);
+                    },
+                  ),
+                );
+              }, child: Text("确定")),
+            ],
+          );
+        },
+      );
+
+    }
+  }
+
 
   Widget buildLoginButton(BuildContext context) {
     return Align(
@@ -103,54 +155,17 @@ class _LoginPageState extends State<LoginPage> {
           ),
           onPressed: () {
             (_formKey.currentState as FormState).save();
+            Map<String,dynamic> result;
             //TODO 执行登录方法
             //调用工具类与后端交互
             Future<String> back=NetUtils.getJson('http://1.117.249.72:8080/user?userID='+_account+'&password='+_password);
-            back.then((value) => print(value));
-
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const BottomTabBar(title: 'title',);
-                },
-              ),
-            );
+            back.then((value) => handingResult(value));
           },
         ),
       ),
     );
   }
 
-  //发送请求
-  // _getIPAddress() async {
-  //   var url = 'http://1.117.249.72:8080/user?userID='+_account+'&password='+_password;
-  //   print(url);
-  //   var httpClient = HttpClient();
-  //
-  //   String result;
-  //   try {
-  //     var request = await httpClient.getUrl(Uri.parse(url));
-  //     var response = await request.close();
-  //     if (response.statusCode == HttpStatus.OK) {
-  //       var json = await response.transform(utf8.decoder).join();
-  //       var data = jsonDecode(json);
-  //       result = data['meta']['msg'];
-  //     } else {
-  //       result =
-  //       'Error getting IP address:\nHttp status ${response.statusCode}';
-  //     }
-  //   } catch (exception) {
-  //     result = 'Failed getting IP address';
-  //   }
-  //
-  //   // If the widget was removed from the tree while the message was in flight,
-  //   // we want to discard the reply rather than calling setState to update our
-  //   // non-existent appearance.
-  //   if (!mounted) return;
-  //   print(result);
-  // }
 
   Widget buildForgetPasswordText(BuildContext context) {
     return Padding(

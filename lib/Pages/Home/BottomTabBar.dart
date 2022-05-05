@@ -1,3 +1,4 @@
+import 'package:any_door/Pages/Message/CommunicationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
@@ -5,6 +6,7 @@ import 'package:any_door/Pages/Task/TaskPage.dart';
 import 'package:any_door/Pages/Deal/DealPage.dart';
 import 'package:any_door/Pages/Publish/PublishPage.dart';
 import 'package:any_door/Pages/Message/MessagePage.dart';
+import 'package:any_door/Pages/Message/CommunicationPage.dart';
 import 'package:any_door/Pages/Mine/MinePage.dart';
 
 
@@ -20,14 +22,14 @@ class BottomTabBar extends StatefulWidget {
 
 class _BottomTabBarState extends State<BottomTabBar> {
   int currentIndex = 0;
-  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),const MessagePage(), const MinePage()];
+  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),const CommunicationPage(title:"title"), const MinePage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('任易门'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('任易门'),
+      // ),
       body: pageList[currentIndex],
       floatingActionButton: Container(//中心悬浮
         height: 70,

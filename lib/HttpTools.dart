@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 class NetUtils{
@@ -27,16 +29,24 @@ class NetUtils{
     return response.body;
   }
 
-  static Future<String> postCode(String json) async{
-    String url='http://sms-api.luosimao.com/v1/send.json';
-    print(json);
-    http.Response response = await http.post(
-        url,// 地址
-        headers:{"content-type" : "multipart/form-data",
-                 "authorization" : "Basic YXBpOmtleS1hOGUwMjUyYWM1YTJlMzEwYmJkNGU5Nzc2YjAwZGNjYg=="},//设置content-type为json
-        body: json//json参数
-    );
-    return response.body;
+
+  static postFormDataClient() async {
+    var url = "http://sms-api.luosimao.com/v1/send.json";
+    var client = http.MultipartRequest("post", Uri.parse(url));
+    client.headers["Authorization"]="Basic YXBpOmtleS1hOGUwMjUyYWM1YTJlMzEwYmJkNGU5Nzc2YjAwZGNjYg==";
+    client.fields["mobile"]="15096562998";
+    client.fields["message"]="验证码：121127【铁壳测试】";
+    client.send().then((http.StreamedResponse response) {
+      if (response.statusCode == 200) {
+        response.stream.transform(utf8.decoder).join().then((String string) {
+          print(string);
+        });
+      } else {
+        print('error');
+      }
+    }).catchError((error) {
+      print('error');
+    });
   }
 
 }
