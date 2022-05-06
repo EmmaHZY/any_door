@@ -1,12 +1,14 @@
-// nox_adb.exe connect 127.0.0.1:62001连接虚拟机
+// 在模拟器夜神adb.exe下cmd
+//nox_adb.exe connect 127.0.0.1:62001连接虚拟机
 // flutter run --no-sound-null-safety
 
+import 'package:any_door/adapt.dart';
 import 'package:flutter/material.dart';
 import '../../res/listData.dart';
 import 'package:any_door/my_colors.dart';
 import 'dart:ui';
 import 'TaskDetail.dart';
-// import '../../adapt.dart';
+import '../../adapt.dart';
 
 // 任务页面
 class TaskPage extends StatelessWidget {
@@ -19,7 +21,7 @@ class TaskPage extends StatelessWidget {
         home: Scaffold(
           appBar: AppBar(
             titleSpacing: 0,
-            toolbarHeight: 44,
+            toolbarHeight: Adapt.padTopH()+Adapt.px(31),
             backgroundColor: MyColors.mTaskColor,
             elevation: 0,
             title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
@@ -71,7 +73,7 @@ class SearchAppBarState extends State<SearchAppBar> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 30,
+      height: Adapt.px(46.5),
       child: Row(
         children: [
           // 搜索框
@@ -139,10 +141,10 @@ class SearchAppBarState extends State<SearchAppBar> {
               // 传递数据给后端
             },
             child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: const Text("搜索",
+              padding: EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
+              child: Text("搜索",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: Adapt.px(24.8),
                     color: Colors.white,
                   )),
             ),
@@ -154,9 +156,9 @@ class SearchAppBarState extends State<SearchAppBar> {
               _focusNode.unfocus();
             },
             child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: const Text("取消",
-                  style: TextStyle(fontSize: 16, color: Colors.white)),
+              padding: EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
+              child: Text("取消",
+                  style: TextStyle(fontSize: Adapt.px(24.8), color: Colors.white)),
             ),
           ),
         ],
@@ -177,17 +179,16 @@ class TaskHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = MediaQuery.of(context);
     return ListView(
       children: [
         Column(
           children: <Widget>[
             // 分类标签
             SizedBox(
-              height: 40,
+              height: Adapt.px(62),
               child: Container(
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  margin: EdgeInsets.fromLTRB(Adapt.px(31), 0, 0, 0),
                   child: const Text(
                     "分类标签",
                     style: TextStyle(
@@ -203,7 +204,7 @@ class TaskHome extends StatelessWidget {
 
             // 标签
             Container(
-              height: 120,
+              height: Adapt.px(186),
               child: TaskTag(),
             ),
             // const SizedBox(
@@ -212,11 +213,11 @@ class TaskHome extends StatelessWidget {
 
             // 猜你喜欢
             SizedBox(
-              height: 40,
+              height: Adapt.px(62),
               child: Container(
                 color: Colors.white,
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  margin: EdgeInsets.fromLTRB(Adapt.px(31), 0, 20, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -239,7 +240,7 @@ class TaskHome extends StatelessWidget {
                           // 跳到全部任务
                         },
                         child: Container(
-                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          padding: EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
                           child: const Text("更多",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -256,7 +257,7 @@ class TaskHome extends StatelessWidget {
 
             // 任务列表
             Container(
-              height: 520,
+              height: Adapt.px(806),
               child: const TaskList(),
             ),
             // TaskList(),
@@ -278,7 +279,7 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search1"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -286,7 +287,7 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search2"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -294,7 +295,7 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search3"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -302,7 +303,7 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search4"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -327,8 +328,8 @@ class TagContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: 120.0,
-      width: 115.0,
+      height: Adapt.px(186),
+      width: Adapt.px(178.25),
       color: this.color,
       child: Center(
         child: Column(
@@ -360,18 +361,20 @@ class TaskList extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: Adapt.px(15.5)),
         Text(
           listData[index]["title"],
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 20),
         ),
         Container(
-          height: 30,
+          height: Adapt.px(36.5),
           child: ListTile(
             leading: Container(
-              width: 20.0,
-              height: 20.0,
+              width: Adapt.px(31),
+              height:Adapt.px(31),
+              // width: 20,
+              // height: 20,
               child: CircleAvatar(
                   backgroundImage: NetworkImage(listData[index]["imageUrl"])),
             ),
