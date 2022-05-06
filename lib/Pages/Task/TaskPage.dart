@@ -21,7 +21,7 @@ class TaskPage extends StatelessWidget {
         home: Scaffold(
           appBar: AppBar(
             titleSpacing: 0,
-            toolbarHeight: Adapt.padTopH()+Adapt.px(31),
+            toolbarHeight: Adapt.padTopH() + Adapt.px(31),
             backgroundColor: MyColors.mTaskColor,
             elevation: 0,
             title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
@@ -141,7 +141,8 @@ class SearchAppBarState extends State<SearchAppBar> {
               // 传递数据给后端
             },
             child: Container(
-              padding: EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
+              padding:
+                  EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
               child: Text("搜索",
                   style: TextStyle(
                     fontSize: Adapt.px(24.8),
@@ -156,9 +157,11 @@ class SearchAppBarState extends State<SearchAppBar> {
               _focusNode.unfocus();
             },
             child: Container(
-              padding: EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
+              padding:
+                  EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
               child: Text("取消",
-                  style: TextStyle(fontSize: Adapt.px(24.8), color: Colors.white)),
+                  style:
+                      TextStyle(fontSize: Adapt.px(24.8), color: Colors.white)),
             ),
           ),
         ],
@@ -240,7 +243,8 @@ class TaskHome extends StatelessWidget {
                           // 跳到全部任务
                         },
                         child: Container(
-                          padding: EdgeInsets.only(left: Adapt.px(24.8), right: Adapt.px(24.8)),
+                          padding: EdgeInsets.only(
+                              left: Adapt.px(24.8), right: Adapt.px(24.8)),
                           child: const Text("更多",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -257,7 +261,12 @@ class TaskHome extends StatelessWidget {
 
             // 任务列表
             Container(
-              height: Adapt.screenH()-2*Adapt.px(62)-Adapt.px(186)-2*Adapt.padTopH()-20-Adapt.padBotH(),
+              height: Adapt.screenH() -
+                  2 * Adapt.px(62) -
+                  Adapt.px(186) -
+                  2 * Adapt.padTopH() -
+                  90 -
+                  3*Adapt.padBotH(),
               child: const TaskList(),
             ),
             // TaskList(),
@@ -279,7 +288,9 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search1"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
+                border: Border.all(
+                    color: Color.fromRGBO(250, 250, 250, 1),
+                    width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -287,7 +298,9 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search2"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
+                border: Border.all(
+                    color: Color.fromRGBO(250, 250, 250, 1),
+                    width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -295,7 +308,9 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search3"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
+                border: Border.all(
+                    color: Color.fromRGBO(250, 250, 250, 1),
+                    width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -303,7 +318,9 @@ class TaskTag extends StatelessWidget {
           child: Container(
             child: TagContainer(Icons.search, description: "search4"),
             decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: Adapt.px(1.55))),
+                border: Border.all(
+                    color: Color.fromRGBO(250, 250, 250, 1),
+                    width: Adapt.px(1.55))),
           ),
           flex: 1,
         ),
@@ -368,17 +385,27 @@ class TaskList extends StatelessWidget {
           style: TextStyle(fontSize: Adapt.px(31)),
         ),
         Container(
+          margin: EdgeInsets.all(Adapt.px(15.5)),
           height: Adapt.px(36.5),
-          child: ListTile(
-            leading: Container(
-              width: Adapt.px(31),
-              height:Adapt.px(31),
-              // width: 20,
-              // height: 20,
-              child: CircleAvatar(
-                  backgroundImage: NetworkImage(listData[index]["imageUrl"])),
-            ),
-            title: Text(listData[index]["author"]),
+          child: Row(
+            children: [
+              Container(
+                width: Adapt.px(41),
+                height: Adapt.px(41),
+                // width: 20,
+                // height: 20,
+                child: CircleAvatar(
+                    backgroundImage: NetworkImage(listData[index]["imageUrl"])),
+              ),
+              SizedBox(
+                width: Adapt.px(25),
+              ),
+              Text(
+                listData[index]["author"],
+                textAlign: TextAlign.start,
+                style: TextStyle(fontSize: Adapt.px(19)),
+              ),
+            ],
           ),
         ),
       ]),
