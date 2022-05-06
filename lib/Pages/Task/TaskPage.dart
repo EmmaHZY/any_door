@@ -257,7 +257,7 @@ class TaskHome extends StatelessWidget {
 
             // 任务列表
             Container(
-              height: Adapt.px(806),
+              height: Adapt.screenH()-2*Adapt.px(62)-Adapt.px(186)-2*Adapt.padTopH()-20-Adapt.padBotH(),
               child: const TaskList(),
             ),
             // TaskList(),
@@ -365,7 +365,7 @@ class TaskList extends StatelessWidget {
         Text(
           listData[index]["title"],
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: Adapt.px(31)),
         ),
         Container(
           height: Adapt.px(36.5),
