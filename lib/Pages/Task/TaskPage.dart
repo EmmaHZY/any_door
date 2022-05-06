@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../../res/listData.dart';
 import 'package:any_door/my_colors.dart';
 import 'dart:ui';
+import 'TaskDetail.dart';
+// import '../../adapt.dart';
 
 // 任务页面
 class TaskPage extends StatelessWidget {
@@ -175,92 +177,92 @@ class TaskHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 243, 238, 238),
-      ),
-      child: Column(
-        children: <Widget>[
-          // 分类标签
-          SizedBox(
-            height: 40,
-            child: Container(
+    var data = MediaQuery.of(context);
+    return ListView(
+      children: [
+        Column(
+          children: <Widget>[
+            // 分类标签
+            SizedBox(
+              height: 40,
               child: Container(
-                margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child: const Text(
-                  "分类标签",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 94, 92, 92),
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: const Text(
+                    "分类标签",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 94, 92, 92),
+                    ),
                   ),
                 ),
+                alignment: Alignment.centerLeft,
+                color: Colors.white,
               ),
-              alignment: Alignment.centerLeft,
-              color: Colors.white,
             ),
-          ),
 
-          // 标签
-          Container(
-            height: 120,
-            child: TaskTag(),
-          ),
-          // const SizedBox(
-          //   height: 10,
-          // ),
+            // 标签
+            Container(
+              height: 120,
+              child: TaskTag(),
+            ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
 
-          // 猜你喜欢
-          SizedBox(
-            height: 40,
-            child: Container(
-              color: Colors.white,
+            // 猜你喜欢
+            SizedBox(
+              height: 40,
               child: Container(
-                margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "猜你喜欢",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 94, 92, 92),
+                color: Colors.white,
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "猜你喜欢",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 94, 92, 92),
+                        ),
                       ),
-                    ),
-                    // Text(
-                    //   "更多",
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     color: Color.fromARGB(255, 94, 92, 92),
-                    //   ),
-                    // ),
-                    GestureDetector(
-                      onTap: () {
-                        // 跳到全部任务
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 16, right: 16),
-                        child: const Text("更多",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 94, 92, 92),
-                            )),
+                      // Text(
+                      //   "更多",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color.fromARGB(255, 94, 92, 92),
+                      //   ),
+                      // ),
+                      GestureDetector(
+                        onTap: () {
+                          // 跳到全部任务
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          child: const Text("更多",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 94, 92, 92),
+                              )),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                alignment: Alignment.center,
               ),
-              alignment: Alignment.center,
             ),
-          ),
 
-          // 任务列表
-          Container(
-            height: 520,
-            child: const TaskList(),
-          ),
-          // TaskList(),
-        ],
-      ),
+            // 任务列表
+            Container(
+              height: 520,
+              child: const TaskList(),
+            ),
+            // TaskList(),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -270,14 +272,40 @@ class TaskTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        TagContainer(Icons.search, description: "search"),
-        const SizedBox(width: 5),
-        TagContainer(Icons.search, description: "search"),
-        const SizedBox(width: 5),
-        TagContainer(Icons.search, description: "search"),
-        const SizedBox(width: 5),
-        TagContainer(Icons.search, description: "search"),
+        Expanded(
+          child: Container(
+            child: TagContainer(Icons.search, description: "search1"),
+            decoration: BoxDecoration(
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+          ),
+          flex: 1,
+        ),
+        Expanded(
+          child: Container(
+            child: TagContainer(Icons.search, description: "search2"),
+            decoration: BoxDecoration(
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+          ),
+          flex: 1,
+        ),
+        Expanded(
+          child: Container(
+            child: TagContainer(Icons.search, description: "search3"),
+            decoration: BoxDecoration(
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+          ),
+          flex: 1,
+        ),
+        Expanded(
+          child: Container(
+            child: TagContainer(Icons.search, description: "search4"),
+            decoration: BoxDecoration(
+                border: Border.all(color: Color.fromRGBO(250, 250, 250, 1), width: 1.0)),
+          ),
+          flex: 1,
+        ),
       ],
     );
   }
@@ -497,3 +525,35 @@ class TaskList extends StatelessWidget {
 //     );
 //   }
 // }
+
+// 自定义有状态组件
+
+// class Homepage extends StatefulWidget {
+//   Homepage({Key? key}) : super(key: key);
+//   @override
+//   State<Homepage> createState() => _HomepageState();
+// }
+
+// class _HomepageState extends State<Homepage> {
+//   int countnum=0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: <Widget>[
+//         Chip(label: Text("${this.countnum}")),
+//         RaisedButton(
+//           child: Text("button"),
+//           onPressed: (){
+//             setState(() {
+//               countnum++;
+//             });
+//           }
+//           ),
+//       ],
+//     );
+//   }
+// }
+
+
+
+
