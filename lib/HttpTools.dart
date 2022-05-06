@@ -30,12 +30,12 @@ class NetUtils{
   }
 
 
-  static postFormDataClient() async {
+  static postFormDataClient(String tel,String code) async {
     var url = "http://sms-api.luosimao.com/v1/send.json";
     var client = http.MultipartRequest("post", Uri.parse(url));
     client.headers["Authorization"]="Basic YXBpOmtleS1hOGUwMjUyYWM1YTJlMzEwYmJkNGU5Nzc2YjAwZGNjYg==";
-    client.fields["mobile"]="15096562998";
-    client.fields["message"]="验证码：121127【铁壳测试】";
+    client.fields["mobile"]=tel;
+    client.fields["message"]="验证码："+code+"【铁壳测试】";
     client.send().then((http.StreamedResponse response) {
       if (response.statusCode == 200) {
         response.stream.transform(utf8.decoder).join().then((String string) {

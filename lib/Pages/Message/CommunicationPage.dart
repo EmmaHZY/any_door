@@ -27,6 +27,10 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true, // 标题居中
+        title: const Text('~雨仙女~'),
+      ),
         body: Column(
           children: <Widget>[
             Flexible(
@@ -40,23 +44,85 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
                   },
                   itemCount: messageList.length,
                 )),
-            TextField(
-              controller: textEditingController,
-              decoration: const InputDecoration.collapsed(hintText: '请输入消息'),
-              onSubmitted: sendMessage,
-            )
+            //
+            buildMessage(),
           ],
         ));
   }
 
+  //消息发送框布局
+  Widget buildInput() {
+    return TextField(
+      minLines: 1,
+      maxLines: 6,
+      controller: textEditingController,
+      decoration: const InputDecoration(
+        hintText: '请输入消息',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              bottomLeft: Radius.circular(20)
+          ),
+        ),
+      ),
+      onSubmitted: sendMessage,
+    );
+  }
+  //发送按钮布局
+  Widget buildSendButton() {
+    return ClipRRect(
+      child: FlatButton(
+        disabledColor:MyColors.mPrimaryColor,
+        splashColor: MyColors.mThirdLight,
+        highlightColor: MyColors.mThirdLight,
+        hoverColor: MyColors.mThirdLight,
+        color: MyColors.mPrimaryColor,
+        padding: const EdgeInsets.only(right: 0),
+        child: const Text(
+          "发送",
+          textAlign: TextAlign.center,//水平居中
+          style: TextStyle(fontSize: 16,color: Colors.white)),
+        onPressed:(){
+          sendMessage;
+        },
+      ),
+      borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(20),
+          bottomRight: Radius.circular(20)
+      ),
+    );
+  }
+  //消息发送部件整体布局
+  Widget buildMessage(){
+    return IntrinsicHeight(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 4,
+              child: buildInput(),
+            ),
+            Expanded(
+                flex: 1,
+                child: SizedBox(
+                  child:  buildSendButton(),
+                  height: double.infinity,
+                )
+            ),
+            // const CodeTimer(),
+          ],
+        ));
+  }
+
+
   //发送消息
   sendMessage(String text) {
     if (text.isEmpty) return;
-    EMMessage message = EMMessage.createTxtSendMessage(username: Account.account, content: text);
+    //username表示聊天对象，由上一个界面传入
+    EMMessage message = EMMessage.createTxtSendMessage(username: "1951969", content: text);
     EMClient.getInstance.chatManager.sendMessage(message);
     print(text);
     setState(() {
-      messageList.add(Message("我", "我：" + text));
+      messageList.add(Message("我", text));
     });
     textEditingController.clear();
   }
@@ -81,10 +147,10 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   content,
-                  style: const TextStyle(fontSize: 14, color: Colors.white),
+                  style: const TextStyle(fontSize: 14, color: MyColors.mPrimaryColor),
                 ),
                 decoration: const BoxDecoration(
-                  color: MyColors.mPrimaryColor,
+                  color: Colors.white12,
                   borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(10.0)),
                 ),
@@ -136,45 +202,37 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
 
   @override
   void onCmdMessagesReceived(List<EMMessage> messages) {
-    print("fuck1");
   }
 
   @override
   void onConversationRead(String from, String to) {
-    print("fuck2");
   }
 
   @override
   void onConversationsUpdate() {
-    print("fuck3");
   }
 
   @override
   void onGroupMessageRead(List<EMGroupMessageAck> groupMessageAcks) {
-    print("fuck4");
   }
 
   @override
   void onMessagesDelivered(List<EMMessage> messages) {
-    print("fuck5");
   }
 
   @override
   void onMessagesRead(List<EMMessage> messages) {
-    print("fuck6");
   }
 
   @override
   void onMessagesRecalled(List<EMMessage> messages) {
-    print("fuck7");
   }
 
   @override
   void onMessagesReceived(List<EMMessage> messages) {
-    print("fuck888888888888888888888888888888888888");
     for(var item in messages){
       setState(() {
-        messageList.add(Message("小Q", "收到的：" + item.body.toString()));
+        messageList.add(Message("小Q",item.toJson()["body"]["content"].toString()));
       });
     }
   }

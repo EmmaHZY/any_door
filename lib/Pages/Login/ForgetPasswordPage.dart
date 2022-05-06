@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
 import 'LoginPage.dart';
+import 'Widget/CodeTimer.dart';
 
 //顶部导航栏实现
 class ForgetPasswordPage extends StatefulWidget {
@@ -41,7 +42,7 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title:const Text("重置密码"),
+          title:const Text("找回密码"),
       ),
       body: Column(
         children: <Widget>[
@@ -116,7 +117,7 @@ class _ResetOnePageState extends State<ResetOnePage> {
             const SizedBox(height: 60),
             buildTelTextField(), // 手机号输入
             const SizedBox(height: 30),
-            buildCodeTextField(), // 验证码输入
+            buildCode(), // 验证码
             const SizedBox(height: 80),
             buildLoginText(context), // 登录
           ],
@@ -152,49 +153,51 @@ class _ResetOnePageState extends State<ResetOnePage> {
     );
   }
 
+  Widget buildCode(){
+    return IntrinsicHeight(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 9,
+              child: buildCodeTextField(),
+            ),
+            const Expanded(
+                flex: 5,
+                child: SizedBox(
+                  child:  CodeTimer(),
+                  height: double.infinity,
+                )
+            ),
+            // const CodeTimer(),
+          ],
+        ));
+  }
+
   Widget buildCodeTextField() {
     double width = MediaQuery.of(context).size.width;
-    return Stack(
-      children: <Widget>[
-        const TextField(
-          decoration: InputDecoration(
-            labelText: 'Code',
-            hintText: '请输入验证码',
-            /// 边框
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                /// 里面的数值尽可能大才是左右半圆形，否则就是普通的圆角形
-                Radius.circular(50),
-              ),
-            ),
-            ///设置内容内边距
-            contentPadding: EdgeInsets.only(
-              top: 0,
-              bottom: 0,
-            ),
-            /// 前缀图标
-            prefixIcon: Icon(Icons.verified_user),
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: 'Code',
+        hintText: '请输入验证码',
+        /// 边框
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50),
+              bottomLeft: Radius.circular(50)
           ),
         ),
-        Positioned(
-          left: width - 138,
-          top: 1,
-          child:  RaisedButton(
-            child: const Text("获取验证码"),
-            color: Colors.white60, //按钮的背景颜色
-            textColor: MyColors.mPrimaryColor, //字体颜色
-            elevation: 10.0, //阴影
-            shape: RoundedRectangleBorder(
-              //设置圆角
-                borderRadius: BorderRadius.circular(10)),
-            onPressed: () {
-              print("验证码来了");
-            },
-          ),
+        ///设置内容内边距
+        contentPadding: EdgeInsets.only(
+          top: 0,
+          bottom: 0,
         ),
-      ],
+        /// 前缀图标
+        prefixIcon: Icon(Icons.verified_user),
+      ),
+      onSaved: (v) => _code = v!,
     );
   }
+
 
   Widget buildTelTextField() {
     return TextFormField(

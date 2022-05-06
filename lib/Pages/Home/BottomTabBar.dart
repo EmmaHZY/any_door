@@ -6,7 +6,6 @@ import 'package:any_door/Pages/Task/TaskPage.dart';
 import 'package:any_door/Pages/Deal/DealPage.dart';
 import 'package:any_door/Pages/Publish/PublishPage.dart';
 import 'package:any_door/Pages/Message/MessagePage.dart';
-import 'package:any_door/Pages/Message/CommunicationPage.dart';
 import 'package:any_door/Pages/Mine/MinePage.dart';
 
 
@@ -22,7 +21,7 @@ class BottomTabBar extends StatefulWidget {
 
 class _BottomTabBarState extends State<BottomTabBar> {
   int currentIndex = 0;
-  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),const CommunicationPage(title:"title"), const MinePage()];
+  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),const MessagePage(), const MinePage()];
 
   @override
   Widget build(BuildContext context) {
