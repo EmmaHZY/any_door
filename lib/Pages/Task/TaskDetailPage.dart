@@ -4,7 +4,6 @@
 // import 'package:flutter/material.dart';
 // // import 'package:flutter_swiper/flutter_swiper.dart';
 
-
 // ///商品详情page内容页
 // class GoodsInfoPage extends StatefulWidget {
 //   const GoodsInfoPage({Key? key}) : super(key: key);
@@ -231,3 +230,105 @@
 //     );
 //   }
 // }
+
+import 'package:any_door/adapt.dart';
+import 'package:flutter/material.dart';
+import '../../res/listData.dart';
+
+class TaskDetailPage extends StatefulWidget {
+  final int index;
+  TaskDetailPage({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  State<TaskDetailPage> createState() => _TaskDetailPageState();
+}
+
+class _TaskDetailPageState extends State<TaskDetailPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text("任务详情")),
+        body: Column(
+          children: [
+            Avatar(index: widget.index),
+            TaskInfo(index: widget.index),
+            // Container(
+            //   child: Avatar(index: widget.index),
+            // ),
+            // Container(
+            //   child: TaskInfo(index: widget.index),
+            // )
+          ],
+        ));
+    // return Text(widget.title);
+  }
+}
+
+class Avatar extends StatefulWidget {
+  final int index;
+  Avatar({Key? key, required this.index}) : super(key: key);
+
+  @override
+  State<Avatar> createState() => _AvatarState();
+}
+
+class _AvatarState extends State<Avatar> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: ListTile(
+      leading: CircleAvatar(
+          backgroundImage: NetworkImage(listData[widget.index]["personImage"])),
+      title: Text(listData[widget.index]["userName"]),
+      subtitle: Text("发布于" + listData[widget.index]["publishTime"]),
+    )
+        // child: Text(widget.imageUrl),
+        );
+  }
+}
+
+class TaskInfo extends StatefulWidget {
+  final int index;
+  TaskInfo({Key? key, required this.index}) : super(key: key);
+
+  @override
+  State<TaskInfo> createState() => _TaskInfoState();
+}
+
+class _TaskInfoState extends State<TaskInfo> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            listData[widget.index]["taskTitle"],
+            style: TextStyle(
+              fontSize: Adapt.px(30.5),
+            ),
+          ),
+          Card(
+            child: Text("#"+listData[widget.index]["tag"]),
+          ),
+          Text(
+            listData[widget.index]["taskContent"],
+            style: TextStyle(
+              fontSize: Adapt.px(25.5),
+            ),),
+          AspectRatio(
+            aspectRatio: 14 / 9,
+            child: Image.network(
+              listData[widget.index]["taskImage"],
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

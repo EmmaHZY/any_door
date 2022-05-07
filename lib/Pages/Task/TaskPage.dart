@@ -6,8 +6,8 @@ import 'package:any_door/adapt.dart';
 import 'package:flutter/material.dart';
 import '../../res/listData.dart';
 import 'package:any_door/my_colors.dart';
-import 'dart:ui';
-import 'TaskDetail.dart';
+// import 'dart:ui';
+import 'TaskDetailPage.dart';
 import '../../adapt.dart';
 
 // 任务页面
@@ -266,7 +266,7 @@ class TaskHome extends StatelessWidget {
                   Adapt.px(186) -
                   2 * Adapt.padTopH() -
                   90 -
-                  3*Adapt.padBotH(),
+                  3 * Adapt.padBotH(),
               child: const TaskList(),
             ),
             // TaskList(),
@@ -286,7 +286,7 @@ class TaskTag extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Container(
-            child: TagContainer(Icons.search, description: "search1"),
+            child: TagContainer(Icons.directions_run, description: "跑腿"),
             decoration: BoxDecoration(
                 border: Border.all(
                     color: Color.fromRGBO(250, 250, 250, 1),
@@ -296,7 +296,7 @@ class TaskTag extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            child: TagContainer(Icons.search, description: "search2"),
+            child: TagContainer(Icons.local_library, description: "学习"),
             decoration: BoxDecoration(
                 border: Border.all(
                     color: Color.fromRGBO(250, 250, 250, 1),
@@ -306,7 +306,7 @@ class TaskTag extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            child: TagContainer(Icons.search, description: "search3"),
+            child: TagContainer(Icons.supervisor_account, description: "娱乐"),
             decoration: BoxDecoration(
                 border: Border.all(
                     color: Color.fromRGBO(250, 250, 250, 1),
@@ -316,7 +316,7 @@ class TaskTag extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            child: TagContainer(Icons.search, description: "search4"),
+            child: TagContainer(Icons.donut_small, description: "其他"),
             decoration: BoxDecoration(
                 border: Border.all(
                     color: Color.fromRGBO(250, 250, 250, 1),
@@ -369,46 +369,110 @@ class TaskList extends StatelessWidget {
   const TaskList({Key? key}) : super(key: key);
 
   Widget _getListData(context, index) {
-    return Card(
-      child: Column(children: <Widget>[
-        AspectRatio(
-          aspectRatio: 14 / 9,
-          child: Image.network(
-            listData[index]["imageUrl"],
-            fit: BoxFit.cover,
+    // return Card(
+    //   child: Column(children: <Widget>[
+    //     AspectRatio(
+    //       aspectRatio: 14 / 9,
+    //       child: Image.network(
+    //         listData[index]["imageUrl"],
+    //         fit: BoxFit.cover,
+    //       ),
+    //     ),
+    //     SizedBox(height: Adapt.px(15.5)),
+    //     Text(
+    //       listData[index]["title"],
+    //       textAlign: TextAlign.center,
+    //       style: TextStyle(fontSize: Adapt.px(31)),
+    //     ),
+    //     Container(
+    //       margin: EdgeInsets.all(Adapt.px(15.5)),
+    //       height: Adapt.px(36.5),
+    //       child: Row(
+    //         children: [
+    //           Container(
+    //             width: Adapt.px(41),
+    //             height: Adapt.px(41),
+    //             // width: 20,
+    //             // height: 20,
+    //             child: CircleAvatar(
+    //                 backgroundImage: NetworkImage(listData[index]["imageUrl"])),
+    //           ),
+    //           SizedBox(
+    //             width: Adapt.px(25),
+    //           ),
+    //           Text(
+    //             listData[index]["author"],
+    //             textAlign: TextAlign.start,
+    //             style: TextStyle(fontSize: Adapt.px(19)),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+
+    //   ]),
+    // );
+    return GestureDetector(
+      onTap: (() => {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => TaskDetailPage(
+                      index: index,
+                    )))
+          }),
+      child: Card(
+        child: Column(children: <Widget>[
+          AspectRatio(
+            aspectRatio: 14 / 9,
+            child: Image.network(
+              listData[index]["taskImage"],
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        SizedBox(height: Adapt.px(15.5)),
-        Text(
-          listData[index]["title"],
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: Adapt.px(31)),
-        ),
-        Container(
-          margin: EdgeInsets.all(Adapt.px(15.5)),
-          height: Adapt.px(36.5),
-          child: Row(
-            children: [
-              Container(
-                width: Adapt.px(41),
-                height: Adapt.px(41),
-                // width: 20,
-                // height: 20,
-                child: CircleAvatar(
-                    backgroundImage: NetworkImage(listData[index]["imageUrl"])),
-              ),
-              SizedBox(
-                width: Adapt.px(25),
-              ),
-              Text(
-                listData[index]["author"],
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: Adapt.px(19)),
-              ),
-            ],
+          SizedBox(height: Adapt.px(15.5)),
+          Text(
+            listData[index]["taskTitle"],
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: Adapt.px(25)),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-        ),
-      ]),
+          Container(
+            margin: EdgeInsets.all(Adapt.px(15.5)),
+            height: Adapt.px(36.5),
+            child: Row(
+              children: [
+                // 头像
+                Container(
+                  width: Adapt.px(41),
+                  height: Adapt.px(41),
+                  // width: 20,
+                  // height: 20,
+                  child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(listData[index]["personImage"])),
+                ),
+                SizedBox(
+                  width: Adapt.px(25),
+                ),
+                // 用户名
+                Text(
+                  listData[index]["userName"],
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: Adapt.px(19)),
+                ),
+                // 金币数
+                Container(
+                  width: Adapt.px(41),
+                  height: Adapt.px(41),
+                  // width: 20,
+                  // height: 20,
+                  child:Image.asset("assets/logo.png",fit: BoxFit.cover,),
+                ),
+                Text("${listData[index]["taskCoin"]}"),
+              ],
+            ),
+          ),
+        ]),
+      ),
     );
   }
 
