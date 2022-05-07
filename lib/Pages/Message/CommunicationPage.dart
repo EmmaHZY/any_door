@@ -1,3 +1,4 @@
+import 'package:any_door/res/ListPeople.dart';
 import 'package:flutter/material.dart';
 import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 
@@ -6,8 +7,8 @@ import '../../my_colors.dart';
 
 
 class CommunicationPage extends StatefulWidget {
-  const CommunicationPage ({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const CommunicationPage ({Key? key, required this.index}) : super(key: key);
+  final int index;
 
   @override
   State<CommunicationPage> createState() => _CommunicationPageState();
@@ -29,7 +30,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
     return Scaffold(
       appBar: AppBar(
         centerTitle: true, // 标题居中
-        title: const Text('~雨仙女~'),
+        title: Text(listPeople[widget.index]["userName"]),
       ),
         body: Column(
           children: <Widget>[
@@ -135,12 +136,12 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start, //对齐方式，左上对齐
         children: <Widget>[
-          // Image.network(
-          //   'https://pp.myapp.com/ma_icon/0/icon_42284557_1517984341/96',
-          //   width: 40,
-          //   height: 40,
-          //   fit: BoxFit.cover,
-          // ),
+          Image.network(
+            'https://pp.myapp.com/ma_icon/0/icon_42284557_1517984341/96',
+            width: 40,
+            height: 40,
+            fit: BoxFit.cover,
+          ),
           Flexible(
               child: Container(
                 margin: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
@@ -169,12 +170,12 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
         mainAxisAlignment: MainAxisAlignment.end,//让自己的消息靠右
         crossAxisAlignment: CrossAxisAlignment.start, //对齐方式，左上对齐
         children: <Widget>[
-          // Image.network(
-          //   'https://pp.myapp.com/ma_icon/0/icon_42284557_1517984341/96',
-          //   width: 40,
-          //   height: 40,
-          //   fit: BoxFit.cover,
-          // ),
+          Image.network(
+            'https://pp.myapp.com/ma_icon/0/icon_42284557_1517984341/96',
+            width: 40,
+            height: 40,
+            fit: BoxFit.cover,
+          ),
           Flexible(
               child: Container(
                 margin: const EdgeInsets.only(left: 10.0, right: 10, top: 10),

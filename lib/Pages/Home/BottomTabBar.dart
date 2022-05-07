@@ -21,7 +21,7 @@ class BottomTabBar extends StatefulWidget {
 
 class _BottomTabBarState extends State<BottomTabBar> {
   int currentIndex = 0;
-  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),const MessagePage(), const MinePage()];
+  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),const MessagePage(title: 'title',), const MinePage()];
 
   @override
   Widget build(BuildContext context) {
