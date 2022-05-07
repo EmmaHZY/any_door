@@ -16,18 +16,16 @@ class TaskPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false, // 不显示右上角的 debug
-        home: Scaffold(
-          appBar: AppBar(
-            titleSpacing: 0,
-            toolbarHeight: Adapt.padTopH() + Adapt.px(31),
-            backgroundColor: MyColors.mTaskColor,
-            elevation: 0,
-            title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
-          ),
-          body: const TaskHome(),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        toolbarHeight: Adapt.padTopH() + Adapt.px(31),
+        backgroundColor: MyColors.mTaskColor,
+        elevation: 0,
+        title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
+      ),
+      body: const TaskHome(),
+    );
   }
 }
 
@@ -102,7 +100,7 @@ class SearchAppBarState extends State<SearchAppBar> {
                     flex: 1,
                     child: TextField(
                       controller: _textEditingController,
-                      autofocus: true,
+                      autofocus: false,
                       focusNode: _focusNode,
                       style: const TextStyle(fontSize: 14, color: Colors.black),
                       decoration: InputDecoration(
@@ -270,6 +268,9 @@ class TaskHome extends StatelessWidget {
               child: const TaskList(),
             ),
             // TaskList(),
+            // Container(
+            //   child: Text("${listData[1]["tag"]}"),
+            // )
           ],
         ),
       ],
@@ -369,48 +370,12 @@ class TaskList extends StatelessWidget {
   const TaskList({Key? key}) : super(key: key);
 
   Widget _getListData(context, index) {
-    // return Card(
-    //   child: Column(children: <Widget>[
-    //     AspectRatio(
-    //       aspectRatio: 14 / 9,
-    //       child: Image.network(
-    //         listData[index]["imageUrl"],
-    //         fit: BoxFit.cover,
-    //       ),
-    //     ),
-    //     SizedBox(height: Adapt.px(15.5)),
-    //     Text(
-    //       listData[index]["title"],
-    //       textAlign: TextAlign.center,
-    //       style: TextStyle(fontSize: Adapt.px(31)),
-    //     ),
-    //     Container(
-    //       margin: EdgeInsets.all(Adapt.px(15.5)),
-    //       height: Adapt.px(36.5),
-    //       child: Row(
-    //         children: [
-    //           Container(
-    //             width: Adapt.px(41),
-    //             height: Adapt.px(41),
-    //             // width: 20,
-    //             // height: 20,
-    //             child: CircleAvatar(
-    //                 backgroundImage: NetworkImage(listData[index]["imageUrl"])),
-    //           ),
-    //           SizedBox(
-    //             width: Adapt.px(25),
-    //           ),
-    //           Text(
-    //             listData[index]["author"],
-    //             textAlign: TextAlign.start,
-    //             style: TextStyle(fontSize: Adapt.px(19)),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-
-    //   ]),
-    // );
+    List tagImageList = [
+      "assets/run1.png",
+      "assets/study.png",
+      "assets/entertain1.png",
+      "assets/else.png",
+    ];
     return GestureDetector(
       onTap: (() => {
             Navigator.of(context).push(MaterialPageRoute(
@@ -420,57 +385,91 @@ class TaskList extends StatelessWidget {
           }),
       child: Card(
         child: Column(children: <Widget>[
-          AspectRatio(
-            aspectRatio: 14 / 9,
-            child: Image.network(
-              listData[index]["taskImage"],
-              fit: BoxFit.cover,
+          Expanded(
+            flex: 4,
+            child:
+                // 任务标签图片
+                AspectRatio(
+              aspectRatio: 14 / 9,
+              child: Image.asset(
+                tagImageList[
+                    listData[index]["tag"] - 1], //这里应该是tag对应的图片，而不是任务图片
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          SizedBox(height: Adapt.px(15.5)),
-          Text(
-            listData[index]["taskTitle"],
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: Adapt.px(25)),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Container(
-            margin: EdgeInsets.all(Adapt.px(15.5)),
-            height: Adapt.px(36.5),
-            child: Row(
-              children: [
-                // 头像
-                Container(
-                  width: Adapt.px(41),
-                  height: Adapt.px(41),
-                  // width: 20,
-                  // height: 20,
-                  child: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(listData[index]["personImage"])),
-                ),
-                SizedBox(
-                  width: Adapt.px(25),
-                ),
-                // 用户名
+          Expanded(
+            child:
+                // 任务标签
                 Text(
-                  listData[index]["userName"],
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: Adapt.px(19)),
-                ),
-                // 金币数
-                Container(
-                  width: Adapt.px(41),
-                  height: Adapt.px(41),
-                  // width: 20,
-                  // height: 20,
-                  child:Image.asset("assets/logo.png",fit: BoxFit.cover,),
-                ),
-                Text("${listData[index]["taskCoin"]}"),
-              ],
+              listData[index]["taskTitle"],
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: Adapt.px(25)),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
+          Expanded(
+            child:
+                // 头像+赏金
+                Container(
+              margin: EdgeInsets.all(Adapt.px(15.5)),
+              height: Adapt.px(36.5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // 头像和用户名
+                  Row(
+                    children: [
+                      // 头像
+                      Container(
+                        width: Adapt.px(41),
+                        height: Adapt.px(41),
+                        // width: 20,
+                        // height: 20,
+                        child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(listData[index]["personImage"])),
+                      ),
+
+                      // 用户名
+                      Text(
+                        listData[index]["userName"],
+                        textAlign: TextAlign.start,
+                        style: TextStyle(fontSize: Adapt.px(19)),
+                      ),
+                    ],
+                  ),
+                  // 金币数
+                  Row(
+                    children: [
+                      // 金币数
+                      Container(
+                        width: Adapt.px(31),
+                        height: Adapt.px(31),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                        // width: 20,
+                        // height: 20,
+                        child: Image.asset(
+                          "assets/coin.png",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(
+                        width: Adapt.px(15.5),
+                      ),
+                      Text("${listData[index]["taskCoin"]}"),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Expanded(child: child),
+
+          // SizedBox(height: Adapt.px(15.5)),
         ]),
       ),
     );

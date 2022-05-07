@@ -1,5 +1,4 @@
 import 'package:any_door/adapt.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../res/listData.dart';
 
@@ -20,9 +19,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     return Scaffold(
         appBar: AppBar(title: Text("任务详情")),
         body: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: Adapt.screenH(),
           children: [
-            Avatar(index: widget.index),
+            Expanded(child: Avatar(index: widget.index)),
             Expanded(child: TaskInfo(index: widget.index)),
           ],
         ));
@@ -63,12 +62,6 @@ class TaskInfo extends StatefulWidget {
 class _TaskInfoState extends State<TaskInfo> {
   @override
   Widget build(BuildContext context) {
-    List tagList=[
-      "跑腿",
-      "学习",
-      "娱乐",
-      "其他",
-    ];
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(
@@ -81,7 +74,7 @@ class _TaskInfoState extends State<TaskInfo> {
             children: [
               // 任务标签
               Card(
-                child: Text("#" + tagList[listData[widget.index]["tag"]-1]),
+                child: Text("#" + listData[widget.index]["tag"]),
               ),
               // 任务标题
               Expanded(
@@ -90,6 +83,7 @@ class _TaskInfoState extends State<TaskInfo> {
                   style: TextStyle(
                     fontSize: Adapt.px(30.5),
                     fontWeight: FontWeight.bold,
+                    
                   ),
                 ),
               )
@@ -126,11 +120,11 @@ class _TaskInfoState extends State<TaskInfo> {
           ),
           // 任务内容
           Text(
-            listData[widget.index]["taskContent"],
-            style: TextStyle(
-              fontSize: Adapt.px(25.5),
+              listData[widget.index]["taskContent"],
+              style: TextStyle(
+                fontSize: Adapt.px(25.5),
+              ),
             ),
-          ),
           // 任务图片
           AspectRatio(
             aspectRatio: 14 / 9,
@@ -139,41 +133,15 @@ class _TaskInfoState extends State<TaskInfo> {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(
-            height: Adapt.px(31),
-          ),
           // 截止时间
           Center(
             child: Text(
-              "截止时间" + listData[widget.index]["deadline"],
-              style: const TextStyle(color: Colors.grey),
-            ),
+              "截止时间"+listData[widget.index]["deadline"],
+              style: const TextStyle(
+                color: Colors.grey
+              ),),
           ),
 
-          // 接受任务按钮
-          Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  var dialog = CupertinoAlertDialog(
-                    content:
-                        Text("确定接受？", style: TextStyle(fontSize: Adapt.px(31))),
-                    actions: <Widget>[
-                      CupertinoButton(
-                          child: Text("取消"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
-                      CupertinoButton(
-                          child: Text("确定"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          })
-                    ],
-                  );
-                  showDialog(context: context, builder: (_)=>dialog);
-                },
-                child: Text("接受")),
-          ),
         ],
       ),
     );
