@@ -25,11 +25,10 @@ class TaskList extends StatelessWidget {
       child: Card(
         color: MyColors.mTaskColorLight,
         child: Column(children: <Widget>[
+          // 任务标签图片
           Expanded(
             flex: 4,
-            child:
-                // 任务标签图片
-                AspectRatio(
+            child: AspectRatio(
               aspectRatio: 14 / 9,
               child: Image.asset(
                 tagImageList[
@@ -38,10 +37,9 @@ class TaskList extends StatelessWidget {
               ),
             ),
           ),
+          // 任务标签
           Expanded(
-            child:
-                // 任务标签
-                Text(
+            child: Text(
               listData[index]["taskTitle"],
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: Adapt.px(25)),
@@ -49,10 +47,9 @@ class TaskList extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
+            // 头像+赏金
           Expanded(
-            child:
-                // 头像+赏金
-                Container(
+            child: Container(
               margin: EdgeInsets.all(Adapt.px(15.5)),
               height: Adapt.px(36.5),
               child: Row(
@@ -114,7 +111,6 @@ class TaskList extends StatelessWidget {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(

@@ -91,7 +91,7 @@ class DealHome extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.only(
                               left: Adapt.px(24.8), right: Adapt.px(24.8)),
-                          child: const Text("更多",
+                          child: const Text("更多 >>",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 94, 92, 92),

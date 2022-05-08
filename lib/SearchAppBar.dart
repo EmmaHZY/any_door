@@ -83,7 +83,6 @@ class SearchAppBarState extends State<SearchAppBar> {
                             true, //重点，相当于高度包裹的意思，必须设置为true，不然有默认奇妙的最小高度
                         border: InputBorder.none, //去下划线
                       ),
-                      // so strange!!!!👆
                       maxLines: 1,
                     ),
                   ),
