@@ -1,8 +1,8 @@
-import 'package:any_door/adapt.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:any_door/Pages/Task/widget/Avartar.dart';
+import 'package:any_door/Pages/Task/widget/TaskInfo.dart';
 import 'package:flutter/material.dart';
-import '../../res/listData.dart';
 
+// 任务详情页面
 class TaskDetailPage extends StatefulWidget {
   final int index;
   TaskDetailPage({
@@ -22,160 +22,13 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // 头像+用户名+发布时间
             Avatar(index: widget.index),
+            // 任务信息：任务要求+任务图标+截止时间...
             Expanded(child: TaskInfo(index: widget.index)),
           ],
         ));
   }
 }
 
-class Avatar extends StatefulWidget {
-  final int index;
-  Avatar({Key? key, required this.index}) : super(key: key);
 
-  @override
-  State<Avatar> createState() => _AvatarState();
-}
-
-class _AvatarState extends State<Avatar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: ListTile(
-      leading: CircleAvatar(
-          backgroundImage: NetworkImage(listData[widget.index]["personImage"])),
-      title: Text(listData[widget.index]["userName"]),
-      subtitle: Text("发布于" + listData[widget.index]["publishTime"]),
-    )
-        // child: Text(widget.imageUrl),
-        );
-  }
-}
-
-class TaskInfo extends StatefulWidget {
-  final int index;
-  TaskInfo({Key? key, required this.index}) : super(key: key);
-
-  @override
-  State<TaskInfo> createState() => _TaskInfoState();
-}
-
-class _TaskInfoState extends State<TaskInfo> {
-  @override
-  Widget build(BuildContext context) {
-    List tagList=[
-      "跑腿",
-      "学习",
-      "娱乐",
-      "其他",
-    ];
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 任务标签和标题
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // 任务标签
-              Card(
-                child: Text("#" + tagList[listData[widget.index]["tag"]-1]),
-              ),
-              // 任务标题
-              Expanded(
-                child: Text(
-                  listData[widget.index]["taskTitle"],
-                  style: TextStyle(
-                    fontSize: Adapt.px(30.5),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              )
-            ],
-          ),
-          // 任务赏金
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              // 金币数
-              Container(
-                width: Adapt.px(31),
-                height: Adapt.px(31),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                ),
-                child: Image.asset(
-                  "assets/coin.png",
-                  fit: BoxFit.cover,
-                ),
-              ),
-
-              SizedBox(
-                width: Adapt.px(21),
-              ),
-              Text("${listData[widget.index]["taskCoin"]}"),
-              SizedBox(
-                width: Adapt.px(21),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: Adapt.px(31),
-          ),
-          // 任务内容
-          Text(
-            listData[widget.index]["taskContent"],
-            style: TextStyle(
-              fontSize: Adapt.px(25.5),
-            ),
-          ),
-          // 任务图片
-          AspectRatio(
-            aspectRatio: 14 / 9,
-            child: Image.network(
-              listData[widget.index]["taskImage"],
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(
-            height: Adapt.px(31),
-          ),
-          // 截止时间
-          Center(
-            child: Text(
-              "截止时间" + listData[widget.index]["deadline"],
-              style: const TextStyle(color: Colors.grey),
-            ),
-          ),
-
-          // 接受任务按钮
-          Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  var dialog = CupertinoAlertDialog(
-                    content:
-                        Text("确定接受？", style: TextStyle(fontSize: Adapt.px(31))),
-                    actions: <Widget>[
-                      CupertinoButton(
-                          child: Text("取消"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
-                      CupertinoButton(
-                          child: Text("确定"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          })
-                    ],
-                  );
-                  showDialog(context: context, builder: (_)=>dialog);
-                },
-                child: Text("接受")),
-          ),
-        ],
-      ),
-    );
-  }
-}
