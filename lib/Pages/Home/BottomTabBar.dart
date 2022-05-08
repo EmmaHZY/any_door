@@ -1,4 +1,3 @@
-import 'package:any_door/Pages/Message/CommunicationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
@@ -21,7 +20,13 @@ class BottomTabBar extends StatefulWidget {
 
 class _BottomTabBarState extends State<BottomTabBar> {
   int currentIndex = 0;
-  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),const MessagePage(title: 'title',), const MinePage()];
+  List pageList = [const TaskPage(), const DealPage(), const PublishPage(),
+                   const MessagePage(title: 'title',), const MinePage()];
+
+  _onAdd(){
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +46,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
             borderRadius: BorderRadius.circular(40), color: Colors.white),
         child: FloatingActionButton(
             child: const Icon(Icons.add),
-            onPressed: () {
-              setState(() {
-                //可以实现重新渲染页面，因为_currentIndex变成了1，所以页面会跳转到分类页面
-                currentIndex = 2; //点击浮动按钮时，切换到分类页面
-              });
-            },
+            onPressed: _onAdd,
             backgroundColor: currentIndex == 2
                 ? MyColors.mPrimaryColor
                 : Colors.grey //利用三目运算符，实现选中时，浮动按钮背景颜色变化
@@ -57,6 +57,10 @@ class _BottomTabBarState extends State<BottomTabBar> {
       bottomNavigationBar: BottomNavigationBar(//底部导航栏布局
         currentIndex: currentIndex,
         onTap: (int index) {
+          if(index==2){// tab添加被点击
+            _onAdd();
+            return;
+          }
           setState(() {
             currentIndex = index;
           });

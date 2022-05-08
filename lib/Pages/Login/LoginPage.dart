@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                 'assets/logo.png',
                 fit: BoxFit.cover,
               ),
-            ),
+            ),//logo
             const SizedBox(height: 60),
             buildAccountTextField(), // 账号输入
             const SizedBox(height: 30),
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 60),
             buildLoginButton(context), // 登录按钮
             const SizedBox(height: 40),
-            buildRegisterText(context), // 注册
+            buildRegisterText(context), // 跳转注册
           ],
         ),
       ),
@@ -90,8 +90,7 @@ class _LoginPageState extends State<LoginPage> {
   handingResult(String value) async {
     Map<String, dynamic> result = json.decode(value); //结果的map对象
     if (result["meta"]["status"] == "201") //登录成功
-        {
-          //初始化聊天的第三方平台客户端
+        {//初始化聊天的第三方平台客户端
       EMOptions options = EMOptions(appKey: "1127220429113032#test");
       EMClient.getInstance.init(options);
       try {
@@ -99,7 +98,6 @@ class _LoginPageState extends State<LoginPage> {
       } on EMError catch (e) {
         debugPrint("error code: ${e.code}, desc: ${e.description}");
       }
-
       Account.account = _account; //账号赋值，用于传参
       Navigator.push(
         context,
@@ -115,8 +113,8 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("提示"),
-            content: Text("账号或密码错误，请重试"),
+            title: const Text("提示"),
+            content: const Text("账号或密码错误，请重试"),
             actions: [
               FlatButton(onPressed: () {
                 Navigator.push(
@@ -127,12 +125,11 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 );
-              }, child: Text("确定")),
+              }, child: const Text("确定")),
             ],
           );
         },
       );
-
     }
   }
 

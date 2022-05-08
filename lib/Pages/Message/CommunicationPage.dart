@@ -19,7 +19,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
   var messageList = <Message>[];
 
   @override
-  void initState() {
+  void initState() {//启用环信，注册事件监听器
     super.initState();
     EMClient.getInstance.startCallback();
     EMClient.getInstance.chatManager.addChatManagerListener(this);
@@ -46,7 +46,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
                   itemCount: messageList.length,
                 )),
             //
-            buildMessage(),
+            buildMessage()
           ],
         ));
   }
@@ -84,7 +84,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
           textAlign: TextAlign.center,//水平居中
           style: TextStyle(fontSize: 16,color: Colors.white)),
         onPressed:(){
-          sendMessage;
+          sendMessage(textEditingController.text);
         },
       ),
       borderRadius: const BorderRadius.only(
@@ -119,10 +119,10 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
   sendMessage(String text) {
     if (text.isEmpty) return;
     //username表示聊天对象，由上一个界面传入
-    EMMessage message = EMMessage.createTxtSendMessage(username: "1951969", content: text);
-    EMClient.getInstance.chatManager.sendMessage(message);
+    EMMessage message = EMMessage.createTxtSendMessage(username:"1952541", content: text);//消息构建，发给谁发什么
+    EMClient.getInstance.chatManager.sendMessage(message);//把消息发到第三方平台
     print(text);
-    setState(() {
+    setState(() {//重新执行页面的build函数，在消息列表中增加
       messageList.add(Message("我", text));
     });
     textEditingController.clear();
@@ -136,12 +136,8 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start, //对齐方式，左上对齐
         children: <Widget>[
-          Image.network(
-            'https://pp.myapp.com/ma_icon/0/icon_42284557_1517984341/96',
-            width: 40,
-            height: 40,
-            fit: BoxFit.cover,
-          ),
+          const CircleAvatar(
+              backgroundImage: NetworkImage("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-1186626d03951712212bfdf449132934_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654617191&t=44685cb2d28c271a83481479e9bcd2c4")),
           Flexible(
               child: Container(
                 margin: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
@@ -151,7 +147,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
                   style: const TextStyle(fontSize: 14, color: MyColors.mPrimaryColor),
                 ),
                 decoration: const BoxDecoration(
-                  color: Colors.white12,
+                  color: Colors.white10,
                   borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(10.0)),
                 ),
@@ -170,12 +166,6 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
         mainAxisAlignment: MainAxisAlignment.end,//让自己的消息靠右
         crossAxisAlignment: CrossAxisAlignment.start, //对齐方式，左上对齐
         children: <Widget>[
-          Image.network(
-            'https://pp.myapp.com/ma_icon/0/icon_42284557_1517984341/96',
-            width: 40,
-            height: 40,
-            fit: BoxFit.cover,
-          ),
           Flexible(
               child: Container(
                 margin: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
@@ -189,14 +179,17 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
                   borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(10.0)),
                 ),
-              ))
+              )),
+          const CircleAvatar(
+              backgroundImage: NetworkImage("https://img0.baidu.com/it/u=129884950,1165288552&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500")),
         ],
+
       ),
     );
   }
 
   @override
-  void dispose() {
+  void dispose() {//页面销毁调用的函数
     EMClient.getInstance.chatManager.removeChatManagerListener(this);
     super.dispose();
   }
@@ -230,7 +223,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
   }
 
   @override
-  void onMessagesReceived(List<EMMessage> messages) {
+  void onMessagesReceived(List<EMMessage> messages) {//当接收到消息时自动调用的函数，重新构建页面，把消息加入消息列表
     for(var item in messages){
       setState(() {
         messageList.add(Message("小Q",item.toJson()["body"]["content"].toString()));
