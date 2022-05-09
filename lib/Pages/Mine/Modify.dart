@@ -24,6 +24,7 @@ class _ModifyPageState extends State<ModifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,//防止键盘溢出
         appBar: AppBar(
           //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
           centerTitle: true,
@@ -53,7 +54,7 @@ class _ModifyPageState extends State<ModifyPage> {
   Widget DataEdit(){
     return Container(
         color: Colors.white,
-        height: 500,
+        height: 650,
         child: SingleChildScrollView(//实现页面上下滑动
           child: Column(
             children: <Widget>[
@@ -71,8 +72,9 @@ class _ModifyPageState extends State<ModifyPage> {
               itemCell("微信", widget.wechat),
               blank(),
               SaveButton(),
-              blank(),
-              blank(),
+              blank(),blank(),
+              blank(),blank(),blank(),
+              blank(),blank(),blank(),
             ],
           ),
         )

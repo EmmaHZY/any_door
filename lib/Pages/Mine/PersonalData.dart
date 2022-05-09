@@ -87,7 +87,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   Widget DataType() {
     return Container(
       color: Colors.white,
-      height: 500,
+      height: 650,
       child: SingleChildScrollView(//实现页面上下滑动
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
