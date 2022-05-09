@@ -72,9 +72,10 @@ class _ModifyPageState extends State<ModifyPage> {
               itemCell("微信", widget.wechat),
               blank(),
               SaveButton(),
-              blank(),blank(),
-              blank(),blank(),blank(),
-              blank(),blank(),blank(),
+              Container(
+                color: Colors.white,
+                height: 200,
+              ),
             ],
           ),
         )
