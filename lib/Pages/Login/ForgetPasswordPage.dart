@@ -91,7 +91,7 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage>
   }
 }
 
-
+//页面一
 class ResetOnePage extends StatefulWidget {
   const ResetOnePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -226,7 +226,7 @@ class _ResetOnePageState extends State<ResetOnePage> {
 
 }
 
-
+//页面二
 class ResetTwoPage extends StatefulWidget {
   const ResetTwoPage({Key? key, required this.title}) : super(key: key);
   final String title;

@@ -23,17 +23,35 @@ class _BottomTabBarState extends State<BottomTabBar> {
   List pageList = [const TaskPage(), const DealPage(), const PublishPage(),
                    const MessagePage(title: 'title',), const MinePage()];
 
-  _onAdd(){
+  _onAdd(){//悬浮按钮的点击事件
     setState(() {
+      currentIndex = 0;//发布背景是首页
+      showModalBottomSheet(//底部弹窗
+        barrierColor: Colors.black54,
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30))),
+        builder: (ln) {
+          return Container(
+            height: 400,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30))),
+            child: const PublishPage(),
+          );
+        },
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('任易门'),
-      // ),
       body: pageList[currentIndex],
       floatingActionButton: Container(//中心悬浮
         height: 70,
