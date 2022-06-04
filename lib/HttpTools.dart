@@ -29,6 +29,20 @@ class NetUtils{
     return response.body;
   }
 
+  static Future<String> putJson(String url,String json) async{
+    if(url==null){
+      throw '地址不能为空';
+    }
+    // print(json);
+    http.Response response = await http.put(
+      url,// 地址
+      headers:{"content-type" : "application/json"},//设置content-type为json
+      body: json//json参数
+    );
+    return response.body;
+  }
+
+
 
   static postFormDataClient(String tel,String code) async {
     var url = "http://sms-api.luosimao.com/v1/send.json";

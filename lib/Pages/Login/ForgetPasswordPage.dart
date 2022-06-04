@@ -1,14 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 
+import '../../HttpTools.dart';
+import '../../account.dart';
 import 'LoginPage.dart';
 import 'Widget/CodeTimer.dart';
 
+bool judge=false;//用于判定号码验证是否成功
+late String _telNum="00000000000";
+
 //顶部导航栏实现
+
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({Key? key, required this.title}) : super(key: key);
   final String title;
-
 
   @override
   ForgetPasswordPageState createState() => ForgetPasswordPageState();
@@ -118,7 +125,9 @@ class _ResetOnePageState extends State<ResetOnePage> {
             buildTelTextField(), // 手机号输入
             const SizedBox(height: 30),
             buildCode(), // 验证码
-            const SizedBox(height: 80),
+            const SizedBox(height: 60),
+            buildNextButton(context), // 按钮
+            const SizedBox(height: 40),
             buildLoginText(context), // 登录
           ],
         ),
@@ -148,6 +157,55 @@ class _ResetOnePageState extends State<ResetOnePage> {
               },
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildNextButton(BuildContext context) {
+    return Align(
+      child: SizedBox(
+        height: 45,
+        width: 270,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            // 设置圆角
+              shape: MaterialStateProperty.all(const StadiumBorder(
+                  side: BorderSide(style: BorderStyle.none)))),
+          child: const Text(
+              '确认验证',
+              style: TextStyle(
+                  fontSize: 20,
+                  color:Colors.white)
+          ),
+          onPressed: () {
+            (_formKey.currentState as FormState).save();
+            //TODO 执行验证方法
+            if(_code!=Account.code){//判断验证码的正确性
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const AlertDialog(
+                    title: Text("提示"),
+                    content: Text("验证码错误，请重试"),
+                  );
+                },
+              );
+              judge=false;
+            }
+            else{
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const AlertDialog(
+                    title: Text("提示"),
+                    content: Text("验证成功，向左滑进入下一步"),
+                  );
+                },
+              );
+              judge=true;
+            }
+          },
         ),
       ),
     );
@@ -201,6 +259,10 @@ class _ResetOnePageState extends State<ResetOnePage> {
 
   Widget buildTelTextField() {
     return TextFormField(
+      onChanged: (value){//实时记录文本框数据
+        Account.tel= value;
+        _telNum=value;
+      },
       decoration: const InputDecoration(
         labelText: 'Tel',
         hintText: '请输入手机号',
@@ -294,6 +356,46 @@ class _ResetTwoPageState extends State<ResetTwoPage> {
     );
   }
 
+  //对修改结果的处理
+  handingResult(String value) async {
+    Map<String, dynamic> result = json.decode(value); //结果的map对象
+    print(result);
+    if (result["meta"]["status"] == "202") {//修改成功
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("提示"),
+            content: const Text("修改成功，可以进行登录"),
+            actions: [
+              FlatButton(onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const LoginPage(title: 'title',);
+                    },
+                  ),
+                );
+              }, child: const Text("确定")),
+            ],
+          );
+        },
+      );
+    }
+    else { //修改失败
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("提示"),
+            content: Text("该手机号不存在，请重试"),
+          );
+        },
+      );
+    }
+  }
+
   Widget buildModifyButton(BuildContext context) {
     return Align(
       child: SizedBox(
@@ -313,7 +415,38 @@ class _ResetTwoPageState extends State<ResetTwoPage> {
           onPressed: () {
             (_formKey.currentState as FormState).save();
             //TODO 执行注册方法
-            print("修改");
+            if(_password==_verify) {//密码相等
+                if(judge) {//手机号有效，向后端发请求
+                  judge=false;//全局变量重置
+                  String send="{\"password\":\""+_password+"\","+"\"telNum\":\""+_telNum+"\"}";
+                  print(send);
+                  Future<String> back=NetUtils.putJson('http://1.117.239.54:8080/user/setPassword',send);
+                  back.then((value) => handingResult(value));
+                  }
+                else{
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const AlertDialog(
+                        title: Text("提示"),
+                        content: Text("手机号验证未通过，不能重置密码"),
+                      );
+                    },
+                  );
+                }
+              }
+            else{
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const AlertDialog(
+                    title: Text("提示"),
+                    content: Text("两次密码不一致，请重新输入"),
+                  );
+                },
+              );
+            }
+
           },
         ),
       ),
