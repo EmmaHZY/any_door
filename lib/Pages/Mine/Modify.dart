@@ -36,10 +36,12 @@ class _ModifyPageState extends State<ModifyPage> {
           ),
         ),
         body: Container(
-          color: MyColors.mTaskColor,
+          // color: MyColors.mTaskColor,
+          color: Colors.white,
           child: Column(
             children: <Widget>[
               DataEdit(),
+              SaveButton(),
               Expanded(
                   child: Container(
                     color: Colors.white,
@@ -54,7 +56,7 @@ class _ModifyPageState extends State<ModifyPage> {
   Widget DataEdit(){
     return Container(
         color: Colors.white,
-        height: 650,
+        height: 590,
         child: SingleChildScrollView(//实现页面上下滑动
           child: Column(
             children: <Widget>[
@@ -71,7 +73,7 @@ class _ModifyPageState extends State<ModifyPage> {
               blank(),
               itemCell("微信", widget.wechat),
               blank(),
-              SaveButton(),
+              // SaveButton(),
               Container(
                 color: Colors.white,
                 height: 200,

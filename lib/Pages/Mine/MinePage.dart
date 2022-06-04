@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 import 'PersonalData.dart';
+import 'MineCollection.dart';
+import 'MineGift.dart';
+import 'MineWallet.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({Key? key}) : super(key: key);
@@ -35,7 +38,7 @@ class _MinePageState extends State<MinePage> {
           ],
         ),
         body: Container(
-          color: MyColors.mTaskColor,
+          color: Colors.white,
           child: Column(
             children: <Widget>[
               _buildUserInfo(),
@@ -44,6 +47,8 @@ class _MinePageState extends State<MinePage> {
               _buildTaskType(),
               _buildTradeTitle(),
               _buildTradeType(),
+              blank(),
+              LeaveButton(),
               Expanded(
                   child: Container(
                     color: Colors.white,
@@ -167,7 +172,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const MineCollectionPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.grade_outlined,
                         size: 25,
@@ -186,7 +200,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const MineWalletPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.account_balance_wallet,
                         size: 25,
@@ -205,7 +228,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const MineGiftPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.redeem,
                         size: 25,
@@ -457,6 +489,34 @@ class _MinePageState extends State<MinePage> {
 
         ],
       ),
+    );
+  }
+
+  Widget LeaveButton() {
+    return Container(
+      child: SizedBox(
+        height: 50,
+        width: 300,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.red),
+          ),
+          child: const Text(
+              '退出',
+              style: TextStyle(
+                  fontSize: 20,
+                  color:Colors.white)
+          ),
+          onPressed: () {},
+        ),
+      ),
+    );
+  }
+
+  Widget blank() {
+    return Container(
+      color: Colors.white,
+      height: 100,
     );
   }
 }
