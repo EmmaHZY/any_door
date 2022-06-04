@@ -1,8 +1,9 @@
+import 'package:any_door/Pages/Mine/Info/ExchPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
-import 'PersonalData.dart';
+import 'Info/PersonalData.dart';
 import 'MineCollection.dart';
-import 'MineGift.dart';
+import 'Gift/MineGift.dart';
 import 'MineWallet.dart';
 
 class MinePage extends StatefulWidget {
@@ -30,12 +31,12 @@ class _MinePageState extends State<MinePage> {
           //导航栏下那条黑线
           elevation: 0,
           //右侧按钮，可设置多个
-          actions: <Widget>[
-            IconButton(onPressed: () { },
-              icon: Icon(
-                Icons.settings_outlined,
-              ),),
-          ],
+          // actions: <Widget>[
+          //   IconButton(onPressed: () { },
+          //     icon: Icon(
+          //       Icons.settings_outlined,
+          //     ),),
+          // ],
         ),
         body: Container(
           color: Colors.white,
@@ -81,7 +82,7 @@ class _MinePageState extends State<MinePage> {
               child: ClipOval(
                   child:Image(
                     image: AssetImage('assets/HeadPhoto.png'),
-                    width: 48,
+                    width: 65,
                   )
               ),
             ),
@@ -100,7 +101,7 @@ class _MinePageState extends State<MinePage> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           letterSpacing: 1.5, //字体间隔
-                          fontSize: 20,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -115,7 +116,7 @@ class _MinePageState extends State<MinePage> {
                         style: TextStyle(
                           letterSpacing: 2, //字体间隔
                           height: 2, //行高设置
-                          fontSize: 10,
+                          fontSize: 12,
                           color: Colors.white,
                         ),
                       ),
@@ -124,6 +125,37 @@ class _MinePageState extends State<MinePage> {
                 ),
               ),
             ),
+
+            Spacer(),
+            Container(
+              margin: EdgeInsets.only(right: 12),
+              child: Column(
+                children: <Widget>[
+                  IconButton(
+                      onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ExchPasswordPage();
+                        },
+                      ),
+                    );
+                  },
+                      splashColor: Colors.greenAccent,
+                      icon: Icon(Icons.settings_outlined,
+                          size: 20,
+                          color: Color.fromRGBO(10, 202, 149, 100))),
+                  Text("修改密码",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      // fontWeight: FontWeight.w400)
+                    ),)
+                ],
+              ),
+            )
+
           ],
         ),
       ),
@@ -168,33 +200,33 @@ class _MinePageState extends State<MinePage> {
             ),
           ),
 
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                IconButton(onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const MineCollectionPage();
-                      },
-                    ),
-                  );
-                },
-                    splashColor: Colors.white24,
-                    icon: Icon(Icons.grade_outlined,
-                        size: 25,
-                        color: Color.fromRGBO(254, 180, 12, 100))),
-                Text("收藏",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    // fontWeight: FontWeight.w400)
-                  ),)
-              ],
-            ),
-          ),
+          // Container(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: <Widget>[
+          //       IconButton(onPressed: () {
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) {
+          //               return const MineCollectionPage();
+          //             },
+          //           ),
+          //         );
+          //       },
+          //           splashColor: Colors.white24,
+          //           icon: Icon(Icons.grade_outlined,
+          //               size: 25,
+          //               color: Color.fromRGBO(254, 180, 12, 100))),
+          //       Text("收藏",
+          //         style: TextStyle(
+          //           color: Colors.black,
+          //           fontSize: 12,
+          //           // fontWeight: FontWeight.w400)
+          //         ),)
+          //     ],
+          //   ),
+          // ),
 
           Container(
             child: Column(
@@ -516,7 +548,7 @@ class _MinePageState extends State<MinePage> {
   Widget blank() {
     return Container(
       color: Colors.white,
-      height: 100,
+      height: 30,
     );
   }
 }

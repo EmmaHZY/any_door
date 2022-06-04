@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
-import '../../adapt.dart';
+import '../../../adapt.dart';
 import 'Modify.dart';
 
 class PersonalDataPage extends StatefulWidget {
@@ -100,21 +100,21 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("昵称        ", name),
+            itemCell("昵称          ", name),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("性别        ", sex),
+            itemCell("性别          ", sex),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("学号        ", id),
+            itemCell("学号          ", id),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
@@ -128,42 +128,42 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("金币        ", coin.toString()),
+            itemCell("金币          ", coin.toString()),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("信誉分    ", score.toString()),
+            itemCell("信誉分      ", score.toString()),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("QQ          ", QQ),
+            itemCell("QQ               ", QQ),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("微信         ", wechat),
+            itemCell("微信           ", wechat),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("电话        ", tel),
+            itemCell("电话          ", tel),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("系统id     ", "15936543"),
+            itemCell("系统id       ", "15936543"),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),

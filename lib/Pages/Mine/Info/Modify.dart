@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
-import '../../HttpTools.dart';
-import '../../account.dart';
+import '../../../HttpTools.dart';
+import '../../../account.dart';
 
 class ModifyPage extends StatefulWidget {
   // const ModifyPage({Key? key, String? name, String? title,id}) : super(key: key);
