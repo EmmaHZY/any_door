@@ -11,7 +11,7 @@ class NetUtils{
     // print(json);
     http.Response response = await http.post(
         url,// post地址
-        headers:{"content-type" : "application/x-www-form-urlencoded"},//设置content-type为json
+        headers:{"content-type" : "application/json"},//设置content-type为json
         body: json//json参数
     );
     return response.body;

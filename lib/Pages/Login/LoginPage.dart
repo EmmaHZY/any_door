@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
   //对登录结果的处理
   handingResult(String value) async {
     Map<String, dynamic> result = json.decode(value); //结果的map对象
-    if (result["meta"]["status"] == "201") //登录成功
+    if (result["meta"]["status"] == "200") //登录成功
         {//初始化聊天的第三方平台客户端
       EMOptions options = EMOptions(appKey: "1127220429113032#test");
       EMClient.getInstance.init(options);
@@ -152,7 +152,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
           onPressed: () {
             (_formKey.currentState as FormState).save();
-            Map<String,dynamic> result;
             //TODO 执行登录方法
             //调用工具类与后端交互
             Future<String> back=NetUtils.getJson('http://1.117.249.72:8080/user?userID='+_account+'&password='+_password);
