@@ -187,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
             //TODO 执行注册方法
             if(beforeSend()){//前面的验证成立
               //调用工具与后端交互
-              String send="{\"userID\":\""+_account+"\","+"\"name\":\""+_name+"\","+"\"password\":\""+_password+"\","+"\"telNum\":\""+_tel+"\"}";
+              String send="{\"userID\":\""+_account+"\","+"\"username\":\""+_name+"\","+"\"password\":\""+_password+"\","+"\"telNum\":\""+_tel+"\"}";
               Future<String> back=NetUtils.postJson('http://1.117.249.72:8080/user',send);
               back.then((value) => handingResult(value));
             }
