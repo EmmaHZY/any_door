@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import '../../HttpTools.dart';
 import '../../account.dart';
 import 'LoginPage.dart';
 import 'Widget/CodeTimer.dart';
-import 'Widget/IntervalClick.dart';
 
 
 class RegisterPage extends StatefulWidget {
@@ -21,8 +21,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  late String _account,_name,_password,_verify,_code;//用户填写
-  String _tel="0000000000";
+  late String _account,_name,_password,_verify,_tel,_code;//用户填写
   bool _isObscure = true;
   bool _isObscure1 = true;
   Color _eyeColor = Colors.grey;
@@ -70,6 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+
   Widget buildLoginText(context) {
     return Center(
       child: Padding(
@@ -97,6 +97,75 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  //请求发送前的处理
+  bool beforeSend(){
+    if(_password!=_verify) {//判断两次密码输入是否一致
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("提示"),
+            content: Text("两次密码输入不一致，请重试"),
+          );
+        },
+      );
+      return false;
+    }
+    if(_code!=Account.code){//判断验证码的正确性
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("提示"),
+            content: Text("验证码错误，请重试"),
+          );
+        },
+      );
+      return false;
+    }
+    return true;
+  }
+
+  //对注册结果的处理
+  handingResult(String value) async {
+    print(value);
+    Map<String, dynamic> result = json.decode(value); //结果的map对象
+    if (result["meta"]["status"] == "201") {//注册成功
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("提示"),
+            content: const Text("注册成功，请登录"),
+            actions: [
+              FlatButton(onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const LoginPage(title: 'title',);
+                    },
+                  ),
+                );
+              }, child: const Text("确定")),
+            ],
+          );
+        },
+      );
+    }
+    else { //注册失败
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("提示"),
+            content: Text("账号或手机号已存在，请重试"),
+          );
+        },
+      );
+    }
+  }
+
   Widget buildRegisterButton(BuildContext context) {
     return Align(
       child: SizedBox(
@@ -116,8 +185,12 @@ class _RegisterPageState extends State<RegisterPage> {
           onPressed: () {
             (_formKey.currentState as FormState).save();
             //TODO 执行注册方法
-            Account.tel=_tel;
-            print(Account.tel);
+            if(beforeSend()){//前面的验证成立
+              //调用工具与后端交互
+              String send="{\"userID\":\""+_account+"\","+"\"name\":\""+_name+"\","+"\"password\":\""+_password+"\","+"\"telNum\":\""+_tel+"\"}";
+              Future<String> back=NetUtils.postJson('http://1.117.249.72:8080/user',send);
+              back.then((value) => handingResult(value));
+            }
           },
         ),
       ),
@@ -170,54 +243,13 @@ class _RegisterPageState extends State<RegisterPage> {
           );
   }
 
-  //验证码框
-  // Widget buildCodeTextField() {
-  //   double width = MediaQuery.of(context).size.width;
-  //   return Stack(
-  //     children: <Widget>[
-  //       const TextField(
-  //         decoration: InputDecoration(
-  //           labelText: 'Code',
-  //           hintText: '请输入验证码',
-  //           /// 边框
-  //           border: OutlineInputBorder(
-  //             borderRadius: BorderRadius.all(
-  //               /// 里面的数值尽可能大才是左右半圆形，否则就是普通的圆角形
-  //               Radius.circular(50),
-  //             ),
-  //           ),
-  //           ///设置内容内边距
-  //           contentPadding: EdgeInsets.only(
-  //             top: 0,
-  //             bottom: 0,
-  //           ),
-  //           /// 前缀图标
-  //           prefixIcon: Icon(Icons.verified_user),
-  //         ),
-  //       ),
-  //       Positioned(
-  //         left: width - 138,
-  //         top: 1,
-  //         child:  RaisedButton(
-  //           child: const Text("获取验证码"),
-  //           color: Colors.white60, //按钮的背景颜色
-  //           textColor: MyColors.mPrimaryColor, //字体颜色
-  //           elevation: 10.0, //阴影
-  //           shape: RoundedRectangleBorder(
-  //             //设置圆角
-  //               borderRadius: BorderRadius.circular(10)),
-  //           onPressed: () {
-  //             intervalClick(60);
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget buildTelTextField() {
         return TextFormField(
-        decoration: const InputDecoration(
+            onChanged: (value){//实时记录文本框数据
+              Account.tel= value;
+            },
+            decoration: const InputDecoration(
           labelText: 'Tel',
           hintText: '请输入手机号',
           /// 边框

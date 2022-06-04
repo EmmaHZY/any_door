@@ -50,7 +50,7 @@ class _CodeTimerState extends State<CodeTimer> {
       return () {
         startCountdown();
         randomCode();//先成验证码
-        //NetUtils.postFormDataClient(,_verificationCode);//验证码发送
+        //NetUtils.postFormDataClient(Account.tel,_verificationCode);//验证码发送
         print(Account.tel);
         print(_verificationCode);
       };
@@ -80,7 +80,7 @@ class _CodeTimerState extends State<CodeTimer> {
     for (int i = 0; i < 6; i++) {
       _verificationCode = _verificationCode + vessel[Random().nextInt(vessel.length)];
     }
-    print( _verificationCode);
+    Account.code=_verificationCode;
   }
 
   //文本控制
