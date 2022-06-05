@@ -56,7 +56,7 @@ class _ModifyPageState extends State<ModifyPage> {
   Widget DataEdit(){
     return Container(
         color: Colors.white,
-        height: 590,
+        height: 580,
         child: SingleChildScrollView(//实现页面上下滑动
           child: Column(
             children: <Widget>[
@@ -121,30 +121,38 @@ class _ModifyPageState extends State<ModifyPage> {
 
   Widget SaveButton() {
     return Container(
-      child: SizedBox(
-        height: 50,
-        width: 300,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
-          ),
-          child: const Text(
-              '保存',
-              style: TextStyle(
-                  fontSize: 20,
-                  color:Colors.white)
-          ),
-          onPressed: () {
-            (_formKey.currentState as FormState).save();
-            Map<String,dynamic> result;
-            // //TODO 执行登录方法
-            // //调用工具类与后端交互
-            // Future<String> back=NetUtils.getJson('http://1.117.249.72:8080/user?userID='+_account+'&password='+_password);
-            // back.then((value) => handingResult(value));
+        child: Column(
+          children:<Widget>[
+            Container(
+            color: Colors.white,
+              height: 20,
+            ),
+            SizedBox(
+              height: 50,
+              width: 300,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
+                ),
+                child: const Text(
+                    '保存',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color:Colors.white)
+                ),
+                onPressed: () {
+                  (_formKey.currentState as FormState).save();
+                  Map<String,dynamic> result;
+                  // //TODO 执行登录方法
+                  // //调用工具类与后端交互
+                  // Future<String> back=NetUtils.getJson('http://1.117.249.72:8080/user?userID='+_account+'&password='+_password);
+                  // back.then((value) => handingResult(value));
 
-          },
-        ),
-      ),
+                },
+              ),
+            ),
+          ]
+        )
     );
   }
 

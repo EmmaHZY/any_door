@@ -55,8 +55,10 @@ class _ResetPasswordState extends State<ResetPassword> {
   late String _old,_password,_verify;
   bool _isObscure = true;
   bool _isObscure1 = true;
+  bool _isObscure2 = true;
   Color _eyeColor = Colors.grey;
   Color _eyeColor1 = Colors.grey;
+  Color _eyeColor2 = Colors.grey;
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +70,11 @@ class _ResetPasswordState extends State<ResetPassword> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           children: [
             const SizedBox(height: kToolbarHeight), // 距离顶部一个工具栏的高度
-            confirmPasswordTextField(context),
+            confirmPasswordTextField(context),//原密码输入
             const SizedBox(height: 30),
-            buildPasswordTextField(context), // 密码输入
+            buildPasswordTextField(context), // 新密码输入
             const SizedBox(height: 30),
-            buildVerifyPassTextField(context), // 密码验证
+            buildVerifyPassTextField(context), // 新密码验证
             const SizedBox(height: 60),
             buildModifyButton(context), // 按钮
             const SizedBox(height: 40),
@@ -101,22 +103,36 @@ class _ResetPasswordState extends State<ResetPassword> {
           onPressed: () {
             (_formKey.currentState as FormState).save();
             //TODO 执行修改方法
-            if(_password==_verify) { //密码相等
+            if(_password==_verify&&_password!=_old) { //密码相等
               String send="{\"userID\":\""+widget.userID+"\","+"\"passwordOld\":\""+_old+"\","+"\"passwordNew\":\""+_password+"\"}";
               print(send);
               Future<String> back=NetUtils.putJson('http://1.117.249.72:8080/user',send);
               back.then((value) => handingResult(value));
             }
             else{
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const AlertDialog(
-                    title: Text("提示"),
-                    content: Text("两次密码不一致，请重新输入"),
-                  );
-                },
-              );
+              if(_password==_verify&&_password==_old){
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const AlertDialog(
+                      title: Text("提示"),
+                      content: Text("新旧密码相同，请重新输入"),
+                    );
+                  },
+                );
+              }
+              else{
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const AlertDialog(
+                      title: Text("提示"),
+                      content: Text("两次新密码不一致，请重新输入"),
+                    );
+                  },
+                );
+              }
+
             }
           },
         ),
@@ -137,14 +153,6 @@ class _ResetPasswordState extends State<ResetPassword> {
             actions: [
               FlatButton(onPressed: () {
                 Navigator.pop(context,true);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) {
-                //       return const MinePage();
-                //     },
-                //   ),
-                // );
               }, child: const Text("确定")),
             ],
           );
@@ -157,7 +165,7 @@ class _ResetPasswordState extends State<ResetPassword> {
         builder: (BuildContext context) {
           return const AlertDialog(
             title: Text("提示"),
-            content: Text("修改失败，请重试"),
+            content: Text("原密码错误，请重试"),
           );
         },
       );
@@ -244,7 +252,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   Widget confirmPasswordTextField(BuildContext context) {
     return TextFormField(
-        obscureText: _isObscure, // 是否显示文字
+        obscureText: _isObscure2, // 是否显示文字
         onSaved: (v) => _old = v!,
         decoration: InputDecoration(
             labelText: "Old Password",
@@ -267,13 +275,13 @@ class _ResetPasswordState extends State<ResetPassword> {
             suffixIcon: IconButton(
               icon: Icon(
                 Icons.remove_red_eye,
-                color: _eyeColor,
+                color: _eyeColor2,
               ),
               onPressed: () {
                 // 修改 state 内部变量, 且需要界面内容更新, 需要使用 setState()
                 setState(() {
-                  _isObscure = !_isObscure;
-                  _eyeColor = (_isObscure
+                  _isObscure2 = !_isObscure2;
+                  _eyeColor2 = (_isObscure2
                       ? Colors.grey
                       : Theme.of(context).iconTheme.color)!;
                 });
