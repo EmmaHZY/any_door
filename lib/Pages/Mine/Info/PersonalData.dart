@@ -101,6 +101,13 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 color: Colors.grey,
                 height: 1), //分割线
 
+            itemCell("学号          ", userID),
+
+            Container(
+                margin: EdgeInsets.only(right: 10, left: 10),
+                color: Colors.grey,
+                height: 1), //分割线
+
             itemCell("昵称          ", name),
 
             Container(
@@ -109,13 +116,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 height: 1), //分割线
 
             itemCell("性别          ", sex),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("学号          ", userID),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
@@ -137,6 +137,13 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 height: 1), //分割线
 
             itemCell("信誉分      ", score.toString()),
+
+            Container(
+                margin: EdgeInsets.only(right: 10, left: 10),
+                color: Colors.grey,
+                height: 1), //分割线
+
+            itemCell("校区          ", area),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),

@@ -1,5 +1,4 @@
 import 'package:any_door/Pages/Mine/Info/ExchPassword.dart';
-import 'package:any_door/Pages/Mine/OtherPage.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 import 'Info/PersonalData.dart';
@@ -8,25 +7,27 @@ import 'Gift/MineGift.dart';
 import 'MineWallet.dart';
 import 'PersonTask/Released.dart';
 
-class MinePage extends StatefulWidget {
-  const MinePage({Key? key}) : super(key: key);
+class OtherPage extends StatefulWidget {
+  const OtherPage({Key? key}) : super(key: key);
 
   @override
-  _MinePageState createState() => _MinePageState();
+  _OtherPageState createState() => _OtherPageState();
 }
 
-class _MinePageState extends State<MinePage> {
-  String userID = '1952541',autograph='干饭人，干饭魂';
+class _OtherPageState extends State<OtherPage> {
+  String userID = '1952336',autograph='春天该很好，你若尚在场',sex='女',QQ='65472xxx',
+          wechat='31415926',tel='400-8820-8820',area='嘉定区';
+  int score = 100;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,//去掉leading位置的返回箭头
+          //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
           centerTitle: true,
           backgroundColor: MyColors.mTaskColor,
           title: Text(
-            "我的",
+            "个人主页",
             style: TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
           ),
@@ -45,13 +46,14 @@ class _MinePageState extends State<MinePage> {
           child: Column(
             children: <Widget>[
               _buildUserInfo(userID),
-              _buildOrderType(),
-              _buildTaskTitle(),
-              _buildTaskType(),
-              _buildTradeTitle(),
-              _buildTradeType(),
-              blank(),
-              LeaveButton(),
+              DataType(),
+              // _buildOrderType(),
+              // _buildTaskTitle(),
+              // _buildTaskType(),
+              // _buildTradeTitle(),
+              // _buildTradeType(),
+              //blank(),
+              // LeaveButton(),
               Expanded(
                   child: Container(
                     color: Colors.white,
@@ -83,7 +85,7 @@ class _MinePageState extends State<MinePage> {
               margin: EdgeInsets.only(left: 16),
               child: ClipOval(
                   child:Image(
-                    image: AssetImage('assets/HeadPhoto.png'),
+                    image: AssetImage('assets/flower.png'),
                     width: 65,
                   )
               ),
@@ -97,7 +99,7 @@ class _MinePageState extends State<MinePage> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        "张荣添",
+                        "陆百花",
 
                         ///可加长，会显示点点点
                         overflow: TextOverflow.ellipsis,
@@ -111,7 +113,7 @@ class _MinePageState extends State<MinePage> {
                     ),
                     Container(
                       child: Text(
-                        userID+'   '+autograph,
+                        userID,
 
                         ///可加长，会显示点点点
                         overflow: TextOverflow.ellipsis,
@@ -135,15 +137,13 @@ class _MinePageState extends State<MinePage> {
                 children: <Widget>[
                   IconButton(
                       onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => ExchPasswordPage(userID:userID))).then((data)=>null);
-                        },
-                      splashColor: Colors.greenAccent,
-                      icon: Icon(Icons.settings_outlined,
+
+                      },
+                      splashColor: Colors.blueGrey,
+                      icon: Icon(Icons.textsms_outlined,
                           size: 20,
-                          color: Colors.blueGrey)),//Color.fromRGBO(10, 202, 149, 100)
-                  Text("修改密码",
+                          color: Colors.blueGrey)),
+                  Text("发送消息",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 10,
@@ -159,6 +159,106 @@ class _MinePageState extends State<MinePage> {
     );
   }
 
+  Widget DataType() {
+    return Container(
+        color: Colors.white,
+        height: 500,
+        child: SingleChildScrollView(//实现页面上下滑动
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+            children: <Widget>[
+
+              itemCell("性别          ", sex),
+
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
+
+              itemCell("个性签名", autograph),
+
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
+
+              itemCell("信誉分      ", score.toString()),
+
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
+
+              itemCell("校区          ", area),
+
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
+
+              itemCell("QQ               ", QQ),
+
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
+
+              itemCell("微信           ", wechat),
+
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
+
+              itemCell("电话          ", tel),
+
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
+
+              blank(),
+              blank(),
+            ],
+          ),
+        )
+    );
+  }
+
+  Widget itemCell(String itemTitle, String Content) {
+    return Container(
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            Container(
+                height: 50,
+                margin: EdgeInsets.only(right: 10, left: 10),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(itemTitle,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          // fontWeight: FontWeight.w400)
+                        ),),
+
+                      SizedBox(width: 15,),
+
+                      Text(Content,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          // fontWeight: FontWeight.w400)
+                        ),),
+                    ]
+                )
+            )
+          ],
+        )
+    );
+  }
 
   Widget _buildOrderType() {
     return Container(
@@ -357,16 +457,7 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const OtherPage();
-                      },
-                    ),
-                  );
-                },
+                IconButton(onPressed: () {},
                     splashColor: Colors.white24,
                     icon: Icon(Icons.receipt_long_outlined,
                         color: Color.fromRGBO(31, 171, 254, 100))),
