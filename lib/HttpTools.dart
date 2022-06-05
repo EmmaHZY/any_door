@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 
@@ -29,6 +30,18 @@ class NetUtils{
     return response.body;
   }
 
+  static Future<Uint8List> getJsonBytes(String url) async{
+    if(url==null){
+      throw '地址不能为空';
+    }
+    // print(json);
+    http.Response response = await http.get(
+        url,// get地址
+        headers:{"content-type" : "application/x-www-form-urlencoded"},//设置content-type为json
+    );
+    return response.bodyBytes;
+  }
+
   static Future<String> putJson(String url,String json) async{
     if(url==null){
       throw '地址不能为空';
@@ -41,7 +54,6 @@ class NetUtils{
     );
     return response.body;
   }
-
 
 
   static postFormDataClient(String tel,String code) async {
