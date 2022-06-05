@@ -358,14 +358,7 @@ class _MinePageState extends State<MinePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const OtherPage();
-                      },
-                    ),
-                  );
+
                 },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.receipt_long_outlined,

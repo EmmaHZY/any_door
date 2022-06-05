@@ -20,7 +20,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
       QQ = "100001",
       wechat = "ZRT",
       tel = "137xxxxxxxx",
-      area = "嘉定区";
+      school = "嘉定区",
+      area='上海市嘉定区安亭镇曹安公路4800号同济大学55555555555555';
   int score = 100;
   double coin = 100.0;
 
@@ -62,6 +63,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                         autograph: autograph,
                         tel: tel,
                         area: area,
+                        school: school,
                       )));
             },
               icon: Icon(
@@ -143,7 +145,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("校区          ", area),
+            itemCell("校区          ", school),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
@@ -178,6 +180,13 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 color: Colors.grey,
                 height: 1), //分割线
 
+            // itemCell("收货地址", area),
+            //
+            // Container(
+            //     margin: EdgeInsets.only(right: 10, left: 10),
+            //     color: Colors.grey,
+            //     height: 1), //分割线
+
             blank(),
             blank(),
           ],
@@ -206,15 +215,19 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
 
                       SizedBox(width: 15,),
 
-                      Text(Content,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          // fontWeight: FontWeight.w400)
-                        ),),
+                Flexible(
+                  child: Text(Content,
+                    ///可加长，会显示点点点
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      // fontWeight: FontWeight.w400)
+                    ),),),
+
                     ]
                 )
-            )
+            ),
           ],
         )
     );
