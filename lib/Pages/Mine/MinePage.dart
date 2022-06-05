@@ -5,6 +5,7 @@ import 'Info/PersonalData.dart';
 import 'MineCollection.dart';
 import 'Gift/MineGift.dart';
 import 'MineWallet.dart';
+import 'PersonTask/Released.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
-
+  String userID = '1952541';
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class _MinePageState extends State<MinePage> {
           color: Colors.white,
           child: Column(
             children: <Widget>[
-              _buildUserInfo(),
+              _buildUserInfo(userID),
               _buildOrderType(),
               _buildTaskTitle(),
               _buildTaskType(),
@@ -61,7 +62,7 @@ class _MinePageState extends State<MinePage> {
     );
   }
 
-  Widget _buildUserInfo() {
+  Widget _buildUserInfo(String userID) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -109,7 +110,7 @@ class _MinePageState extends State<MinePage> {
                     ),
                     Container(
                       child: Text(
-                        "1952541",
+                        userID,
 
                         ///可加长，会显示点点点
                         overflow: TextOverflow.ellipsis,
@@ -133,15 +134,10 @@ class _MinePageState extends State<MinePage> {
                 children: <Widget>[
                   IconButton(
                       onPressed: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) {
-                          return const ExchPasswordPage();
+                        builder: (_) => ExchPasswordPage(userID:userID))).then((data)=>null);
                         },
-                      ),
-                    );
-                  },
                       splashColor: Colors.greenAccent,
                       icon: Icon(Icons.settings_outlined,
                           size: 20,
@@ -333,7 +329,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const ReleasedPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.assignment_outlined,
                         color: Color.fromRGBO(255, 80, 36, 100))),
@@ -539,7 +544,9 @@ class _MinePageState extends State<MinePage> {
                   fontSize: 20,
                   color:Colors.white)
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context,true);
+          },
         ),
       ),
     );

@@ -1,22 +1,58 @@
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:any_door/Pages/Mine/MinePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 import '../../../HttpTools.dart';
 import '../../../account.dart';
 
+class ExchPasswordPage extends StatefulWidget {
+  // const ModifyPage({Key? key, String? name, String? title,id}) : super(key: key);
+  String userID;
+  ExchPasswordPage({Key? key,required this.userID}):super(key:key);
+  // const ExchPasswordPage({Key? key}): super(key: key);
+  @override
+  _ExchPasswordPageState createState() => _ExchPasswordPageState();
+
+}
+
+class _ExchPasswordPageState extends State<ExchPasswordPage> {
+  final GlobalKey _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false, //防止键盘溢出
+      appBar: AppBar(
+        //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
+        centerTitle: true,
+        backgroundColor: MyColors.mTaskColor,
+        title: Text(
+          "修改密码",
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: ResetPassword(userID: widget.userID),
+    );
+  }
+}
+
+
 class ResetPassword extends StatefulWidget {
   // const ModifyPage({Key? key, String? name, String? title,id}) : super(key: key);
-  const ResetPassword({Key? key}):super(key:key);
+  String userID;
+  ResetPassword({Key? key, required this.userID}):super(key:key);
   // const ExchPasswordPage({Key? key}): super(key: key);
   @override
   _ResetPasswordState createState() => _ResetPasswordState();
 
 }
+
 class _ResetPasswordState extends State<ResetPassword> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  late String _password,_verify;
+  late String _old,_password,_verify;
   bool _isObscure = true;
   bool _isObscure1 = true;
   Color _eyeColor = Colors.grey;
@@ -64,12 +100,68 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
           onPressed: () {
             (_formKey.currentState as FormState).save();
-            //TODO 执行注册方法
-            print("修改");
+            //TODO 执行修改方法
+            if(_password==_verify) { //密码相等
+              String send="{\"userID\":\""+widget.userID+"\","+"\"passwordOld\":\""+_old+"\","+"\"passwordNew\":\""+_password+"\"}";
+              print(send);
+              Future<String> back=NetUtils.putJson('http://1.117.249.72:8080/user',send);
+              back.then((value) => handingResult(value));
+            }
+            else{
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const AlertDialog(
+                    title: Text("提示"),
+                    content: Text("两次密码不一致，请重新输入"),
+                  );
+                },
+              );
+            }
           },
         ),
       ),
     );
+  }
+
+  handingResult(String value) async {
+    Map<String, dynamic> result = json.decode(value); //结果的map对象
+    print(result);
+    if (result["meta"]["status"] == "202") {//修改成功
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("提示"),
+            content: const Text("密码已修改成功"),
+            actions: [
+              FlatButton(onPressed: () {
+                Navigator.pop(context,true);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) {
+                //       return const MinePage();
+                //     },
+                //   ),
+                // );
+              }, child: const Text("确定")),
+            ],
+          );
+        },
+      );
+    }
+    else { //修改失败
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("提示"),
+            content: Text("修改失败，请重试"),
+          );
+        },
+      );
+    }
   }
 
   Widget buildVerifyPassTextField(BuildContext context) {
@@ -153,7 +245,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget confirmPasswordTextField(BuildContext context) {
     return TextFormField(
         obscureText: _isObscure, // 是否显示文字
-        onSaved: (v) => _password = v!,
+        onSaved: (v) => _old = v!,
         decoration: InputDecoration(
             labelText: "Old Password",
             hintText: '请输入原密码',
@@ -189,35 +281,4 @@ class _ResetPasswordState extends State<ResetPassword> {
             )));
   }
 
-}
-
-class ExchPasswordPage extends StatefulWidget {
-  // const ModifyPage({Key? key, String? name, String? title,id}) : super(key: key);
-  const ExchPasswordPage({Key? key}):super(key:key);
-  // const ExchPasswordPage({Key? key}): super(key: key);
-  @override
-  _ExchPasswordPageState createState() => _ExchPasswordPageState();
-
-}
-
-class _ExchPasswordPageState extends State<ExchPasswordPage> {
-  final GlobalKey _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false, //防止键盘溢出
-      appBar: AppBar(
-        //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
-        centerTitle: true,
-        backgroundColor: MyColors.mTaskColor,
-        title: Text(
-          "修改密码",
-          style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: const ResetPassword(),
-    );
-  }
 }

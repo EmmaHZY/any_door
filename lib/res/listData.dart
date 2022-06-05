@@ -21,14 +21,14 @@ List listData = [
   {
     "taskID": "001",
     "publisherID": "1951111",
-    "receiverID": "null",
+    "receiverID": "1853221",
     "taskTitle": "这道题目怎么做？求解答！",
     "deadline": "2022.6.3 13:30",
     "taskImage":"https://img0.baidu.com/it/u=2724607732,3536309326&fm=253&fmt=auto&app=138&f=PNG?w=527&h=272",
     "publishTime": "2022.5.3 11:00",
     "taskContent": "求解高数定积分如下图！没看懂他的解法qaq，感谢！",
     "tag": 2,
-    "taskState": "待接受",
+    "taskState": "进行中",
     "taskCoin": 5,
     "userName": "放不开",
     "personImage":
@@ -37,7 +37,7 @@ List listData = [
   {
     "taskID": "001",
     "publisherID": "1951111",
-    "receiverID": "null",
+    "receiverID": "1752311",
     "taskTitle": "狼人杀组队1等7",
     "deadline": "2022.5.3 13:30",
     "taskImage":
@@ -45,7 +45,7 @@ List listData = [
     "publishTime": "2022.5.3 11:00",
     "taskContent": "有人约局狼人杀吗？！？在线等挺急的有意者私聊我，建群线上狼人杀！！",
     "tag": 3,
-    "taskState": "待接受",
+    "taskState": "已完成",
     "taskCoin": 1,
     "userName": "天青色等烟雨",
     "personImage":

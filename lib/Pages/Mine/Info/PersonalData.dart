@@ -15,11 +15,12 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   int _favoriteCount = 41;
   String name = "张荣添",
       sex="男",
-      id = "1952541",
+      userID = "1952541",
       autograph = "干饭人，干饭魂",
       QQ = "100001",
       wechat = "ZRT",
-      tel = "137xxxxxxxx";
+      tel = "137xxxxxxxx",
+      area = "嘉定区";
   int score = 100;
   double coin = 100.0;
 
@@ -55,12 +56,12 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                   builder: (_) =>
                       ModifyPage(
                         name: name,
-                        id: id,
+                        userID: userID,
                         QQ: QQ,
                         wechat: wechat,
                         autograph: autograph,
                         tel: tel,
-                        sex: sex,
+                        area: area,
                       )));
             },
               icon: Icon(
@@ -114,7 +115,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 color: Colors.grey,
                 height: 1), //分割线
 
-            itemCell("学号          ", id),
+            itemCell("学号          ", userID),
 
             Container(
                 margin: EdgeInsets.only(right: 10, left: 10),

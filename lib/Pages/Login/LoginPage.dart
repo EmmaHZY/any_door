@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
             return const BottomTabBar(title: 'title',);
           },
         ),
-      );
+      ).then((data)=>null);
     }
     else { //弹窗提示登录失败
       showDialog(

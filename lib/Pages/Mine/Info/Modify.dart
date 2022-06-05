@@ -9,10 +9,10 @@ import '../../../account.dart';
 class ModifyPage extends StatefulWidget {
   // const ModifyPage({Key? key, String? name, String? title,id}) : super(key: key);
 
-  String name,id,autograph,QQ,wechat,tel,sex;
+  String name,userID,autograph,QQ,wechat,tel,area;
   ModifyPage({
-    Key? key, required this.name,required this.id,required this.autograph,
-    required this.QQ,required this.wechat,required this.tel,required this.sex
+    Key? key, required this.name,required this.userID,required this.autograph,
+    required this.QQ,required this.wechat,required this.tel,required this.area
   }): super(key: key);
   @override
   _ModifyPageState createState() => _ModifyPageState();
@@ -63,15 +63,19 @@ class _ModifyPageState extends State<ModifyPage> {
               blank(),
               HeadImage(),
               blank(),
+              itemCell("学号", widget.userID),
+              blank(),
               itemCell("昵称", widget.name),
               blank(),
-              itemCell("性别", widget.sex),
-              blank(),
               itemCell("个性签名", widget.autograph),
+              blank(),
+              itemCell("校区", widget.area),
               blank(),
               itemCell("QQ", widget.QQ),
               blank(),
               itemCell("微信", widget.wechat),
+              blank(),
+              itemCell("手机号", widget.tel),
               blank(),
               // SaveButton(),
               Container(
