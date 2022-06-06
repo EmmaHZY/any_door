@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:any_door/Pages/Home/BottomTabBar.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
+import 'package:flutter/services.dart';
 import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 
 import '../../HttpTools.dart';
@@ -227,8 +228,12 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget buildAccountTextField() {
     return TextFormField(
+      inputFormatters: <TextInputFormatter>[
+        LengthLimitingTextInputFormatter(7),//限制长度
+        FilteringTextInputFormatter.allow(RegExp("[0-9]")),//限制数字输入
+      ],
       decoration: const InputDecoration(
-        labelText: 'Account',
+        labelText: 'Account（7位数字）',
         hintText: '请输入账号',
         /// 边框
         border: OutlineInputBorder(
@@ -264,4 +269,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
 

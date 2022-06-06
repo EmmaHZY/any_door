@@ -235,7 +235,7 @@ class _ResetOnePageState extends State<ResetOnePage> {
     double width = MediaQuery.of(context).size.width;
     return TextFormField(
       decoration: const InputDecoration(
-        labelText: 'Code',
+        labelText: 'Code（6位数字）',
         hintText: '请输入验证码',
         /// 边框
         border: OutlineInputBorder(
@@ -264,7 +264,7 @@ class _ResetOnePageState extends State<ResetOnePage> {
         _telNum=value;
       },
       decoration: const InputDecoration(
-        labelText: 'Tel',
+        labelText: 'Tel（11位数字）',
         hintText: '请输入手机号',
         /// 边框
         border: OutlineInputBorder(
@@ -414,7 +414,7 @@ class _ResetTwoPageState extends State<ResetTwoPage> {
           ),
           onPressed: () {
             (_formKey.currentState as FormState).save();
-            //TODO 执行注册方法
+            //TODO 执行修改方法
             if(_password==_verify) {//密码相等
                 if(judge) {//手机号有效，向后端发请求
                   judge=false;//全局变量重置

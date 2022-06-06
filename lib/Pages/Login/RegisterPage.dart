@@ -221,8 +221,12 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget buildCodeTextField() {
     double width = MediaQuery.of(context).size.width;
     return TextFormField(
+      inputFormatters: <TextInputFormatter>[
+        LengthLimitingTextInputFormatter(6),//限制长度
+        FilteringTextInputFormatter.allow(RegExp("[0-9]")),//限制数字输入
+      ],
            decoration: const InputDecoration(
-             labelText: 'Code',
+             labelText: 'Code（六位数字）',
              hintText: '请输入验证码',
              /// 边框
              border: OutlineInputBorder(
@@ -246,11 +250,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget buildTelTextField() {
         return TextFormField(
+            inputFormatters: <TextInputFormatter>[
+              LengthLimitingTextInputFormatter(11),//限制长度
+              FilteringTextInputFormatter.allow(RegExp("[0-9]")),//限制数字输入
+            ],
             onChanged: (value){//实时记录文本框数据
               Account.tel= value;
             },
             decoration: const InputDecoration(
-          labelText: 'Tel',
+          labelText: 'Tel（11位数字）',
           hintText: '请输入手机号',
           /// 边框
           border: OutlineInputBorder(
@@ -376,8 +384,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget buildAccountTextField() {
     return TextFormField(
+      inputFormatters: <TextInputFormatter>[
+        LengthLimitingTextInputFormatter(7),//限制长度
+        FilteringTextInputFormatter.allow(RegExp("[0-9]")),//限制数字输入
+      ],
       decoration: const InputDecoration(
-        labelText: 'Account',
+        labelText: 'Account（7位数字）',
         hintText: '请输入账号',
         /// 边框
         border: OutlineInputBorder(
