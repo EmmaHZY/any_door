@@ -1,27 +1,30 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:any_door/account.dart';
 
-import '../../../HttpTools.dart';
-import '../../../models/task_model.dart';
-import 'PerTaskDetail.dart';
+import '../../../../HttpTools.dart';
+import '../../../../models/task_model.dart';
+import '../PerTaskDetail.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:any_door/res/listData.dart';
 import 'package:flutter/material.dart';
 
+import 'IngDetail.dart';
+
 // 礼品列表
-class PerTaskList extends StatefulWidget {
-  PerTaskList({Key? key}) : super(key: key);
+class IngList extends StatefulWidget {
+  IngList ({Key? key}) : super(key: key);
 
   @override
-  State<PerTaskList> createState() => _PerTaskListState();
+  State<IngList> createState() => _IngListState();
 }
 
-class _PerTaskListState extends State<PerTaskList> {
+class _IngListState extends State<IngList> {
 
-  var activeTasks = <TaskModel>[];
+  var activeTask = <TaskModel>[];
   Widget _getListData(context, index) {
     List tagImageList = [
       "assets/run1.png",
@@ -32,8 +35,8 @@ class _PerTaskListState extends State<PerTaskList> {
     return GestureDetector(
       onTap: (() => {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => PerTaskDetailPage(
-              activeTask: activeTasks[index],
+            builder: (context) => IngDetailPage(
+              activeTask: activeTask[index],
             )))
       }),
       child: Card(
@@ -45,7 +48,7 @@ class _PerTaskListState extends State<PerTaskList> {
             child: AspectRatio(
               aspectRatio: 14 / 9,
               child: Image.asset(
-                tagImageList[int.parse(activeTasks[index].tag) -
+                tagImageList[int.parse(activeTask[index].tag) -
                     1],  //这里应该是tag对应的图片，而不是任务图片
                 fit: BoxFit.cover,
               ),
@@ -54,7 +57,7 @@ class _PerTaskListState extends State<PerTaskList> {
           // 任务标签
           Expanded(
             child: Text(
-              activeTasks[index].taskTitle,
+              activeTask[index].taskTitle,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: Adapt.px(25)),
               maxLines: 1,
@@ -74,7 +77,7 @@ class _PerTaskListState extends State<PerTaskList> {
                       // 状态
                       Text("任务状态：",style: TextStyle(fontSize: Adapt.px(19))),
                       Text(
-                        activeTasks[index].taskState,
+                        activeTask[index].taskState,
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: Adapt.px(19)),
                       ),
@@ -100,7 +103,7 @@ class _PerTaskListState extends State<PerTaskList> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTasks[index].taskCoin}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTask[index].taskCoin}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
@@ -123,7 +126,7 @@ class _PerTaskListState extends State<PerTaskList> {
         mainAxisSpacing: 5.0,
         crossAxisCount: 2,
       ),
-      itemCount: activeTasks.length,
+      itemCount: activeTask.length,
       itemBuilder: _getListData,
     );
   }
@@ -138,8 +141,9 @@ class _PerTaskListState extends State<PerTaskList> {
   void getdata(){
     //print("!!111:getdata-------");
     // 执行查看全部任务方法
+    //log("hhhhh");
     Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/task?operation=getByPublisherID&index='+Account.account+'&key=');
+        'http://1.117.239.54:8080/task?operation=getByTaskState&index='+Account.account+'&key=');
     //     Future<Uint8List> back = NetUtils.getJsonBytes(
     // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
     back.then((value) {
@@ -147,7 +151,7 @@ class _PerTaskListState extends State<PerTaskList> {
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
       // print(result);
       Iterable list = result["data"];
-      activeTasks = list.map((model) => TaskModel.fromMap(model)).toList();
+      activeTask = list.map((model) => TaskModel.fromMap(model)).toList();
       // 重新加载页面
       setState(() {
         // print("setstate");

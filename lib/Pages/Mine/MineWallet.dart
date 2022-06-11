@@ -1,5 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
+import '../../HttpTools.dart';
+import '../../account.dart';
 import '../../adapt.dart';
 import 'Info/Modify.dart';
 
@@ -11,7 +17,8 @@ class MineWalletPage extends StatefulWidget {
 }
 
 class _MineWalletPageState extends State<MineWalletPage> {
-
+  late double coin=0;
+  late int score=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +62,29 @@ class _MineWalletPageState extends State<MineWalletPage> {
     );
   }
 
-
+  @override
+  void initState(){
+    // print("initstate");
+    getdata();
+    super.initState();
+  }
+  void getdata(){
+    //log("!!111:getdata-------");
+    // 执行查看全部任务方法
+    Future<Uint8List> back = NetUtils.getJsonBytes(
+        'http://1.117.239.54:8080/user?operation=getMe&index='+Account.account);
+    //     Future<Uint8List> back = NetUtils.getJsonBytes(
+    // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
+    back.then((value) {
+      // print("!!!1111:handlingResult---------");
+      Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
+      score=(result["data"][0]["creditscore"]);
+      coin=(result["data"][0]["coin"]);
+      setState(() {
+        // print("setstate");
+      });
+    });
+  }
 
   Widget itemMoney() {
     return Container(
@@ -80,7 +109,7 @@ class _MineWalletPageState extends State<MineWalletPage> {
 
                       Spacer(),
 
-                      Text('￥'+'130',
+                      Text('￥'+ coin.toString(),
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 25, // fontWeight: FontWeight.w400)
@@ -118,7 +147,7 @@ class _MineWalletPageState extends State<MineWalletPage> {
 
                       Spacer(),
 
-                      Text('100',
+                      Text(score.toString(),
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 25,

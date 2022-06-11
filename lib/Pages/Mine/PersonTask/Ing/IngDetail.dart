@@ -4,28 +4,28 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../HttpTools.dart';
-import '../../../account.dart';
-import '../../../models/task_model.dart';
-import 'PerTaskAvartar.dart';
-import 'PerTaskInfo.dart';
+import '../../../../HttpTools.dart';
+import '../../../../account.dart';
+import '../../../../models/task_model.dart';
+import '../PerTaskAvartar.dart';
+import '../PerTaskInfo.dart';
 import 'package:flutter/material.dart';
 
-import 'Released.dart';
+import 'Ing.dart';
 
 // 任务详情页面
-class PerTaskDetailPage extends StatefulWidget {
+class IngDetailPage extends StatefulWidget {
   final TaskModel activeTask;
-  PerTaskDetailPage({
+  IngDetailPage({
     Key? key,
     required this.activeTask,
   }) : super(key: key);
 
   @override
-  State<PerTaskDetailPage> createState() => _PerTaskDetailPageState();
+  State<IngDetailPage> createState() => _IngDetailPageState();
 }
 
-class _PerTaskDetailPageState extends State<PerTaskDetailPage> {
+class _IngDetailPageState extends State<IngDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +49,7 @@ class _PerTaskDetailPageState extends State<PerTaskDetailPage> {
                         builder: (context) {
                           return CupertinoAlertDialog(
                             title: Text("提示"),
-                            content: Text("确定撤销此任务？"),
+                            content: Text("确定已完成任务？"),
                             actions: [
                               CupertinoDialogAction(
                                 child: Text("取消"),
@@ -82,13 +82,13 @@ class _PerTaskDetailPageState extends State<PerTaskDetailPage> {
                                           builder: (BuildContext context){
                                             return CupertinoAlertDialog(
                                               title: const Text("提示"),
-                                              content: const Text("撤销任务成功"),
+                                              content: const Text("完成任务成功"),
                                               actions: [
                                                 FlatButton(onPressed: (() {
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(builder: (context){
-                                                        return ReleasedPage();
+                                                        return IngPage();
                                                       }));
                                                 }), child: const Text("确定"))
                                               ],
@@ -101,7 +101,7 @@ class _PerTaskDetailPageState extends State<PerTaskDetailPage> {
                                           builder: (BuildContext context){
                                             return CupertinoAlertDialog(
                                               title: const Text("提示"),
-                                              content: const Text("撤销任务失败，请重试"),
+                                              content: const Text("完成任务失败，请重试"),
                                               actions: [
                                                 FlatButton(onPressed: (() {
                                                   Navigator.of(context).pop();
@@ -119,7 +119,7 @@ class _PerTaskDetailPageState extends State<PerTaskDetailPage> {
                         },
                       );
                     },
-                    child: Text("撤销")),
+                    child: Text("完成")),
                 SizedBox(
                   width: 15,
                 )

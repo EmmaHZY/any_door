@@ -123,50 +123,6 @@ class _TaskInfoState extends State<TaskInfo> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (BuildContext context) {
-                    //     return AlertDialog(
-                    //       title: Text("提示"),
-                    //       content: Text("确定接受此任务？"),
-                    //       actionsAlignment: MainAxisAlignment.center,
-                    //       actions: [
-                    //         FlatButton(
-                    //           onPressed: (){
-                    //             Navigator.pop(context);
-                    //             },
-                    //           child: Text("取消")
-                    //           ),
-                    //         FlatButton(
-                    //           onPressed: (){
-                    //             // 接受任务接口
-                    //             Navigator.pop(context);
-                    //           },
-                    //           child: Text("确定")
-                    //           ),
-                    //       ],
-                    //     );
-                    //   }
-                    //   );
-
-                    // var dialog = CupertinoAlertDialog(
-                    //   content:
-                    //       Text("确定接受？", style: TextStyle(fontSize: Adapt.px(31))),
-                    //   actions: <Widget>[
-                    //     CupertinoButton(
-                    //         child: Text("取消"),
-                    //         onPressed: () {
-                    //           Navigator.pop(context);
-                    //         }),
-                    //     CupertinoButton(
-                    //         child: Text("确定"),
-                    //         onPressed: () {
-                    //           Navigator.pop(context);
-                    //         })
-                    //   ],
-                    // );
-                    // showDialog(context: context, builder: (_) => dialog);
-
                     showCupertinoDialog(
                       //点击空白处取消
                       barrierDismissible: true,

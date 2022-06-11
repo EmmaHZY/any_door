@@ -11,6 +11,9 @@ import 'Info/PersonalData.dart';
 import 'Gift/MineGift.dart';
 import 'MineInfo.dart';
 import 'MineWallet.dart';
+import 'PersonTask/Accept/Accept.dart';
+import 'PersonTask/Done/Done.dart';
+import 'PersonTask/Ing/Ing.dart';
 import 'PersonTask/Released.dart';
 import '../../HttpTools.dart';
 import 'dart:developer';
@@ -94,17 +97,6 @@ class _MinePageState extends State<MinePage> {
     back.then((value) {
       // print("!!!1111:handlingResult---------");
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
-      // log(result);
-      // log(jsonEncode(result));
-      // log(jsonEncode(result["meta"]["status"]));
-      // log(jsonEncode(result["data"]));
-      // log(jsonEncode(result["data"][0]["username"]));
-      // name=jsonEncode(result["data"][0]["username"]);
-      // image=jsonEncode(result["data"][0]["personimage"]);
-
-      // Iterable list = result["data"];
-      // activeTasks = list.map((model) => TaskModel.fromMap(model)).toList();
-      //重新加载页面
       setState(() {
         // print("setstate");
       });
@@ -415,7 +407,14 @@ class _MinePageState extends State<MinePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(onPressed: () {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const AcceptPage();
+                      },
+                    ),
+                  );
                 },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.receipt_long_outlined,
@@ -434,7 +433,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const DonePage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.add_task_outlined,
                         color: Color.fromRGBO(254, 180, 12, 100))),
@@ -452,7 +460,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const IngPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.not_started_outlined,
                         color: Color.fromRGBO(10, 202, 149, 100))),

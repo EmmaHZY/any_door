@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
-import '../../../adapt.dart';
-import 'PerTaskList.dart';
+import '../../../../adapt.dart';
+import 'IngList.dart';
 
-class ReleasedPage extends StatefulWidget {
-  const ReleasedPage({Key? key}) : super(key: key);
+class IngPage extends StatefulWidget {
+  const IngPage({Key? key}) : super(key: key);
 
   @override
-  _ReleasedPageState createState() => _ReleasedPageState();
+  _IngPageState createState() => _IngPageState();
 }
 
-class _ReleasedPageState extends State<ReleasedPage> {
+class _IngPageState extends State<IngPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,13 +19,13 @@ class _ReleasedPageState extends State<ReleasedPage> {
         centerTitle: true,
         backgroundColor: MyColors.mTaskColor,
         title: Text(
-          "已发布任务",
+          "进行中任务",
           style: TextStyle(
               color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
 
       ),
-      body: const Home(),
+      body: const GiftHome(),
     );
   }
 
@@ -72,8 +72,8 @@ class _ReleasedPageState extends State<ReleasedPage> {
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class GiftHome extends StatelessWidget {
+  const GiftHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +81,7 @@ class Home extends StatelessWidget {
       children: [
         Column(
           children: <Widget>[
+
             SizedBox(
               height: Adapt.px(30),
               child: Container(
@@ -133,7 +134,7 @@ class Home extends StatelessWidget {
               // 2 * Adapt.padTopH() -
               // 90 -
               // 3 * Adapt.padBotH(),
-              child: PerTaskList(),
+              child: IngList(),
             ),
             // TaskList(),
             // Container(
