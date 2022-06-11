@@ -1,5 +1,4 @@
 import 'package:any_door/models/communication_model.dart';
-import 'package:any_door/res/ListPeople.dart';
 import 'package:flutter/material.dart';
 import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 
@@ -52,45 +51,29 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
         ));
   }
 
-  //发送图片按钮
-  // Widget buildImageButton() {
-  //   return Container(
-  //     alignment: Alignment.center,
-  //     child: InkWell(
-  //         onTap: () {
-  //           print("别点我，我是图片");
-  //         },
-  //         child:  const Icon(
-  //           IconData(0xe7e1, fontFamily: 'MyIcons'),
-  //           color: MyColors.mPrimaryColor,
-  //         )
-  //     ),
-  //   );
-  // }
-
   //消息发送框布局
   Widget buildInput() {
     return TextField(
       minLines: 1,
       maxLines: 6,
       controller: textEditingController,
-      decoration:InputDecoration(
+      decoration:const InputDecoration(
         hintText: '请输入消息',
-        border: const OutlineInputBorder(
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               bottomLeft: Radius.circular(20)
           ),
         ),
-          prefixIcon: IconButton(
-            icon: const Icon(
-              Icons.insert_photo_outlined,
-              color:MyColors.mPrimaryColor,
-            ),
-            onPressed: () {
-              print("我是图片按钮");
-            },
-          )
+          // prefixIcon: IconButton(
+          //   icon: const Icon(
+          //     Icons.insert_photo_outlined,
+          //     color:MyColors.mPrimaryColor,
+          //   ),
+          //   onPressed: () {
+          //     print("我是图片按钮");
+          //   },
+          // )
       ),
       onSubmitted: sendMessage,
     );
@@ -111,8 +94,6 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
           style: TextStyle(fontSize: 16,color: Colors.white)),
         onPressed:(){
           sendMessage(textEditingController.text);
-          //sendImageMessage("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-1186626d03951712212bfdf449132934_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654617191&t=44685cb2d28c271a83481479e9bcd2c4");
-
         },
       ),
       borderRadius: const BorderRadius.only(
@@ -145,40 +126,17 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
 
   //发送消息
   sendMessage(String text) {
+    String toSomebody="0000000";//发消息的对象
     if (text.isEmpty) return;
     //username表示聊天对象，由上一个界面传入
-    EMMessage message = EMMessage.createTxtSendMessage(username:"1952541", content: text);//消息构建，发给谁发什么
-    //EMMessage message = EMMessage.createImageSendMessage(username:"1952541", filePath: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-1186626d03951712212bfdf449132934_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654617191&t=44685cb2d28c271a83481479e9bcd2c4");
+    widget.activeCommunication.userID==Account.account?toSomebody=widget.activeCommunication.friend:toSomebody=widget.activeCommunication.userID;//辨别谁是自己谁是对方
+    EMMessage message = EMMessage.createTxtSendMessage(username:toSomebody, content: text);//消息构建，发给谁发什么
     EMClient.getInstance.chatManager.sendMessage(message);//把消息发到第三方平台
     print(text);
     setState(() {//重新执行页面的build函数，在消息列表中增加
       messageList.add(Message("我", text));
-      //messageList.add(Message("我", message.toJson()["body"]["content"].toString()));
     });
     textEditingController.clear();
-  }
-
-
-
-  //发送图片消息
-  sendImageMessage(String imagePath) {
-    // Image.file(
-    //   File(imagePath),
-    //   fit: BoxFit.contain,
-    // )
-    //     .image
-    //     .resolve(const ImageConfiguration())
-    //     .addListener(ImageStreamListener((ImageInfo info, bool _) {
-      EMMessage msg = EMMessage.createImageSendMessage(
-        username: "1952541",
-        filePath: imagePath,
-      );
-      EMImageMessageBody body = msg.body as EMImageMessageBody;
-      // body.height = info.image.height.toDouble();
-      // body.width = info.image.width.toDouble();
-      msg.body = body;
-      print(msg);
-      EMClient.getInstance.chatManager.sendMessage(msg);
   }
 
   //回复消息布局

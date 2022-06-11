@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:any_door/Pages/Message/CommunicationPage.dart';
 import 'package:any_door/models/communication_model.dart';
-import 'package:any_door/res/listPeople.dart';
 import 'package:flutter/material.dart';
 
 import '../../HttpTools.dart';
@@ -44,8 +43,7 @@ class _MessagePageState extends State<MessagePage> {
 
   //与后端交互，获取数据
   void getdata() {
-    Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/chat?userID=' + Account.account);
+    Future<Uint8List> back = NetUtils.getJsonBytes('http://1.117.239.54:8080/chat?userID=' + Account.account);
     back.then((value) {
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
       // print(result);
