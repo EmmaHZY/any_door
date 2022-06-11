@@ -1,22 +1,22 @@
-import 'package:any_door/Pages/Mine/Info/ExchPassword.dart';
+import 'package:any_door/Pages/Message/CommunicationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
-import 'Info/PersonalData.dart';
-import 'MineCollection.dart';
-import 'Gift/MineGift.dart';
-import 'MineWallet.dart';
-import 'PersonTask/Released.dart';
 
 class OtherPage extends StatefulWidget {
-  const OtherPage({Key? key}) : super(key: key);
+  final String userID;
+  const OtherPage({Key? key, required this.userID}) : super(key: key);
 
   @override
   _OtherPageState createState() => _OtherPageState();
 }
 
 class _OtherPageState extends State<OtherPage> {
-  String userID = '1952336',autograph='春天该很好，你若尚在场',sex='女',QQ='65472xxx',
-          wechat='31415926',tel='400-8820-8820',area='嘉定区';
+  String autograph = '春天该很好，你若尚在场',
+      sex = '女',
+      QQ = '65472xxx',
+      wechat = '31415926',
+      tel = '400-8820-8820',
+      area = '嘉定区';
   int score = 100;
 
   @override
@@ -45,31 +45,29 @@ class _OtherPageState extends State<OtherPage> {
           color: Colors.white,
           child: Column(
             children: <Widget>[
-              _buildUserInfo(userID),
+              _buildUserInfo(widget.userID),
               DataType(),
               Expanded(
                   child: Container(
-                    color: Colors.white,
-                  )
-              )
+                color: Colors.white,
+              ))
             ],
           ),
-        )
-    );
+        ));
   }
 
   Widget _buildUserInfo(String userID) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              //Color.fromRGBO(73, 129, 245, 1),
-              MyColors.mTaskColor,
-              MyColors.mTaskColor,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          )),
+        colors: [
+          //Color.fromRGBO(73, 129, 245, 1),
+          MyColors.mTaskColor,
+          MyColors.mTaskColor,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      )),
       child: Container(
         margin: EdgeInsets.only(top: 16, bottom: 16),
         child: Row(
@@ -77,11 +75,10 @@ class _OtherPageState extends State<OtherPage> {
             Container(
               margin: EdgeInsets.only(left: 16),
               child: ClipOval(
-                  child:Image(
-                    image: AssetImage('assets/flower.png'),
-                    width: 65,
-                  )
-              ),
+                  child: Image(
+                image: NetworkImage("https://img0.baidu.com/it/u=3524086258,727431468&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"),
+                width: 65,
+              )),
             ),
             Expanded(
               flex: 100,
@@ -92,7 +89,7 @@ class _OtherPageState extends State<OtherPage> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        "陆百花",
+                        "放不开",
 
                         ///可加长，会显示点点点
                         overflow: TextOverflow.ellipsis,
@@ -106,7 +103,7 @@ class _OtherPageState extends State<OtherPage> {
                     ),
                     Container(
                       child: Text(
-                        userID,
+                        widget.userID,
 
                         ///可加长，会显示点点点
                         overflow: TextOverflow.ellipsis,
@@ -122,7 +119,6 @@ class _OtherPageState extends State<OtherPage> {
                 ),
               ),
             ),
-
             Spacer(),
             Container(
               margin: EdgeInsets.only(right: 12),
@@ -130,22 +126,24 @@ class _OtherPageState extends State<OtherPage> {
                 children: <Widget>[
                   IconButton(
                       onPressed: () {
-
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //   builder: (context) =>
+                        //     CommunicationPage(userID: widget.activeTask.publisherID)))
                       },
                       splashColor: Colors.blueGrey,
                       icon: Icon(Icons.textsms_outlined,
-                          size: 20,
-                          color: Colors.blueGrey)),
-                  Text("发送消息",
+                          size: 20, color: Colors.blueGrey)),
+                  Text(
+                    "发送消息",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 10,
                       // fontWeight: FontWeight.w400)
-                    ),)
+                    ),
+                  )
                 ],
               ),
             )
-
           ],
         ),
       ),
@@ -156,12 +154,12 @@ class _OtherPageState extends State<OtherPage> {
     return Container(
         color: Colors.white,
         height: 500,
-        child: SingleChildScrollView(//实现页面上下滑动
+        child: SingleChildScrollView(
+          //实现页面上下滑动
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
 
             children: <Widget>[
-
               itemCell("性别          ", sex),
 
               Container(
@@ -215,8 +213,7 @@ class _OtherPageState extends State<OtherPage> {
               blank(),
             ],
           ),
-        )
-    );
+        ));
   }
 
   Widget itemCell(String itemTitle, String Content) {
@@ -230,7 +227,8 @@ class _OtherPageState extends State<OtherPage> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text(itemTitle,
+                      Text(
+                        itemTitle,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 12,
@@ -244,15 +242,12 @@ class _OtherPageState extends State<OtherPage> {
                           color: Colors.black,
                           fontSize: 12,
                           // fontWeight: FontWeight.w400)
-                        ),),
-                    ]
-                )
-            )
+                        ),
+                      ),
+                    ]))
           ],
-        )
-    );
+        ));
   }
-
   Widget blank() {
     return Container(
       color: Colors.white,

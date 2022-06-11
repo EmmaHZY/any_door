@@ -2,26 +2,35 @@
 //nox_adb.exe connect 127.0.0.1:62001连接虚拟机
 // flutter run --no-sound-null-safety
 
-
-
 // 任务页面
+import 'dart:convert';
+
 import 'package:any_door/Pages/Task/widget/TaskList.dart';
 import 'package:any_door/Pages/Task/widget/TaskTag.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:flutter/material.dart';
+import '../../HttpTools.dart';
 
 import '../../SearchAppBar.dart';
 
 // 任务主页
-class TaskPage extends StatelessWidget {
-  const TaskPage({Key? key}) : super(key: key);
 
+class TaskPage extends StatefulWidget {
+  const TaskPage({Key? key}) : super(key: key);
+  // const TaskPage({Key? key, required this.title}) : super(key: key);
+  // final String title;
+  @override
+  State<TaskPage> createState() => _TaskPageState();
+}
+
+class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
+    // getdata();
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading : false,//去掉leading位置的返回箭头
+        automaticallyImplyLeading: false, //去掉leading位置的返回箭头
         titleSpacing: 0,
         toolbarHeight: Adapt.padTopH() + Adapt.px(31),
         backgroundColor: MyColors.mTaskColor,
@@ -31,7 +40,78 @@ class TaskPage extends StatelessWidget {
       body: const TaskHome(),
     );
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   print("initState");
+  //   getdata();
+  // }
+
+  // 对查看全部任务结果的处理
+  // handingResult(String value) async {
+  //   Map<String, dynamic> result = json.decode(value); //结果的map对象
+  //   if (result["meta"]["status"] == "200") //登录成功
+  //   {
+  //     // result["data"]
+  //   } else {
+  //     //弹窗提示登录失败
+  //     showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text("提示"),
+  //           content: const Text("页面加载失败，请重试"),
+  //           actions: [
+  //             FlatButton(
+  //                 onPressed: () {
+  //                   Navigator.push(
+  //                     context,
+  //                     MaterialPageRoute(
+  //                       builder: (context) {
+  //                         return const TaskPage(
+  //                           title: 'title',
+  //                         );
+  //                       },
+  //                     ),
+  //                   );
+  //                 },
+  //                 child: const Text("确定")),
+  //           ],
+  //         );
+  //       },
+  //     );
+  //   }
+  // }
+
+  // Future<void> getdata() async {
+  //   print("!!111");
+  //   // 执行查看全部任务方法
+  //   Future<String> back = NetUtils.getJson(
+  //       'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
+  //   back.then((value) => handingResult(value));
+  // }
 }
+
+// class TaskPage extends StatelessWidget {
+//   const TaskPage({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     log("111111");
+//     return Scaffold(
+//       appBar: AppBar(
+//         automaticallyImplyLeading: false, //去掉leading位置的返回箭头
+//         titleSpacing: 0,
+//         toolbarHeight: Adapt.padTopH() + Adapt.px(31),
+//         backgroundColor: MyColors.mTaskColor,
+//         elevation: 0,
+//         title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
+//       ),
+//       body: const TaskHome(),
+//     );
+//   }
+// }
 
 class TaskHome extends StatelessWidget {
   const TaskHome({Key? key}) : super(key: key);
@@ -60,13 +140,11 @@ class TaskHome extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-
             // 标签
             Container(
               height: Adapt.px(186),
               child: TaskTag(),
             ),
-
             // 猜你喜欢
             SizedBox(
               height: Adapt.px(62),
@@ -84,13 +162,6 @@ class TaskHome extends StatelessWidget {
                           color: Color.fromARGB(255, 94, 92, 92),
                         ),
                       ),
-                      // Text(
-                      //   "更多",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //     color: Color.fromARGB(255, 94, 92, 92),
-                      //   ),
-                      // ),
                       GestureDetector(
                         onTap: () {
                           // 跳到全部任务
@@ -111,7 +182,6 @@ class TaskHome extends StatelessWidget {
                 alignment: Alignment.center,
               ),
             ),
-
             // 任务列表
             Container(
               height: Adapt.screenH() -
@@ -120,7 +190,7 @@ class TaskHome extends StatelessWidget {
                   2 * Adapt.padTopH() -
                   90 -
                   3 * Adapt.padBotH(),
-              child: const TaskList(),
+              child: TaskList(),
             ),
             // TaskList(),
             // Container(
@@ -132,6 +202,51 @@ class TaskHome extends StatelessWidget {
     );
   }
 }
+
+// class Task extends StatefulWidget {
+//   Task({Key? key}) : super(key: key);
+
+//   @override
+//   State<Task> createState() => _TaskState();
+// }
+
+// class _TaskState extends State<Task> {
+//   @override
+//   Widget build(BuildContext context) {
+//     log("1111");
+//     return Scaffold(
+//       appBar: AppBar(
+//         automaticallyImplyLeading: false, //去掉leading位置的返回箭头
+//         titleSpacing: 0,
+//         toolbarHeight: Adapt.padTopH() + Adapt.px(31),
+//         backgroundColor: MyColors.mTaskColor,
+//         elevation: 0,
+//         title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
+//       ),
+//       body: const TaskHome(),
+//     );
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     getdata();
+//   }
+
+//   //对登录结果的处理
+//   handingResult(String value) async {
+//     Map<String, dynamic> result = json.decode(value); //结果的map对象
+//     print(result);
+//   }
+
+//   Future<void> getdata() async {
+//     print("!!111");
+//     // 执行查看全部任务方法
+//     Future<String> back = NetUtils.getJson(
+//         'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
+//     back.then((value) => handingResult(value));
+//   }
+// }
 
 
 
