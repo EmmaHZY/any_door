@@ -1,3 +1,4 @@
+import 'package:any_door/models/communication_model.dart';
 import 'package:any_door/res/ListPeople.dart';
 import 'package:flutter/material.dart';
 import 'package:im_flutter_sdk/im_flutter_sdk.dart';
@@ -7,8 +8,8 @@ import '../../my_colors.dart';
 
 
 class CommunicationPage extends StatefulWidget {
-  const CommunicationPage ({Key? key, required this.index}) : super(key: key);
-  final int index;
+  final CommunicationModel activeCommunication;
+  const CommunicationPage ({Key? key, required this.activeCommunication}) : super(key: key);
 
   @override
   State<CommunicationPage> createState() => _CommunicationPageState();
@@ -30,7 +31,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
     return Scaffold(
       appBar: AppBar(
         centerTitle: true, // 标题居中
-        title: Text(listPeople[widget.index]["userName"]),
+        title: Text(widget.activeCommunication.userName),
       ),
         body: Column(
           children: <Widget>[
