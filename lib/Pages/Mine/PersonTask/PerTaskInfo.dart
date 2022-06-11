@@ -3,11 +3,13 @@ import 'package:any_door/res/listData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/task_model.dart';
+
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
 
 class PerTaskInfo extends StatefulWidget {
-  final int index;
-  PerTaskInfo({Key? key, required this.index}) : super(key: key);
+  final TaskModel activeTask;
+  PerTaskInfo({Key? key, required this.activeTask}) : super(key: key);
 
   @override
   State<PerTaskInfo> createState() => _PerTaskInfoState();
@@ -33,13 +35,13 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 任务标签
-              Card(
-                child: Text("#" + tagList[listData[widget.index]["tag"] - 1]),
-              ),
+              // Card(
+              //   child: Text("#" + widget.activeTask.tag - 1]),
+              // ),
               // 任务标题
               Expanded(
                 child: Text(
-                  listData[widget.index]["taskTitle"],
+                  widget.activeTask.taskTitle,
                   style: TextStyle(
                     fontSize: Adapt.px(30.5),
                     fontWeight: FontWeight.bold,
@@ -68,7 +70,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
               SizedBox(
                 width: Adapt.px(21),
               ),
-              Text("${listData[widget.index]["taskCoin"]}"),
+              Text("${widget.activeTask.taskCoin}"),
               SizedBox(
                 width: Adapt.px(21),
               ),
@@ -79,7 +81,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           ),
           // 任务状态
           Text(
-            '任务状态：'+listData[widget.index]["taskState"],
+            '任务状态：'+widget.activeTask.taskState,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -89,7 +91,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           ),
           // 任务内容
           Text(
-            listData[widget.index]["taskContent"],
+            widget.activeTask.taskContent,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -101,7 +103,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           AspectRatio(
             aspectRatio: 14 / 9,
             child: Image.network(
-              listData[widget.index]["taskImage"],
+              widget.activeTask.taskImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -113,7 +115,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "截止时间" + listData[widget.index]["deadline"],
+                "截止时间" + widget.activeTask.deadline,
                 style: const TextStyle(color: Colors.grey),
               ),
             ],
@@ -122,7 +124,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
             height: Adapt.px(31),
           ),
           Text(
-            '接取者ID：'+listData[widget.index]["receiverID"],
+            '接取者ID：'+widget.activeTask.receiverID,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),

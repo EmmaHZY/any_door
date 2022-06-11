@@ -2,7 +2,7 @@
 import 'GiftInfo.dart';
 import 'package:flutter/material.dart';
 
-// 任务详情页面
+// 礼品详情页面
 class GiftDetailPage extends StatefulWidget {
   final int index;
   GiftDetailPage({

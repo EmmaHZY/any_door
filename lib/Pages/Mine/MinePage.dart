@@ -1,12 +1,22 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:any_door/Pages/Mine/Info/ExchPassword.dart';
 import 'package:any_door/Pages/Mine/OtherPage.dart';
+import 'package:any_door/account.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
+import '../../adapt.dart';
 import 'Info/PersonalData.dart';
-import 'MineCollection.dart';
 import 'Gift/MineGift.dart';
+import 'MineInfo.dart';
 import 'MineWallet.dart';
 import 'PersonTask/Released.dart';
+import '../../HttpTools.dart';
+import 'dart:developer';
+import 'package:flutter/services.dart';
+import 'package:im_flutter_sdk/im_flutter_sdk.dart';
+import '../../account.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({Key? key}) : super(key: key);
@@ -16,8 +26,9 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
-  String userID = '1952541',autograph='干饭人，干饭魂';
-
+  // var activeMine = <TaskModel>[];
+  // late String autograph,image,name;
+  // late List minedata;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +55,11 @@ class _MinePageState extends State<MinePage> {
           color: Colors.white,
           child: Column(
             children: <Widget>[
-              _buildUserInfo(userID),
+              Container(
+                height: Adapt.px(203),
+                child: MineInfo(),
+              ),
+              // _buildUserInfo(Account.account),
               _buildOrderType(),
               _buildTaskTitle(),
               _buildTaskType(),
@@ -63,7 +78,49 @@ class _MinePageState extends State<MinePage> {
     );
   }
 
+  @override
+  void initState(){
+    // print("initstate");
+    getdata();
+    super.initState();
+  }
+  void getdata(){
+    //log("!!111:getdata-------");
+    // 执行查看全部任务方法
+    Future<Uint8List> back = NetUtils.getJsonBytes(
+        'http://1.117.239.54:8080/user?operation=getMe&index='+Account.account);
+    //     Future<Uint8List> back = NetUtils.getJsonBytes(
+    // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
+    back.then((value) {
+      // print("!!!1111:handlingResult---------");
+      Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
+      // log(result);
+      // log(jsonEncode(result));
+      // log(jsonEncode(result["meta"]["status"]));
+      // log(jsonEncode(result["data"]));
+      // log(jsonEncode(result["data"][0]["username"]));
+      // name=jsonEncode(result["data"][0]["username"]);
+      // image=jsonEncode(result["data"][0]["personimage"]);
+
+      // Iterable list = result["data"];
+      // activeTasks = list.map((model) => TaskModel.fromMap(model)).toList();
+      //重新加载页面
+      setState(() {
+        // print("setstate");
+      });
+    });
+  }
+  handingResult(String value) async {
+    Map<String, dynamic> result = json.decode(value); //结果的map对象
+    if (result["meta"]["status"] == "200") //查看成功
+        {
+          print(result);
+          // name=result["data"]["username"];
+          // image=result["data"]["personimage"];
+    }
+  }
   Widget _buildUserInfo(String userID) {
+    // getdata();
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -81,12 +138,12 @@ class _MinePageState extends State<MinePage> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(left: 16),
-              child: ClipOval(
-                  child:Image(
-                    image: AssetImage('assets/HeadPhoto.png'),
-                    width: 65,
-                  )
-              ),
+              // child: ClipOval(
+              //     child:Image(
+              //       image: AssetImage(image),
+              //       width: 65,
+              //     )
+              // ),
             ),
             Expanded(
               flex: 100,
@@ -97,7 +154,7 @@ class _MinePageState extends State<MinePage> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        "张荣添",
+                        "name",
 
                         ///可加长，会显示点点点
                         overflow: TextOverflow.ellipsis,
@@ -111,7 +168,7 @@ class _MinePageState extends State<MinePage> {
                     ),
                     Container(
                       child: Text(
-                        userID+'   '+autograph,
+                        userID,
 
                         ///可加长，会显示点点点
                         overflow: TextOverflow.ellipsis,

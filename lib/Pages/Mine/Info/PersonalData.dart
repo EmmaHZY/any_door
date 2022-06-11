@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 import '../../../adapt.dart';
+import 'DataInfo.dart';
 import 'Modify.dart';
 
 class PersonalDataPage extends StatefulWidget {
@@ -13,17 +14,6 @@ class PersonalDataPage extends StatefulWidget {
 class _PersonalDataPageState extends State<PersonalDataPage> {
   bool _isFavorited = true;
   int _favoriteCount = 41;
-  String name = "张荣添",
-      sex="男",
-      userID = "1952541",
-      autograph = "干饭人，干饭魂",
-      QQ = "100001",
-      wechat = "ZRT",
-      tel = "137xxxxxxxx",
-      school = "嘉定区",
-      area='上海市嘉定区安亭镇曹安公路4800号同济大学55555555555555';
-  int score = 100;
-  double coin = 100.0;
 
   // void _toggleFavorite() {
   //   // 通过 setState() 更新数据
@@ -52,30 +42,18 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
           ),
           actions: <Widget>[
-            IconButton(onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) =>
-                      ModifyPage(
-                        name: name,
-                        userID: userID,
-                        QQ: QQ,
-                        wechat: wechat,
-                        autograph: autograph,
-                        tel: tel,
-                        area: area,
-                        school: school,
-                      )));
-            },
-              icon: Icon(
-                Icons.edit_outlined,
-              ),),
+
           ],
         ),
         body: Container(
           color: MyColors.mTaskColor,
           child: Column(
             children: <Widget>[
-              DataType(),
+              Container(
+                height: 650,
+                child: DataInfo(),
+              ),
+              //DataType(),
               Expanded(
                   child: Container(
                     color: Colors.white,
@@ -87,113 +65,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
     );
   }
 
-  Widget DataType() {
-    return Container(
-      color: Colors.white,
-      height: 650,
-      child: SingleChildScrollView(//实现页面上下滑动
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-          children: <Widget>[
-            HeadImage(),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("学号          ", userID),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("昵称          ", name),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("性别          ", sex),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("个性签名", autograph),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("金币          ", coin.toString()),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("信誉分      ", score.toString()),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("校区          ", school),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("QQ               ", QQ),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("微信           ", wechat),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("电话          ", tel),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            itemCell("系统id       ", "15936543"),
-
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.grey,
-                height: 1), //分割线
-
-            // itemCell("收货地址", area),
-            //
-            // Container(
-            //     margin: EdgeInsets.only(right: 10, left: 10),
-            //     color: Colors.grey,
-            //     height: 1), //分割线
-
-            blank(),
-            blank(),
-          ],
-        ),
-      )
-    );
-  }
 
   Widget itemCell(String itemTitle, String Content) {
     return Container(

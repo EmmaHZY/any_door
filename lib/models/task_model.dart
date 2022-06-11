@@ -11,7 +11,7 @@ class TaskModel {
   final String taskContent; 
   final String tag; 
   final String taskState; 
-  // final String taskCoin; 
+  final String taskCoin;
   final String username; 
   final String personImage; 
 
@@ -27,7 +27,7 @@ class TaskModel {
         required this.taskContent,
         required this.tag,
         required this.taskState,
-        // required this.taskCoin,
+        required this.taskCoin,
         required this.username,
         required this.personImage,
       });
@@ -50,7 +50,7 @@ class TaskModel {
       taskContent: map['taskContent'],
       tag: map['tag'],
       taskState: map['taskState'],
-      // taskCoin: map['taskCoin'],
+      taskCoin: map['taskCoin'],
       username: map['username'],
       personImage: map['personImage'],
     );

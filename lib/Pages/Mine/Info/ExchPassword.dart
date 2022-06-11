@@ -105,7 +105,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             //TODO 执行修改方法
             if(_password==_verify&&_password!=_old) { //密码相等
               String send="{\"userID\":\""+widget.userID+"\","+"\"passwordOld\":\""+_old+"\","+"\"passwordNew\":\""+_password+"\"}";
-              print(send);
+              //print(send);
               Future<String> back=NetUtils.putJson('http://1.117.249.72:8080/user',send);
               back.then((value) => handingResult(value));
             }
