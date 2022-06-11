@@ -12,8 +12,7 @@ import '../../../account.dart';
 class ModifyPage extends StatefulWidget {
   // const ModifyPage({Key? key, String? name, String? title,id}) : super(key: key);
 
-  String name,userID,autograph,QQ,wechat,tel,school,image;
-  int sex;
+  String name,userID,autograph,QQ,wechat,tel,school,image,sex;
   ModifyPage({
     Key? key,required this.image,required this.sex, required this.name,required this.userID,required this.autograph,required this.school,
     required this.QQ,required this.wechat,required this.tel
@@ -25,8 +24,7 @@ class ModifyPage extends StatefulWidget {
 
 class _ModifyPageState extends State<ModifyPage> {
   late String name1=widget.name,autograph1=widget.autograph,QQ1=widget.QQ,
-      wechat1=widget.wechat,tel1=widget.tel,school1=widget.school,image1=widget.image,sex_label;
-  late int sex1=widget.sex;
+      wechat1=widget.wechat,tel1=widget.tel,school1=widget.school,image1=widget.image,sex1=widget.sex;
   final GlobalKey _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -159,7 +157,7 @@ class _ModifyPageState extends State<ModifyPage> {
                   // back.then((value) => handingResult(value));
                   String send="{\"userID\":\""+Account.account+"\","+"\"personimage\":\""+image1+"\","+"\"personlabel\":\""+autograph1+"\","
                       ""+"\"name\":\""+name1+"\","+"\"place\":\""+school1+"\","+"\"QQ\":\""+QQ1+"\","+"\"wechat\":\""+wechat1+"\","
-                      ""+"\"tel_num\":\""+tel1+"\","+"\"personimage\":\""+SEX2(sex_label)+"\"}";
+                      ""+"\"tel_num\":\""+tel1+"\","+"\"personimage\":\""+sex1+"\"}";
                   log(jsonEncode(send));
                   Future<Uint8List> back = NetUtils.putJsonBytes(
                       'http://1.117.239.54:8080/user?operation=changeMe',send);
@@ -171,16 +169,6 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
-  String SEX1(int data){
-    log(widget.sex.toString());
-    if(data==1)return "男";
-    else return "女";
-  }
-
-  String SEX2(String data){
-    if(data=="男")return "1";
-    else return "0";
-  }
 
   Widget blank() {
     return Container(
@@ -241,8 +229,7 @@ class _ModifyPageState extends State<ModifyPage> {
         )
     );
   }
-  Widget itemCell2(String itemTitle, int data) {
-    String Content=SEX1(data);
+  Widget itemCell2(String itemTitle, String Content) {
     return Container(
         color: Colors.white,
         child: Column(
@@ -266,7 +253,7 @@ class _ModifyPageState extends State<ModifyPage> {
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 child: TextFormField(
-                    onSaved: (v) => sex_label= v!,
+                    onSaved: (v) => sex1= v!,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12,

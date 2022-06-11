@@ -1,54 +1,68 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:typed_data';
+
+import 'package:any_door/account.dart';
+
+import '../../../HttpTools.dart';
+import '../../../models/gift_Model.dart';
+import '../../../models/task_model.dart';
 import 'GiftDetail.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/my_colors.dart';
-import 'package:any_door/res/GiftData.dart';
+import 'package:any_door/res/listData.dart';
 import 'package:flutter/material.dart';
 
 // 礼品列表
-class GiftList extends StatelessWidget {
-  const GiftList({Key? key}) : super(key: key);
+class GiftList extends StatefulWidget {
+  GiftList({Key? key}) : super(key: key);
 
+  @override
+  State<GiftList> createState() => _GiftListState();
+}
+
+class _GiftListState extends State<GiftList> {
+
+  var activeTasks = <GiftModel>[];
   Widget _getListData(context, index) {
     List tagImageList = [
-      "assets/cup.png",
-      "assets/pen.png",
-      "assets/bracelet.png",
-      "assets/headset.png",
+      "assets/run1.png",
+      "assets/study.png",
+      "assets/entertain1.png",
       "assets/else.png",
     ];
     return GestureDetector(
       onTap: (() => {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => GiftDetailPage(
-              index: index,
+              activeTask: activeTasks[index],
             )))
       }),
       child: Card(
         color: Colors.white,
         child: Column(children: <Widget>[
-          // 礼品标签图片
+          // 任务标签图片
           Expanded(
             flex: 4,
             child: AspectRatio(
-              aspectRatio: 14 / 14,
-              child: Image.asset(
-                tagImageList[
-                GiftData[index]["tag"] - 1], //这里应该是tag对应的图片，而不是任务图片
+              aspectRatio: 14 / 9,
+              child: Image.network(
+                activeTasks[index].giftImage,
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // 礼品标签
+          // 任务标签
           Expanded(
             child: Text(
-              GiftData[index]["name"],
+              activeTasks[index].giftName,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: Adapt.px(25)),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          // 库存+价格
+          // 状态+金额
           Expanded(
             child: Container(
               margin: EdgeInsets.all(Adapt.px(15.5)),
@@ -56,22 +70,21 @@ class GiftList extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // 库存
                   Row(
                     children: [
-                      // 库存
+                      // 状态
                       Text("库存：",style: TextStyle(fontSize: Adapt.px(19))),
                       Text(
-                        GiftData[index]["stock"],
+                        activeTasks[index].storage.toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: Adapt.px(19)),
                       ),
                     ],
                   ),
-                  // 价格
+                  // 金额
                   Row(
                     children: [
-                      // 价格
+                      // 金额
                       Container(
                         width: Adapt.px(31),
                         height: Adapt.px(31),
@@ -88,7 +101,7 @@ class GiftList extends StatelessWidget {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${GiftData[index]["price"]}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTasks[index].giftPrice.toString()}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
@@ -102,6 +115,7 @@ class GiftList extends StatelessWidget {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -110,8 +124,38 @@ class GiftList extends StatelessWidget {
         mainAxisSpacing: 5.0,
         crossAxisCount: 2,
       ),
-      itemCount: GiftData.length,
+      itemCount: activeTasks.length,
       itemBuilder: _getListData,
     );
   }
+
+  @override
+  void initState(){
+    // print("initstate");
+    getdata();
+    super.initState();
+  }
+
+  void getdata(){
+    //print("!!111:getdata-------");
+    // 执行查看全部任务方法
+    Future<Uint8List> back = NetUtils.getJsonBytes(
+        'http://1.117.239.54:8080/gift');
+    //     Future<Uint8List> back = NetUtils.getJsonBytes(
+    // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
+    back.then((value) {
+      // print("!!!1111:handlingResult---------");
+      Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
+      // print(result);
+      Iterable list = result["data"];
+      activeTasks = list.map((model) => GiftModel.fromMap(model)).toList();
+      // 重新加载页面
+      //log("hhh");
+      setState(() {
+        // print("setstate");
+      });
+    });
+  }
 }
+
+

@@ -27,7 +27,6 @@ class DataInfo extends StatefulWidget {
 class _DataInfoState extends State<DataInfo> {
   late String autograph="",image="https://img1.baidu.com/it/u=3871105402,2821163553&fm=253&fmt=auto&app=138&f=JPEG?w=300&h=300",
       name="",sex="",QQ = "", wechat = "", tel = "", school = "",level="",place="";
-  late int sex_num=0;
   double coin=0;
   int score=0;
   Widget DataType() {
@@ -164,7 +163,7 @@ class _DataInfoState extends State<DataInfo> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return ModifyPage(image:image,sex:sex_num,name: name, userID: Account.account, autograph: autograph, school: school, QQ: QQ, wechat: wechat, tel: tel);
+                          return ModifyPage(image:image,sex:sex,name: name, userID: Account.account, autograph: autograph, school: school, QQ: QQ, wechat: wechat, tel: tel);
                         },
                       ),
                     );
@@ -285,8 +284,8 @@ class _DataInfoState extends State<DataInfo> {
       // log(jsonEncode(result["data"][0]["username"]));
       name=(result["data"][0]["username"]);
 
-      if(result["data"][0]["sex"]==1){sex="男";sex_num=1;}
-      else if(result["data"][0]["sex"]==0)sex="女";
+      if(result["data"][0]["sex"]==null)sex="无";
+      else sex=(result["data"][0]["sex"]);
 
       if(result["data"][0]["personimage"]!=null)image=(result["data"][0]["personimage"]);
 
