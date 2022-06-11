@@ -11,7 +11,6 @@ import 'dart:convert';
 import '../../../HttpTools.dart';
 import 'package:http/http.dart' as http;
 
-bool visible = false;
 
 // 任务列表
 class TaskList extends StatefulWidget {

@@ -14,14 +14,19 @@ import 'package:flutter/material.dart';
 import '../../SearchAppBar.dart';
 
 // 交易主页
-class DealPage extends StatelessWidget {
+class DealPage extends StatefulWidget {
   const DealPage({Key? key}) : super(key: key);
+  @override
+  State<DealPage> createState() => _DealPageState();
+}
 
+class _DealPageState extends State<DealPage> {
   @override
   Widget build(BuildContext context) {
+    // getdata();
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading : false,//去掉leading位置的返回箭头
+        automaticallyImplyLeading: false, //去掉leading位置的返回箭头
         titleSpacing: 0,
         toolbarHeight: Adapt.padTopH() + Adapt.px(31),
         backgroundColor: MyColors.mDealColor,
@@ -32,6 +37,29 @@ class DealPage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+// class DealPage extends StatelessWidget {
+//   const DealPage({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         automaticallyImplyLeading : false,//去掉leading位置的返回箭头
+//         titleSpacing: 0,
+//         toolbarHeight: Adapt.padTopH() + Adapt.px(31),
+//         backgroundColor: MyColors.mDealColor,
+//         elevation: 0,
+//         title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
+//       ),
+//       body: const DealHome(),
+//     );
+//   }
+// }
 
 class DealHome extends StatelessWidget {
   const DealHome({Key? key}) : super(key: key);
@@ -113,7 +141,7 @@ class DealHome extends StatelessWidget {
                   2 * Adapt.padTopH() -
                   90 -
                   3 * Adapt.padBotH(),
-              child: const DealList(),
+              child: DealList(),
             ),
             // TaskList(),
             // Container(
