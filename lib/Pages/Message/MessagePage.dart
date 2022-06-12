@@ -68,7 +68,8 @@ class _MessagePageState extends State<MessagePage> {
               builder: (context) =>
                   CommunicationPage(
                     activeCommunication: activeCommunication[index],
-                  )))
+                  ))).then((val)=>val?getdata():null)
+
         }),
         child: ListTile(
           leading: CircleAvatar(

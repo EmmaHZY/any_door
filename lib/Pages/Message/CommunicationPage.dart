@@ -40,6 +40,13 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
       appBar: AppBar(
         centerTitle: true, // 标题居中
         title: Text(widget.activeCommunication.userName),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => {
+          Navigator.pop(context,true)
+        },
+        ),
       ),
         body: Column(
           children: <Widget>[
