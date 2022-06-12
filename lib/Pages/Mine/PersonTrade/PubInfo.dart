@@ -1,29 +1,23 @@
 import 'package:any_door/adapt.dart';
-import 'package:any_door/res/listData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/task_model.dart';
+import '../../../models/deal_model.dart';
 
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
 
-class PerTaskInfo extends StatefulWidget {
-  final TaskModel activeTask;
-  PerTaskInfo({Key? key, required this.activeTask}) : super(key: key);
+class PubInfo extends StatefulWidget {
+  final DealModel activeTask;
+  PubInfo({Key? key, required this.activeTask}) : super(key: key);
 
   @override
-  State<PerTaskInfo> createState() => _PerTaskInfoState();
+  State<PubInfo> createState() => _PubInfoState();
 }
 
-class _PerTaskInfoState extends State<PerTaskInfo> {
+class _PubInfoState extends State<PubInfo> {
   @override
   Widget build(BuildContext context) {
-    List tagList = [
-      "跑腿",
-      "学习",
-      "娱乐",
-      "其他",
-    ];
+
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(
@@ -41,7 +35,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
               // 任务标题
               Expanded(
                 child: Text(
-                  widget.activeTask.taskTitle,
+                  widget.activeTask.dealTitle,
                   style: TextStyle(
                     fontSize: Adapt.px(30.5),
                     fontWeight: FontWeight.bold,
@@ -70,7 +64,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
               SizedBox(
                 width: Adapt.px(21),
               ),
-              Text("${widget.activeTask.price}"),
+              Text("${widget.activeTask.dealCoin}"),
               SizedBox(
                 width: Adapt.px(21),
               ),
@@ -81,7 +75,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           ),
           // 任务状态
           Text(
-            '任务状态：'+widget.activeTask.taskState,
+            '交易状态：'+widget.activeTask.dealState,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -91,7 +85,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           ),
           // 任务内容
           Text(
-            widget.activeTask.taskContent,
+            widget.activeTask.dealContent,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -103,7 +97,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           AspectRatio(
             aspectRatio: 14 / 9,
             child: Image.network(
-              widget.activeTask.taskImage,
+              widget.activeTask.dealImage,
               fit: BoxFit.cover,
             ),
           ),

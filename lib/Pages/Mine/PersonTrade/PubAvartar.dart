@@ -1,21 +1,21 @@
+import 'package:any_door/account.dart';
 import 'package:any_door/res/listData.dart';
 import 'package:flutter/material.dart';
 
-import '../../../account.dart';
-import '../../../models/task_model.dart';
+import '../../../models/deal_model.dart';
 import '../Other/OtherPage.dart';
 
 // 头像+用户名+发布时间
 
-class PerTaskAvatar extends StatefulWidget {
-  final TaskModel activeTask;
-  PerTaskAvatar({Key? key, required this.activeTask}) : super(key: key);
+class PubAvatar extends StatefulWidget {
+  final DealModel activeTask;
+  PubAvatar({Key? key, required this.activeTask}) : super(key: key);
 
   @override
-  State<PerTaskAvatar> createState() => _PerTaskAvatarState();
+  State<PubAvatar> createState() => _PubAvatarState();
 }
 
-class _PerTaskAvatarState extends State<PerTaskAvatar> {
+class _PubAvatarState extends State<PubAvatar> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

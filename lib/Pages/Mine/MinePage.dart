@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:any_door/Pages/Mine/Info/ExchPassword.dart';
-import 'package:any_door/Pages/Mine/OtherPage.dart';
+import 'package:any_door/Pages/Mine/Other/OtherPage.dart';
 import 'package:any_door/account.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 import '../../adapt.dart';
+import 'Auction/PubAuc.dart';
+import 'Auction/TakeAuc.dart';
 import 'Info/PersonalData.dart';
 import 'Gift/MineGift.dart';
 import 'MineInfo.dart';
@@ -20,6 +22,8 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 import '../../account.dart';
+import 'PersonTrade/Acc/Acc.dart';
+import 'PersonTrade/Published.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({Key? key}) : super(key: key);
@@ -81,36 +85,6 @@ class _MinePageState extends State<MinePage> {
     );
   }
 
-  @override
-  void initState(){
-    // print("initstate");
-    getdata();
-    super.initState();
-  }
-  void getdata(){
-    //log("!!111:getdata-------");
-    // 执行查看全部任务方法
-    Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/user?operation=getMe&index='+Account.account);
-    //     Future<Uint8List> back = NetUtils.getJsonBytes(
-    // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
-    back.then((value) {
-      // print("!!!1111:handlingResult---------");
-      Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
-      setState(() {
-        // print("setstate");
-      });
-    });
-  }
-  handingResult(String value) async {
-    Map<String, dynamic> result = json.decode(value); //结果的map对象
-    if (result["meta"]["status"] == "200") //查看成功
-        {
-          print(result);
-          // name=result["data"]["username"];
-          // image=result["data"]["personimage"];
-    }
-  }
   Widget _buildUserInfo(String userID) {
     // getdata();
     return Container(
@@ -207,7 +181,6 @@ class _MinePageState extends State<MinePage> {
       ),
     );
   }
-
 
   Widget _buildOrderType() {
     return Container(
@@ -533,7 +506,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const PublishedPage();
+                      },
+                    ),
+                  );
+                },
                   splashColor: Colors.white24,
                   icon: Icon(Icons.local_mall_outlined,
                     color: Colors.deepPurpleAccent,),),
@@ -551,7 +533,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const AccPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.local_mall_outlined,
                       color: Colors.redAccent,)),
@@ -569,7 +560,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const PubAucPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.gavel_outlined,
                       color: Colors.brown,)),
@@ -587,7 +587,16 @@ class _MinePageState extends State<MinePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(onPressed: () {},
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const TakeAucPage();
+                      },
+                    ),
+                  );
+                },
                     splashColor: Colors.white24,
                     icon: Icon(Icons.gavel_outlined,
                       color: Colors.orange,)),

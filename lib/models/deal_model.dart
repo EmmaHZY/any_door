@@ -11,7 +11,7 @@ class DealModel {
   final String dealContent; 
   final String tag; 
   final String dealState; 
-  final String dealCoin; 
+  final int dealCoin;
   final String username; 
   final String personImage; 
 
@@ -50,8 +50,8 @@ class DealModel {
       dealContent: map['dealContent'],
       tag: map['tag'],
       dealState: map['dealState'],
-      dealCoin: map['dealCoin'],
-      username: map['username'],
+      dealCoin: map['dealPrice'],
+      username: map['userName'],
       personImage: map['personImage'],
     );
   }

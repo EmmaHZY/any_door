@@ -1,4 +1,4 @@
-import 'package:any_door/Pages/Mine/OtherPage.dart';
+import 'package:any_door/Pages/Mine/Other/OtherPage.dart';
 import 'package:any_door/models/task_model.dart';
 import 'package:flutter/material.dart';
 

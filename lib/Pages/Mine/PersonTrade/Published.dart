@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
 import '../../../adapt.dart';
-import 'GiftList.dart';
+import 'PubList.dart';
 
-class MineGiftPage extends StatefulWidget {
-  const MineGiftPage({Key? key}) : super(key: key);
+class PublishedPage extends StatefulWidget {
+  const PublishedPage({Key? key}) : super(key: key);
 
   @override
-  _MineGiftPageState createState() => _MineGiftPageState();
+  _PublishedPageState createState() => _PublishedPageState();
 }
 
-class _MineGiftPageState extends State<MineGiftPage> {
+class _PublishedPageState extends State<PublishedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
-          centerTitle: true,
-          backgroundColor: MyColors.mTaskColor,
-          title: Text(
-            "礼品专区",
-            style: TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-
+      appBar: AppBar(
+        //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
+        centerTitle: true,
+        backgroundColor: MyColors.mTaskColor,
+        title: Text(
+          "已发布交易",
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        body: const GiftHome(),
+
+      ),
+      body: const Home(),
     );
   }
 
@@ -72,8 +72,8 @@ class _MineGiftPageState extends State<MineGiftPage> {
   }
 }
 
-class GiftHome extends StatelessWidget {
-  const GiftHome({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,6 @@ class GiftHome extends StatelessWidget {
       children: [
         Column(
           children: <Widget>[
-
             SizedBox(
               height: Adapt.px(30),
               child: Container(
@@ -107,7 +106,6 @@ class GiftHome extends StatelessWidget {
                       // ),
                       GestureDetector(
                         onTap: () {
-                          // 跳到全部礼品
                         },
                         child: Container(
                           padding: EdgeInsets.only(
@@ -126,16 +124,16 @@ class GiftHome extends StatelessWidget {
               ),
             ),
 
-            // 礼品列表
+            // 任务列表
             Container(
               height: 600,
-                  // Adapt.screenH() -
-                  // 2 * Adapt.px(62) -
-                  // Adapt.px(186) -
-                  // 2 * Adapt.padTopH() -
-                  // 90 -
-                  // 3 * Adapt.padBotH(),
-              child: GiftList(),
+              // Adapt.screenH() -
+              // 2 * Adapt.px(62) -
+              // Adapt.px(186) -
+              // 2 * Adapt.padTopH() -
+              // 90 -
+              // 3 * Adapt.padBotH(),
+              child: PubList(),
             ),
             // TaskList(),
             // Container(

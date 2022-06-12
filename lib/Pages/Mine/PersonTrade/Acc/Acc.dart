@@ -1,75 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
-import '../../../adapt.dart';
-import 'GiftList.dart';
+import '../../../../adapt.dart';
+import 'AccList.dart';
 
-class MineGiftPage extends StatefulWidget {
-  const MineGiftPage({Key? key}) : super(key: key);
+class AccPage extends StatefulWidget {
+  const AccPage({Key? key}) : super(key: key);
 
   @override
-  _MineGiftPageState createState() => _MineGiftPageState();
+  _AccPageState createState() => _AccPageState();
 }
 
-class _MineGiftPageState extends State<MineGiftPage> {
+class _AccPageState extends State<AccPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
-          centerTitle: true,
-          backgroundColor: MyColors.mTaskColor,
-          title: Text(
-            "礼品专区",
-            style: TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-
+      appBar: AppBar(
+        //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
+        centerTitle: true,
+        backgroundColor: MyColors.mTaskColor,
+        title: Text(
+          "已参与交易",
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        body: const GiftHome(),
+
+      ),
+      body: const GiftHome(),
     );
   }
 
 
-  Widget itemCell(String itemTitle, String Content) {
-    return Container(
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Container(
-                height: 50,
-                margin: EdgeInsets.only(right: 10, left: 10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(itemTitle,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          // fontWeight: FontWeight.w400)
-                        ),),
-
-                      SizedBox(width: 15,),
-
-                      Text(Content,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          // fontWeight: FontWeight.w400)
-                        ),),
-                    ]
-                )
-            )
-          ],
-        )
-    );
-  }
-
-  Widget blank() {
-    return Container(
-      color: Colors.white,
-      height: 20,
-    );
-  }
 }
 
 class GiftHome extends StatelessWidget {
@@ -107,7 +67,6 @@ class GiftHome extends StatelessWidget {
                       // ),
                       GestureDetector(
                         onTap: () {
-                          // 跳到全部礼品
                         },
                         child: Container(
                           padding: EdgeInsets.only(
@@ -126,16 +85,16 @@ class GiftHome extends StatelessWidget {
               ),
             ),
 
-            // 礼品列表
+            // 任务列表
             Container(
               height: 600,
-                  // Adapt.screenH() -
-                  // 2 * Adapt.px(62) -
-                  // Adapt.px(186) -
-                  // 2 * Adapt.padTopH() -
-                  // 90 -
-                  // 3 * Adapt.padBotH(),
-              child: GiftList(),
+              // Adapt.screenH() -
+              // 2 * Adapt.px(62) -
+              // Adapt.px(186) -
+              // 2 * Adapt.padTopH() -
+              // 90 -
+              // 3 * Adapt.padBotH(),
+              child: AccList(),
             ),
             // TaskList(),
             // Container(

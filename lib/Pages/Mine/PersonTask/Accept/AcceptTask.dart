@@ -103,7 +103,7 @@ class _AccpetTaskState extends State<AccpetTask> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTask[index].taskCoin}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTask[index].price}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
@@ -151,7 +151,11 @@ class _AccpetTaskState extends State<AccpetTask> {
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
       // print(result);
       Iterable list = result["data"];
+      // log(jsonEncode(result["data"][0]["price"]));
+      // log(jsonEncode(list));
       activeTask = list.map((model) => TaskModel.fromMap(model)).toList();
+      //log(jsonEncode(activeTask[0].taskCoin));
+      // log((activeTask[0].price).toString());
       // 重新加载页面
       setState(() {
         // print("setstate");

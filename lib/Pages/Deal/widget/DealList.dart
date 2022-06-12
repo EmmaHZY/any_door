@@ -67,7 +67,7 @@ class _DealListState extends State<DealList> {
                   SizedBox(
                     width: Adapt.px(5.5),
                   ),
-                  Text(activeDeals[index].dealCoin,
+                  Text(activeDeals[index].dealCoin.toString(),
                       style: TextStyle(
                         fontSize: Adapt.px(31),
                         fontWeight: FontWeight.bold,

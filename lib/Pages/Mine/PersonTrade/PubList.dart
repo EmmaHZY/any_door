@@ -1,30 +1,27 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:any_door/account.dart';
 
-import '../../../../HttpTools.dart';
-import '../../../../models/task_model.dart';
-import '../PerTaskDetail.dart';
+import '../../../HttpTools.dart';
+import '../../../models/deal_model.dart';
+import 'PubDetail.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:any_door/res/listData.dart';
 import 'package:flutter/material.dart';
 
-import '../Accept/AcceptDetail.dart';
-
-
-class DoneList extends StatefulWidget {
-  DoneList ({Key? key}) : super(key: key);
+// 礼品列表
+class PubList extends StatefulWidget {
+  PubList({Key? key}) : super(key: key);
 
   @override
-  State<DoneList> createState() => _DoneListState();
+  State<PubList> createState() => _PubListState();
 }
 
-class _DoneListState extends State<DoneList> {
+class _PubListState extends State<PubList> {
 
-  var activeTask = <TaskModel>[];
+  var activeTasks = <DealModel>[];
   Widget _getListData(context, index) {
     List tagImageList = [
       "assets/run1.png",
@@ -35,8 +32,8 @@ class _DoneListState extends State<DoneList> {
     return GestureDetector(
       onTap: (() => {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => AcceptDetailPage(
-              activeTask: activeTask[index],
+            builder: (context) => PubDetailPage(
+              activeTask: activeTasks[index],
             )))
       }),
       child: Card(
@@ -47,9 +44,8 @@ class _DoneListState extends State<DoneList> {
             flex: 4,
             child: AspectRatio(
               aspectRatio: 14 / 9,
-              child: Image.asset(
-                tagImageList[int.parse(activeTask[index].tag) -
-                    1],  //这里应该是tag对应的图片，而不是任务图片
+              child: Image.network(
+                activeTasks[index].dealImage,  //这里应该是tag对应的图片，而不是任务图片
                 fit: BoxFit.cover,
               ),
             ),
@@ -57,7 +53,7 @@ class _DoneListState extends State<DoneList> {
           // 任务标签
           Expanded(
             child: Text(
-              activeTask[index].taskTitle,
+              activeTasks[index].dealTitle,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: Adapt.px(25)),
               maxLines: 1,
@@ -75,9 +71,9 @@ class _DoneListState extends State<DoneList> {
                   Row(
                     children: [
                       // 状态
-                      Text("任务状态：",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("交易状态：",style: TextStyle(fontSize: Adapt.px(19))),
                       Text(
-                        activeTask[index].taskState,
+                        activeTasks[index].dealState,
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: Adapt.px(19)),
                       ),
@@ -103,7 +99,7 @@ class _DoneListState extends State<DoneList> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTask[index].price}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTasks[index].dealCoin}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
@@ -126,7 +122,7 @@ class _DoneListState extends State<DoneList> {
         mainAxisSpacing: 5.0,
         crossAxisCount: 2,
       ),
-      itemCount: activeTask.length,
+      itemCount: activeTasks.length,
       itemBuilder: _getListData,
     );
   }
@@ -141,9 +137,8 @@ class _DoneListState extends State<DoneList> {
   void getdata(){
     //print("!!111:getdata-------");
     // 执行查看全部任务方法
-    //log("hhhhh");
     Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/task?operation=getByReceiverID&index='+Account.account+'&key=');
+        'http://1.117.239.54:8080/trade?operation=getByPublisherID&index='+Account.account+'&key=');
     //     Future<Uint8List> back = NetUtils.getJsonBytes(
     // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
     back.then((value) {
@@ -151,7 +146,7 @@ class _DoneListState extends State<DoneList> {
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
       // print(result);
       Iterable list = result["data"];
-      activeTask = list.map((model) => TaskModel.fromMap(model)).toList();
+      activeTasks = list.map((model) => DealModel.fromMap(model)).toList();
       // 重新加载页面
       setState(() {
         // print("setstate");
