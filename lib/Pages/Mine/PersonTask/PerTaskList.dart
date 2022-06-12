@@ -92,15 +92,15 @@ class _PerTaskListState extends State<PerTaskList> {
                         ),
                         // width: 20,
                         // height: 20,
-                        // child: Image.asset(
-                        //   "assets/coin.png",
-                        //   fit: BoxFit.cover,
-                        // ),
+                        child: Image.asset(
+                          "assets/coin.png",
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTasks[index].price}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("${activeTasks[index].price}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],

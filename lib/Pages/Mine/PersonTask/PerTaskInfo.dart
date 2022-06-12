@@ -130,9 +130,8 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
             ),
           ),
           SizedBox(
-            height: Adapt.px(31),
+            height: Adapt.px(21),
           ),
-
           _Button(),
         ],
       ),
@@ -230,7 +229,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
                       },
                       child: Text("撤销")),//撤销按钮
                   SizedBox(
-                    width: 15,
+                    width: 10,
                   )
                 ],
               ),

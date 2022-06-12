@@ -23,9 +23,16 @@ class ModifyPage extends StatefulWidget {
 }
 
 class _ModifyPageState extends State<ModifyPage> {
-  late String name1=widget.name,autograph1=widget.autograph,QQ1=widget.QQ,
-      wechat1=widget.wechat,tel1=widget.tel,school1=widget.school,image1=widget.image,sex1=widget.sex;
+  late String name1,autograph1,QQ1,wechat1,tel1,school1,image1,sex1;
   final GlobalKey _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController emailController1 = new TextEditingController();
+  TextEditingController emailController2 = new TextEditingController();
+  TextEditingController emailController3 = new TextEditingController();
+  TextEditingController emailController4 = new TextEditingController();
+  TextEditingController emailController5 = new TextEditingController();
+  TextEditingController emailController6 = new TextEditingController();
+  TextEditingController emailController7 = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,18 +156,26 @@ class _ModifyPageState extends State<ModifyPage> {
                         color:Colors.white)
                 ),
                 onPressed: () {
-                  (_formKey.currentState as FormState).save();
+                  // (_formKey.currentState as FormState).save();
                   Map<String,dynamic> result;
                   // //TODO 执行登录方法
                   // //调用工具类与后端交互
                   // Future<String> back=NetUtils.getJson('http://1.117.249.72:8080/user?userID='+_account+'&password='+_password);
                   // back.then((value) => handingResult(value));
-                  String send="{\"userID\":\""+Account.account+"\","+"\"personimage\":\""+image1+"\","+"\"personlabel\":\""+autograph1+"\","
-                      ""+"\"name\":\""+name1+"\","+"\"place\":\""+school1+"\","+"\"QQ\":\""+QQ1+"\","+"\"wechat\":\""+wechat1+"\","
-                      ""+"\"tel_num\":\""+tel1+"\","+"\"personimage\":\""+sex1+"\"}";
-                  log(jsonEncode(send));
-                  Future<Uint8List> back = NetUtils.putJsonBytes(
-                      'http://1.117.239.54:8080/user?operation=changeMe',send);
+                  log(emailController1.text);
+                  log(emailController2.text);
+                  log(emailController3.text);
+                  log(emailController4.text);
+                  log(emailController5.text);
+                  log(emailController6.text);
+                  log(emailController7.text);
+                  // String send="{\"userID\":\""+Account.account+"\","+"\"personimage\":\""+image1+"\","+"\"personlabel\":\""+autograph1+"\","
+                  //     ""+"\"name\":\""+name1+"\","+"\"place\":\""+school1+"\","+"\"QQ\":\""+QQ1+"\","+"\"wechat\":\""+wechat1+"\","
+                  //     ""+"\"tel_num\":\""+tel1+"\","+"\"personimage\":\""+sex1+"\"}";
+                  // log(jsonEncode(send));
+                  // Future<Uint8List> back = NetUtils.putJsonBytes(
+                  //     'http://1.117.239.54:8080/user?operation=changeMe',send);
+                  // back.then((value) => handingResult(value));
                 },
               ),
             ),
@@ -169,6 +184,36 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+  handingResult(String value) async {
+    Map<String, dynamic> result = json.decode(value); //结果的map对象
+    if (result["meta"]["status"] == "202") {//修改成功
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("提示"),
+            content: const Text("修改成功"),
+            actions: [
+              FlatButton(onPressed: () {
+                Navigator.pop(context,true);
+              }, child: const Text("确定")),
+            ],
+          );
+        },
+      );
+    }
+    else { //修改失败
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text("提示"),
+            content: Text("修改失败，请重试"),
+          );
+        },
+      );
+    }
+  }
 
   Widget blank() {
     return Container(
@@ -200,31 +245,20 @@ class _ModifyPageState extends State<ModifyPage> {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
-                child: TextFormField(
-                    onSaved: (v) => name1= v!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                    // obscureText: true, // 是否显示文字
-                    // onSaved: (v) => _password = v!,
+                  child:TextField(
+                    controller: emailController1,//指定controller
+                    obscureText: false,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: Content,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      ///设置内容内边距
-                      contentPadding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 0,
-                      ),
-                    )
-                ),
-              )
+                      hintStyle: TextStyle(color: Colors.grey),),
+                  )
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
             ]
         )
     );
@@ -252,31 +286,20 @@ class _ModifyPageState extends State<ModifyPage> {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
-                child: TextFormField(
-                    onSaved: (v) => sex1= v!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                    // obscureText: true, // 是否显示文字
-                    // onSaved: (v) => _password = v!,
+                  child:TextField(
+                    controller: emailController2,//指定controller
+                    obscureText: false,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: Content,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      ///设置内容内边距
-                      contentPadding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 0,
-                      ),
-                    )
-                ),
-              )
+                      hintStyle: TextStyle(color: Colors.grey),),
+                  )
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
             ]
         )
     );
@@ -304,31 +327,20 @@ class _ModifyPageState extends State<ModifyPage> {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
-                child: TextFormField(
-                    onSaved: (v) => autograph1= v!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                    // obscureText: true, // 是否显示文字
-                    // onSaved: (v) => _password = v!,
+                  child:TextField(
+                    controller: emailController3,//指定controller
+                    obscureText: false,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: Content,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      ///设置内容内边距
-                      contentPadding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 0,
-                      ),
-                    )
-                ),
-              )
+                      hintStyle: TextStyle(color: Colors.grey),),
+                  )
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
             ]
         )
     );
@@ -356,31 +368,20 @@ class _ModifyPageState extends State<ModifyPage> {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
-                child: TextFormField(
-                    onSaved: (v) => school1= v!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                    // obscureText: true, // 是否显示文字
-                    // onSaved: (v) => _password = v!,
+                  child:TextField(
+                    controller: emailController4,//指定controller
+                    obscureText: false,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: Content,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      ///设置内容内边距
-                      contentPadding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 0,
-                      ),
-                    )
-                ),
-              )
+                      hintStyle: TextStyle(color: Colors.grey),),
+                  )
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1),
             ]
         )
     );
@@ -408,31 +409,20 @@ class _ModifyPageState extends State<ModifyPage> {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
-                child: TextFormField(
-                    onSaved: (v) => QQ1= v!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                    // obscureText: true, // 是否显示文字
-                    // onSaved: (v) => _password = v!,
+                  child:TextField(
+                    controller: emailController5,//指定controller
+                    obscureText: false,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: Content,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      ///设置内容内边距
-                      contentPadding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 0,
-                      ),
-                    )
-                ),
-              )
+                      hintStyle: TextStyle(color: Colors.grey),),
+                  )
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1),
             ]
         )
     );
@@ -460,31 +450,20 @@ class _ModifyPageState extends State<ModifyPage> {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
-                child: TextFormField(
-                    onSaved: (v) => wechat1= v!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                    // obscureText: true, // 是否显示文字
-                    // onSaved: (v) => _password = v!,
+                  child:TextField(
+                    controller: emailController6,//指定controller
+                    obscureText: false,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: Content,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      ///设置内容内边距
-                      contentPadding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 0,
-                      ),
-                    )
-                ),
-              )
+                      hintStyle: TextStyle(color: Colors.grey),),
+                  )
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1),
             ]
         )
     );
@@ -512,31 +491,20 @@ class _ModifyPageState extends State<ModifyPage> {
               ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
-                child: TextFormField(
-                    onSaved: (v) => tel1= v!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
-                    // obscureText: true, // 是否显示文字
-                    // onSaved: (v) => _password = v!,
+                  child:TextField(
+                    controller: emailController7,//指定controller
+                    obscureText: false,
+                    textAlign: TextAlign.left,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: Content,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      ///设置内容内边距
-                      contentPadding: const EdgeInsets.only(
-                        top: 0,
-                        bottom: 0,
-                      ),
-                    )
-                ),
-              )
+                      hintStyle: TextStyle(color: Colors.grey),),
+                  )
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1),
             ]
         )
     );
@@ -549,7 +517,7 @@ class _ModifyPageState extends State<ModifyPage> {
           children: <Widget>[
             Container(
                 height: 50,
-                margin: EdgeInsets.only(right: 10, left: 10),
+                margin: EdgeInsets.only(right: 10, left: 10,bottom: 10),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -600,31 +568,28 @@ class _ModifyPageState extends State<ModifyPage> {
   }
 
   void getdata(){
+    if(emailController1.text=='')emailController1.text=widget.name;
+    if(emailController2.text=='')emailController2.text=widget.sex;
+    if(emailController3.text=='')emailController3.text=widget.autograph;
+    if(emailController4.text=='')emailController4.text=widget.school;
+    if(emailController5.text=='')emailController5.text=widget.QQ;
+    if(emailController6.text=='')emailController6.text=widget.wechat;
+    if(emailController7.text=='')emailController7.text=widget.tel;
     //log("!!111:getdata-------");
     // 执行查看全部任务方法
-    Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/user?operation=getMe&index='+Account.account);
+    // Future<Uint8List> back = NetUtils.getJsonBytes(
+    //     'http://1.117.239.54:8080/user?operation=getMe&index='+Account.account);
     //     Future<Uint8List> back = NetUtils.getJsonBytes(
     // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
-    back.then((value) {
-      // print("!!!1111:handlingResult---------");
-      Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
-      // log(result);
-      // log(jsonEncode(result));
-      // log(jsonEncode(result["meta"]["status"]));
-      // log(jsonEncode(result["data"]));
-      // log(jsonEncode(result["data"][0]["username"]));
-
-      // if(result["data"][0]["personlabel"]==null)autograph="无";
-      // else autograph=(result["data"][0]["personlabel"]);
-
-      // log(image);
-      // Iterable list = result["data"];
-      // activeTasks = list.map((model) => TaskModel.fromMap(model)).toList();
-      //重新加载页面
-      setState(() {
-        // print("setstate");
-      });
-    });
+    // back.then((value) {
+    //   // print("!!!1111:handlingResult---------");
+    //   Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
+    //   // log(result);
+    //   // log(jsonEncode(result));
+    //   //重新加载页面
+    //   setState(() {
+    //     // print("setstate");
+    //   });
+    // });
   }
 }
