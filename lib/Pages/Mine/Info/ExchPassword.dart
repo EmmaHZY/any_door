@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:any_door/Pages/Mine/MinePage.dart';
@@ -103,14 +104,14 @@ class _ResetPasswordState extends State<ResetPassword> {
           onPressed: () {
             (_formKey.currentState as FormState).save();
             //TODO 执行修改方法
-            if(_password==_verify&&_password!=_old) { //密码相等
+            if(_password==_verify&&_password!=_old&&_password!="") { //密码相等
               String send="{\"userID\":\""+widget.userID+"\","+"\"passwordOld\":\""+_old+"\","+"\"passwordNew\":\""+_password+"\"}";
               //print(send);
               Future<String> back=NetUtils.putJson('http://1.117.249.72:8080/user',send);
               back.then((value) => handingResult(value));
             }
             else{
-              if(_password==_verify&&_password==_old){
+              if(_password==_verify&&_password==_old&&_password!=""){
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -122,15 +123,29 @@ class _ResetPasswordState extends State<ResetPassword> {
                 );
               }
               else{
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const AlertDialog(
-                      title: Text("提示"),
-                      content: Text("两次新密码不一致，请重新输入"),
-                    );
-                  },
-                );
+                if(_password=="") {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const AlertDialog(
+                        title: Text("提示"),
+                        content: Text("新密码为空，请重新输入"),
+                      );
+                    },
+                  );
+                }
+                  else{
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const AlertDialog(
+                        title: Text("提示"),
+                        content: Text("两次新密码不一致，请重新输入"),
+                      );
+                    },
+                  );
+                }
+
               }
 
             }
