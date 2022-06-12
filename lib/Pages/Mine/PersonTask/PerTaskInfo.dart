@@ -223,11 +223,8 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
                                                 content: const Text("撤销任务成功"),
                                                 actions: [
                                                   FlatButton(onPressed: (() {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(builder: (context){
-                                                          return ReleasedPage();
-                                                        }));
+                                                    Navigator.pop(context,true);
+                                                    Navigator.pop(context,true);
                                                   }), child: const Text("确定"))
                                                 ],
                                               );
@@ -394,11 +391,8 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
                                                   content: const Text("撤销任务成功"),
                                                   actions: [
                                                     FlatButton(onPressed: (() {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(builder: (context){
-                                                            return ReleasedPage();
-                                                          }));
+                                                      Navigator.pop(context,true);
+                                                      Navigator.pop(context,true);
                                                     }), child: const Text("确定"))
                                                   ],
                                                 );
