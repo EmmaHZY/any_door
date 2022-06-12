@@ -19,7 +19,7 @@ class _AccPageState extends State<AccPage> {
         centerTitle: true,
         backgroundColor: MyColors.mTaskColor,
         title: Text(
-          "已参与交易",
+          "已接收交易",
           style: TextStyle(
               color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         ),
