@@ -12,7 +12,10 @@ import 'dart:convert';
 import '../../../HttpTools.dart';
 import 'package:http/http.dart' as http;
 
+import 'Gift/MineGift.dart';
 import 'Info/ExchPassword.dart';
+import 'Info/PersonalData.dart';
+import 'MineWallet.dart';
 
 bool visible = false;
 
@@ -165,6 +168,105 @@ class _MineInfoState extends State<MineInfo> {
     });
   }
 
+  Widget _buildOrderType() {
+    return Container(
+      color: Colors.white,
+      height: 92,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+        children: <Widget>[
+
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const PersonalDataPage();
+                      },
+                    ),
+                  ).then((val) => getdata());
+                },
+                    splashColor: Colors.white24,
+                    icon: Icon(Icons.bar_chart,
+                        size: 25,
+                        color: Color.fromRGBO(10, 202, 149, 100))),
+                Text("资料",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    // fontWeight: FontWeight.w400)
+                  ),)
+              ],
+            ),
+          ),
+
+
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const MineWalletPage();
+                      },
+                    ),
+                  );
+                },
+                    splashColor: Colors.white24,
+                    icon: Icon(Icons.account_balance_wallet,
+                        size: 25,
+                        color: Colors.cyan)),
+                Text("钱包",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    // fontWeight: FontWeight.w400)
+                  ),)
+              ],
+            ),
+          ),
+
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const MineGiftPage();
+                      },
+                    ),
+                  );
+                },
+                    splashColor: Colors.white24,
+                    icon: Icon(Icons.redeem,
+                        size: 25,
+                        color: Color.fromRGBO(255, 80, 36, 100))),
+                Text("礼品",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    // fontWeight: FontWeight.w400)
+                  ),)
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -172,6 +274,7 @@ class _MineInfoState extends State<MineInfo> {
         child: Column(
             children: <Widget>[
               _getMineData(),
+              _buildOrderType(),
             ]
         )
     );

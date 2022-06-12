@@ -12,22 +12,7 @@ class PersonalDataPage extends StatefulWidget {
 }
 
 class _PersonalDataPageState extends State<PersonalDataPage> {
-  bool _isFavorited = true;
-  int _favoriteCount = 41;
 
-  // void _toggleFavorite() {
-  //   // 通过 setState() 更新数据
-  //   // 组件树就会自动刷新了
-  //   setState(() {
-  //     if (_isFavorited) {
-  //       _favoriteCount -= 1;
-  //       _isFavorited = false;
-  //     } else {
-  //       _favoriteCount += 1;
-  //       _isFavorited = true;
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {

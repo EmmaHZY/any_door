@@ -64,11 +64,10 @@ class _MinePageState extends State<MinePage> {
           child: Column(
             children: <Widget>[
               Container(
-                height: Adapt.px(203),
+                height: Adapt.px(394),
                 child: MineInfo(),
               ),
-              // _buildUserInfo(Account.account),
-              _buildOrderType(),
+              //_buildOrderType(),
               _buildTaskTitle(),
               _buildTaskType(),
               _buildTradeTitle(),
@@ -86,102 +85,6 @@ class _MinePageState extends State<MinePage> {
     );
   }
 
-  Widget _buildUserInfo(String userID) {
-    // getdata();
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              //Color.fromRGBO(73, 129, 245, 1),
-              MyColors.mTaskColor,
-              MyColors.mTaskColor,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          )),
-      child: Container(
-        margin: EdgeInsets.only(top: 16, bottom: 16),
-        child: Row(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(left: 16),
-              // child: ClipOval(
-              //     child:Image(
-              //       image: AssetImage(image),
-              //       width: 65,
-              //     )
-              // ),
-            ),
-            Expanded(
-              flex: 100,
-              child: Container(
-                margin: EdgeInsets.only(left: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, //元素左对齐
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        "name",
-
-                        ///可加长，会显示点点点
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          letterSpacing: 1.5, //字体间隔
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        userID,
-
-                        ///可加长，会显示点点点
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          letterSpacing: 2, //字体间隔
-                          height: 2, //行高设置
-                          fontSize: 12,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            Spacer(),
-            Container(
-              margin: EdgeInsets.only(right: 12),
-              child: Column(
-                children: <Widget>[
-                  IconButton(
-                      onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => ExchPasswordPage(userID:userID))).then((data)=>null);
-                        },
-                      splashColor: Colors.greenAccent,
-                      icon: Icon(Icons.settings_outlined,
-                          size: 20,
-                          color: Colors.blueGrey)),//Color.fromRGBO(10, 202, 149, 100)
-                  Text("修改密码",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 10,
-                      // fontWeight: FontWeight.w400)
-                    ),)
-                ],
-              ),
-            )
-
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget _buildOrderType() {
     return Container(
@@ -220,33 +123,6 @@ class _MinePageState extends State<MinePage> {
             ),
           ),
 
-          // Container(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: <Widget>[
-          //       IconButton(onPressed: () {
-          //         Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) {
-          //               return const MineCollectionPage();
-          //             },
-          //           ),
-          //         );
-          //       },
-          //           splashColor: Colors.white24,
-          //           icon: Icon(Icons.grade_outlined,
-          //               size: 25,
-          //               color: Color.fromRGBO(254, 180, 12, 100))),
-          //       Text("收藏",
-          //         style: TextStyle(
-          //           color: Colors.black,
-          //           fontSize: 12,
-          //           // fontWeight: FontWeight.w400)
-          //         ),)
-          //     ],
-          //   ),
-          // ),
 
           Container(
             child: Column(
@@ -307,6 +183,12 @@ class _MinePageState extends State<MinePage> {
         ],
       ),
     );
+  }
+
+  void getdata(){
+      setState(() {
+        // print("setstate");
+      });
   }
 
   Widget _buildTaskTitle() {
