@@ -11,8 +11,8 @@ class DealModel {
   final String dealContent; 
   final String tag; 
   final String dealState; 
-  final int dealCoin;
-  final String username; 
+  final int dealPrice; 
+  final String userName; 
   final String personImage; 
 
   DealModel(
@@ -27,8 +27,8 @@ class DealModel {
         required this.dealContent,
         required this.tag,
         required this.dealState,
-        required this.dealCoin,
-        required this.username,
+        required this.dealPrice,
+        required this.userName,
         required this.personImage,
       });
 
@@ -50,8 +50,8 @@ class DealModel {
       dealContent: map['dealContent'],
       tag: map['tag'],
       dealState: map['dealState'],
-      dealCoin: map['dealPrice'],
-      username: map['userName'],
+      dealPrice: map['dealPrice'],
+      userName: map['userName'],
       personImage: map['personImage'],
     );
   }

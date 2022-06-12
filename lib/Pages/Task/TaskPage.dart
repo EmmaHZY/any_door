@@ -5,14 +5,16 @@
 // 任务页面
 import 'dart:convert';
 
+import 'package:any_door/Pages/Task/TaskAllPage.dart';
 import 'package:any_door/Pages/Task/widget/TaskList.dart';
 import 'package:any_door/Pages/Task/widget/TaskTag.dart';
 import 'package:any_door/adapt.dart';
+import 'package:any_door/image.dart';
 import 'package:any_door/my_colors.dart';
+import 'package:any_door/test.dart';
 import 'package:flutter/material.dart';
 import '../../HttpTools.dart';
-
-import '../../SearchAppBar.dart';
+import 'SearchTaskBar.dart';
 
 // 任务主页
 
@@ -122,6 +124,13 @@ class TaskHome extends StatelessWidget {
       children: [
         Column(
           children: <Widget>[
+            GestureDetector(
+              onTap: (() => {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HeadImageUploadPage()))
+                  }),
+              child: Text("跳转"),
+            ),
             // 分类标签
             SizedBox(
               height: Adapt.px(62),
@@ -154,28 +163,30 @@ class TaskHome extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(Adapt.px(31), 0, 20, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "猜你喜欢",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 94, 92, 92),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // 跳到全部任务
-                        },
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              left: Adapt.px(24.8), right: Adapt.px(24.8)),
-                          child: const Text("更多 >>",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 94, 92, 92),
-                              )),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     // 跳到全部任务
+                      //     Navigator.of(context).push(MaterialPageRoute(
+                      //         builder: (context) => TaskAllPage()));
+                      //   },
+                      //   child: Container(
+                      //     padding: EdgeInsets.only(
+                      //         left: Adapt.px(24.8), right: Adapt.px(24.8)),
+                      //     child: const Text("更多 >>",
+                      //         style: TextStyle(
+                      //           fontWeight: FontWeight.bold,
+                      //           color: Color.fromARGB(255, 94, 92, 92),
+                      //         )),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

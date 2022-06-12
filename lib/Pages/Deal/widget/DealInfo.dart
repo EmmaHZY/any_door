@@ -1,4 +1,5 @@
 import 'package:any_door/adapt.dart';
+import 'package:any_door/models/deal_model.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:any_door/res/dealListData.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +8,8 @@ import 'package:flutter/material.dart';
 // 交易详细信息：标签+标题+物品金额+描述+交易图片+截止时间
 
 class DealInfo extends StatefulWidget {
-  final int index;
-  DealInfo({Key? key, required this.index}) : super(key: key);
+  final DealModel activeDeal;
+  DealInfo({Key? key, required this.activeDeal}) : super(key: key);
 
   @override
   State<DealInfo> createState() => _DealInfoState();
@@ -35,12 +36,12 @@ class _DealInfoState extends State<DealInfo> {
             children: [
               // 交易标签
               Card(
-                child: Text("#" + tagList[listData[widget.index]["tag"] - 1]),
+                child: Text("#" + tagList[int.parse(widget.activeDeal.tag) - 1]),
               ),
               // 交易标题
               Expanded(
                 child: Text(
-                  listData[widget.index]["dealTitle"],
+                  widget.activeDeal.dealTitle,
                   style: TextStyle(
                     fontSize: Adapt.px(30.5),
                     fontWeight: FontWeight.bold,
@@ -66,7 +67,7 @@ class _DealInfoState extends State<DealInfo> {
               SizedBox(
                 width: Adapt.px(18),
               ),
-              Text("${listData[widget.index]["dealPrice"]}",
+              Text("${widget.activeDeal.dealPrice}",
                   style: TextStyle(
                     fontSize: Adapt.px(31),
                     fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class _DealInfoState extends State<DealInfo> {
           ),
           // 交易商品详情
           Text(
-            listData[widget.index]["dealContent"],
+            widget.activeDeal.dealContent,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -94,7 +95,7 @@ class _DealInfoState extends State<DealInfo> {
           AspectRatio(
             aspectRatio: 14 / 9,
             child: Image.network(
-              listData[widget.index]["dealImage"],
+              widget.activeDeal.dealImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -106,7 +107,7 @@ class _DealInfoState extends State<DealInfo> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "截止时间" + listData[widget.index]["deadline"],
+                "截止时间" + widget.activeDeal.deadline,
                 style: const TextStyle(color: Colors.grey),
               ),
             ],

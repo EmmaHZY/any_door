@@ -1,38 +1,99 @@
+// 在模拟器夜神adb.exe下cmd
+//nox_adb.exe connect 127.0.0.1:62001连接虚拟机
+// flutter run --no-sound-null-safety
+
+// 任务页面
+import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:any_door/Pages/Task/TaskDetailPage.dart';
-import 'package:any_door/account.dart';
+import 'package:any_door/Pages/Task/widget/TaskList.dart';
+import 'package:any_door/Pages/Task/widget/TaskTag.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/models/task_model.dart';
 import 'package:any_door/my_colors.dart';
-import 'package:any_door/res/listData.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import '../../../HttpTools.dart';
-import 'package:http/http.dart' as http;
+import '../../HttpTools.dart';
+import 'SearchTaskBar.dart';
+import 'TaskDetailPage.dart';
 
+// 全部任务页面
 
-// 任务列表
-class TaskList extends StatefulWidget {
-  TaskList({Key? key}) : super(key: key);
+class TaskAllPage extends StatefulWidget {
+  TaskAllPage({Key? key}) : super(key: key);
+
   @override
-  State<TaskList> createState() => _TaskListState();
+  State<TaskAllPage> createState() => _TaskAllPageState();
 }
 
-class _TaskListState extends State<TaskList> {
-  // final listData=[];
-  // var _futureBuilderFuture;
-  // @override
-  // void initState() {
-  //   print("initstate");
-  //   _futureBuilderFuture = getdata();
-  //   super.initState();
-  //   // Future.delayed(Duration(milliseconds: 500),(){
-  //   //   setState(() {
-  //   //     visible=true;
-  //   //   });
-  //   // });
-  // }
+class _TaskAllPageState extends State<TaskAllPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        toolbarHeight: Adapt.padTopH() + Adapt.px(31),
+        backgroundColor: MyColors.mTaskColor,
+        elevation: 0,
+        title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
+      ),
+      body: const TaskAllHome(),
+    );
+  }
+}
+
+class TaskAllHome extends StatelessWidget {
+  const TaskAllHome({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Column(
+          children: <Widget>[
+            // 猜你喜欢
+            SizedBox(
+              height: Adapt.px(62),
+              child: Container(
+                color: Colors.white,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(Adapt.px(31), 0, 20, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "全部任务",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 94, 92, 92),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                alignment: Alignment.center,
+              ),
+            ),
+            // 任务列表
+            Container(
+              height: Adapt.screenH() -
+                  2 * Adapt.px(62) -
+                  2 * Adapt.padTopH() - 20,
+              child: TaskAllList(),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class TaskAllList extends StatefulWidget {
+  TaskAllList({Key? key}) : super(key: key);
+  @override
+  State<TaskAllList> createState() => _TaskAllListState();
+}
+
+class _TaskAllListState extends State<TaskAllList> {
 
   var activeTasks = <TaskModel>[];
   Widget _getListData(context, index) {
@@ -97,7 +158,9 @@ class _TaskListState extends State<TaskList> {
 
                       // 用户名
                       Text(
-                        activeTasks[index].publisherID +"   "+ activeTasks[index].username,
+                        activeTasks[index].publisherID +
+                            "   " +
+                            activeTasks[index].username,
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: Adapt.px(19)),
                       ),
@@ -125,7 +188,7 @@ class _TaskListState extends State<TaskList> {
                         width: Adapt.px(15.5),
                       ),
                       // Text("${listData[index]["taskCoin"]}"),
-                      Text("${activeTasks[index].price}")
+                      // Text(activeTasks[index].taskCoin)
                     ],
                   ),
                 ],
@@ -142,7 +205,7 @@ class _TaskListState extends State<TaskList> {
   }
 
   @override
-  void initState(){
+  void initState() {
     // print("initstate");
     getdata();
     super.initState();
@@ -161,25 +224,22 @@ class _TaskListState extends State<TaskList> {
     );
   }
 
-  void getdata(){
+  void getdata() {
     // print("!!111:getdata-------");
     // 执行查看全部任务方法
+
     Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/task?operation=getMainTask&index='+Account.account+'&key=');
-        //     Future<Uint8List> back = NetUtils.getJsonBytes(
-        // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
+        'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
     back.then((value) {
       // print("!!!1111:handlingResult---------");
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
       // print(result);
       Iterable list = result["data"];
       activeTasks = list.map((model) => TaskModel.fromMap(model)).toList();
-      // print(activeTasks[0]);
       // 重新加载页面
       setState(() {
         // print("setstate");
       });
     });
   }
-
 }

@@ -1,3 +1,7 @@
+import 'package:any_door/Pages/Task/EntertainPage.dart';
+import 'package:any_door/Pages/Task/OthersPage.dart';
+import 'package:any_door/Pages/Task/RunPage.dart';
+import 'package:any_door/Pages/Task/StudyPage.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -10,42 +14,70 @@ class TaskTag extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.directions_run, description: "跑腿"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到跑腿页面
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => RunPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.directions_run, description: "跑腿"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.local_library, description: "学习"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到学习页面
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => StudyPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.local_library, description: "学习"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.supervisor_account, description: "娱乐"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到娱乐页面
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => EntertainPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.supervisor_account, description: "娱乐"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.donut_small, description: "其他"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到其他页面
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => OthersPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.donut_small, description: "其他"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),

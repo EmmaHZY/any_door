@@ -11,7 +11,8 @@ import 'package:any_door/adapt.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../SearchAppBar.dart';
+import 'SearchDealBar.dart';
+
 
 // 交易主页
 class DealPage extends StatefulWidget {

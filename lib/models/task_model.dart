@@ -11,7 +11,6 @@ class TaskModel {
   final String taskContent; 
   final String tag; 
   final String taskState; 
-  //final double taskCoin;
   final String username; 
   final String personImage;
   final int price;
@@ -28,10 +27,9 @@ class TaskModel {
         required this.taskContent,
         required this.tag,
         required this.taskState,
-        //required this.taskCoin,
+        required this.price,
         required this.username,
-        required this.personImage,
-        required this.price
+        required this.personImage
       });
 
   static List<TaskModel> fromJson(String json) {
@@ -52,10 +50,9 @@ class TaskModel {
       taskContent: map['taskContent'],
       tag: map['tag'],
       taskState: map['taskState'],
-      //taskCoin: map['taskCoin'],
+      price: map['price'],
       username: map['username'],
       personImage: map['personImage'],
-      price: map['price']
     );
   }
 }

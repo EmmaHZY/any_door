@@ -67,7 +67,8 @@ class _DealListState extends State<DealList> {
                   SizedBox(
                     width: Adapt.px(5.5),
                   ),
-                  Text(activeDeals[index].dealCoin.toString(),
+
+                  Text("${activeDeals[index].dealPrice}",
                       style: TextStyle(
                         fontSize: Adapt.px(31),
                         fontWeight: FontWeight.bold,
@@ -98,7 +99,7 @@ class _DealListState extends State<DealList> {
                     width: Adapt.px(18),
                   ),
                   Text(
-                    activeDeals[index].username,
+                    activeDeals[index].publisherID + "   " + activeDeals[index].userName,
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: Adapt.px(19)),
                   ),
@@ -138,13 +139,13 @@ class _DealListState extends State<DealList> {
     // print("!!111:getdata-------");
     // 执行查看全部任务方法
     Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/deal?operation=getMainDeal&index=' +
+        'http://1.117.239.54:8080/trade?operation=getMainTrade&index=' +
             Account.account +
             '&key=');
     back.then((value) {
       // print("!!!1111:handlingResult---------");
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
-      // print(result);
+      print(result);
       Iterable list = result["data"];
       activeDeals = list.map((model) => DealModel.fromMap(model)).toList();
       // 重新加载页面
@@ -153,6 +154,7 @@ class _DealListState extends State<DealList> {
       });
     });
   }
+
 }
 
 

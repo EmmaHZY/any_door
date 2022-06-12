@@ -1,5 +1,7 @@
+import 'package:any_door/Pages/Task/TaskSearch.dart';
 import 'package:any_door/adapt.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // 搜索栏
 class SearchAppBar extends StatefulWidget {
@@ -84,6 +86,9 @@ class SearchAppBarState extends State<SearchAppBar> {
                         border: InputBorder.none, //去下划线
                       ),
                       maxLines: 1,
+                      inputFormatters:<TextInputFormatter> [
+                        LengthLimitingTextInputFormatter(7)
+                      ],
                     ),
                   ),
                   const Padding(padding: EdgeInsets.only(left: 8)),
@@ -108,6 +113,11 @@ class SearchAppBarState extends State<SearchAppBar> {
           GestureDetector(
             onTap: () {
               // 传递数据给后端
+              print(_textEditingController.text);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => TaskSearch(
+                      content: _textEditingController.text,
+                    )));
             },
             child: Container(
               padding:
@@ -144,3 +154,5 @@ class SearchAppBarState extends State<SearchAppBar> {
     _focusNode.unfocus();
   }
 }
+
+

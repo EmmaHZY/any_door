@@ -41,9 +41,9 @@ class _TaskInfoState extends State<TaskInfo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 任务标签
-              // Card(
-              //   child: Text("#" + tagList[widget.activeTask.tag - 1]),
-              // ),
+              Card(
+                child: Text("#" + tagList[int.parse(widget.activeTask.tag) - 1]),
+              ),
               // 任务标题
               Expanded(
                 child: Text(
@@ -76,7 +76,7 @@ class _TaskInfoState extends State<TaskInfo> {
               SizedBox(
                 width: Adapt.px(21),
               ),
-              // Text("${widget.activeTask.taskCoin}"),
+              Text("${widget.activeTask.price}"),
               SizedBox(
                 width: Adapt.px(21),
               ),

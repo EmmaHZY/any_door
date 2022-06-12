@@ -28,9 +28,9 @@ class _DealDetailPageState extends State<DealDetailPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 头像+用户名+发布时间
-            // DealAvatar(index: widget.index),
+            DealAvatar(activeDeal: widget.activeDeal),
             // 交易信息：商品要求+商品图标+截止时间...
-            // Expanded(child: DealInfo(index: widget.index)),
+            Expanded(child: DealInfo(activeDeal: widget.activeDeal)),
           ],
         ));
   }
