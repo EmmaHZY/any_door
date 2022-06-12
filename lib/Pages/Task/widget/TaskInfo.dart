@@ -166,11 +166,8 @@ class _TaskInfoState extends State<TaskInfo> {
                                           content: const Text("接受任务成功"),
                                           actions: [
                                             FlatButton(onPressed: (() {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context){
-                                                  return TaskPage();
-                                                }));
+                                               Navigator.of(context).pop();
+                                               Navigator.of(context).pop();
                                             }), child: const Text("确定"))
                                           ],
                                         );

@@ -37,10 +37,7 @@ class _TaskSearchState extends State<TaskSearch> {
             Container(
               height: Adapt.screenH() -
                   2 * Adapt.px(62) -
-                  Adapt.px(186) -
-                  2 * Adapt.padTopH() -
-                  90 -
-                  3 * Adapt.padBotH(),
+                  Adapt.px(160) ,
               child: TaskSearchBody(content: widget.content),
             ),
           ],
