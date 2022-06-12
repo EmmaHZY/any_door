@@ -31,7 +31,7 @@ class _PubAvatarState extends State<PubAvatar> {
           leading: CircleAvatar(
               backgroundImage: NetworkImage(widget.activeTask.personImage)),
           title: Text(
-              widget.activeTask.publisherID + "   " + widget.activeTask.username),
+              widget.activeTask.publisherID + "   " + widget.activeTask.userName),
           subtitle: Text("发布于" + widget.activeTask.publishTime),
         )
       // child: Text(widget.imageUrl),
