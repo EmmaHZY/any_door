@@ -1,3 +1,4 @@
+import 'package:any_door/Pages/Publish/publishDeal.dart';
 import 'package:any_door/Pages/Publish/publishTask.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class PublishPage extends StatelessWidget {
                 // 跳转发布交易页面
                 print("跳转发布交易页面"),
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => PublishTaskPage()))
+                    MaterialPageRoute(builder: (context) => PublishDealPage()))
               }),
           child: Container(
             child: ButtonContainer(Icons.gavel,
