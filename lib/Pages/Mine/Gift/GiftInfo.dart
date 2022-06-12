@@ -164,11 +164,8 @@ class _GiftInfoState extends State<GiftInfo> {
                                             content: const Text("兑换礼品成功"),
                                             actions: [
                                               FlatButton(onPressed: (() {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(builder: (context){
-                                                      return MineGiftPage();
-                                                    }));
+                                                Navigator.pop(context,true);
+                                                Navigator.pop(context,true);
                                               }), child: const Text("确定"))
                                             ],
                                           );
