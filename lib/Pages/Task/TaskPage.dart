@@ -9,7 +9,7 @@ import 'package:any_door/Pages/Task/TaskAllPage.dart';
 import 'package:any_door/Pages/Task/widget/TaskList.dart';
 import 'package:any_door/Pages/Task/widget/TaskTag.dart';
 import 'package:any_door/adapt.dart';
-import 'package:any_door/image.dart';
+// import 'package:any_door/image.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:any_door/test.dart';
 import 'package:flutter/material.dart';
@@ -124,13 +124,13 @@ class TaskHome extends StatelessWidget {
       children: [
         Column(
           children: <Widget>[
-            GestureDetector(
-              onTap: (() => {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HeadImageUploadPage()))
-                  }),
-              child: Text("跳转"),
-            ),
+            // GestureDetector(
+            //   onTap: (() => {
+            //         Navigator.of(context).push(
+            //             MaterialPageRoute(builder: (context) => HeadImageUploadPage()))
+            //       }),
+            //   child: Text("跳转"),
+            // ),
             // 分类标签
             SizedBox(
               height: Adapt.px(62),
