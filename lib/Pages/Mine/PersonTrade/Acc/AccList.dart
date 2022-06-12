@@ -97,7 +97,7 @@ class _AccListState extends State<AccList> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTask[index].dealCoin}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTask[index].dealPrice}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],

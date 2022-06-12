@@ -64,7 +64,7 @@ class _PubInfoState extends State<PubInfo> {
               SizedBox(
                 width: Adapt.px(21),
               ),
-              Text("${widget.activeTask.dealCoin}"),
+              Text("${widget.activeTask.dealPrice}"),
               SizedBox(
                 width: Adapt.px(21),
               ),

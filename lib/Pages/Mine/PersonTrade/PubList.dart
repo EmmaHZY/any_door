@@ -99,7 +99,7 @@ class _PubListState extends State<PubList> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTasks[index].dealCoin}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTasks[index].dealPrice}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
