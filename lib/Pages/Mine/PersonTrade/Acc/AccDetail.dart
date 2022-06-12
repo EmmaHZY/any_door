@@ -8,7 +8,7 @@ import '../../../../HttpTools.dart';
 import '../../../../account.dart';
 import '../../../../models/deal_model.dart';
 import '../PubAvartar.dart';
-import '../PubInfo.dart';
+import '../Acc/PubInfo2.dart';
 import 'package:flutter/material.dart';
 
 
@@ -35,7 +35,7 @@ class _AccDetailPageState extends State<AccDetailPage> {
             // 头像+用户名+发布时间
             PubAvatar(activeTrade: widget.activeTrade),
             // 任务信息：任务要求+任务图标+截止时间...
-            Expanded(child: PubInfo(activeTrade: widget.activeTrade)),
+            Expanded(child: PubInfo2(activeTrade: widget.activeTrade)),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

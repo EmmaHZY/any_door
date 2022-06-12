@@ -546,7 +546,7 @@ class _MinePageState extends State<MinePage> {
                     splashColor: Colors.white24,
                     icon: Icon(Icons.local_mall_outlined,
                       color: Colors.redAccent,)),
-                Text("参与交易",
+                Text("接收交易",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 12,

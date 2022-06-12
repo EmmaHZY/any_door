@@ -143,7 +143,7 @@ class _DoneListState extends State<DoneList> {
     // 执行查看全部任务方法
     //log("hhhhh");
     Future<Uint8List> back = NetUtils.getJsonBytes(
-        'http://1.117.239.54:8080/task?operation=getByReceiverID&index='+Account.account+'&key=');
+        'http://1.117.239.54:8080/task?operation=getByTaskState&index='+Account.account+'&key=已完成');
     //     Future<Uint8List> back = NetUtils.getJsonBytes(
     // 'http://1.117.239.54:8080/task?operation=getAll&index=&key=');
     back.then((value) {

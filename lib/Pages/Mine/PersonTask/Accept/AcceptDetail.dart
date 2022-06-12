@@ -4,6 +4,8 @@ import '../PerTaskAvartar.dart';
 import '../PerTaskInfo.dart';
 import 'package:flutter/material.dart';
 
+import '../PerTaskInfo2.dart';
+
 // 任务详情页面
 class AcceptDetailPage extends StatefulWidget {
   final TaskModel activeTask;
@@ -27,7 +29,7 @@ class _AcceptDetailPageState extends State<AcceptDetailPage> {
             // 头像+用户名+发布时间
             PerTaskAvatar(activeTask: widget.activeTask),
             // 任务信息：任务要求+任务图标+截止时间...
-            Expanded(child: PerTaskInfo(activeTask: widget.activeTask)),
+            Expanded(child: PerTaskInfo2(activeTask: widget.activeTask)),
           ],
         ));
   }

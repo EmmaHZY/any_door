@@ -36,14 +36,14 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
           //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
           centerTitle: true,
           backgroundColor: MyColors.mTaskColor,
-          title: Text(
+          title: const Text(
             "个人资料",
             style: TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          actions: <Widget>[
-
-          ],
+          // actions: <Widget>[
+          //
+          // ],
         ),
         body: Container(
           color: MyColors.mTaskColor,
