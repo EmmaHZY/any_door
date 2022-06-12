@@ -590,7 +590,7 @@ class _ModifyPageState extends State<ModifyPage> {
   }
 
   publishTaskFinal(String value) async {
-    log(value);
+    // log(value);
     String send = "{\"userID\":\"" +
         Account.account +
         "\"," +
@@ -626,10 +626,6 @@ class _ModifyPageState extends State<ModifyPage> {
     back.then((res) {
       Map<String, dynamic> result = json.decode(utf8.decode(res)); //结果的map对象
 
-      // log(result["meta"]);
-      // log("aaa");
-    log(result["meta"]["status"]);
-      //result["meta"]["status"] == "202"
       if (result["meta"]["status"] == "202") {
         showCupertinoDialog(
             context: context,
@@ -678,7 +674,7 @@ class _ModifyPageState extends State<ModifyPage> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text("头像  ",
+                      const Text("头像  ",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 12,

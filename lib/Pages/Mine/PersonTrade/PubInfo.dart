@@ -208,11 +208,8 @@ class _PubInfoState extends State<PubInfo> {
                                                     content: const Text("撤销交易成功"),
                                                     actions: [
                                                       FlatButton(onPressed: (() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(builder: (context){
-                                                              return PublishedPage();
-                                                            }));
+                                                        Navigator.pop(context,true);
+                                                        Navigator.pop(context,true);
                                                       }), child: const Text("确定"))
                                                     ],
                                                   );
@@ -305,11 +302,8 @@ class _PubInfoState extends State<PubInfo> {
                                                     content: const Text("撤销交易成功"),
                                                     actions: [
                                                       FlatButton(onPressed: (() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(builder: (context){
-                                                              return PublishedPage();
-                                                            }));
+                                                        Navigator.pop(context,true);
+                                                        Navigator.pop(context,true);
                                                       }), child: const Text("确定"))
                                                     ],
                                                   );
@@ -383,11 +377,8 @@ class _PubInfoState extends State<PubInfo> {
                                                     content: const Text("完成交易成功"),
                                                     actions: [
                                                       FlatButton(onPressed: (() {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(builder: (context){
-                                                              return PublishedPage();
-                                                            }));
+                                                        Navigator.pop(context,true);
+                                                        Navigator.pop(context,true);
                                                       }), child: const Text("确定"))
                                                     ],
                                                   );
