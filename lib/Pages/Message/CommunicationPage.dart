@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:any_door/models/communication_model.dart';
 import 'package:flutter/material.dart';
 import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 
+import '../../HttpTools.dart';
 import '../../account.dart';
+import '../../models/message_model.dart';
 import '../../my_colors.dart';
 
 
@@ -16,10 +21,13 @@ class CommunicationPage extends StatefulWidget {
 
 class _CommunicationPageState extends State<CommunicationPage> implements EMChatManagerListener{
   var textEditingController = TextEditingController();
-  var messageList = <Message>[];
+  var messageList = <MessageModel>[];
+  String toSomebody="0000000";//发消息的对象
+
 
   @override
-  void initState() {//启用环信，注册事件监听器
+  void initState() {//初始化聊天界面（历史记录显示），并启用环信，注册事件监听器
+    getdata();
     super.initState();
     EMClient.getInstance.startCallback();
     EMClient.getInstance.chatManager.addChatManagerListener(this);
@@ -37,7 +45,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
             Flexible(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    if (messageList[index].username == '我') {
+                    if (messageList[index].senderID == Account.account) {
                       return buildRightItem(messageList[index].content);
                     } else {
                       return buildLeftItem(messageList[index].content);
@@ -49,6 +57,24 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
             buildMessage()
           ],
         ));
+  }
+
+
+  //与后端交互，获取数据
+  void getdata() {
+    widget.activeCommunication.userID==Account.account?toSomebody=widget.activeCommunication.friend:toSomebody=widget.activeCommunication.userID;//辨别谁是自己谁是对方
+    Future<Uint8List> back = NetUtils.getJsonBytes('http://1.117.239.54:8080/message?senderID='+Account.account+'&receiverID='+toSomebody);
+    back.then((value) {
+      Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
+      // print(result);
+      Iterable list = result["data"];
+      messageList =
+          list.map((model) => MessageModel.fromMap(model)).toList();
+      // 重新加载页面
+      setState(() {
+        // print("setstate");
+      });
+    });
   }
 
   //消息发送框布局
@@ -65,15 +91,6 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
               bottomLeft: Radius.circular(20)
           ),
         ),
-          // prefixIcon: IconButton(
-          //   icon: const Icon(
-          //     Icons.insert_photo_outlined,
-          //     color:MyColors.mPrimaryColor,
-          //   ),
-          //   onPressed: () {
-          //     print("我是图片按钮");
-          //   },
-          // )
       ),
       onSubmitted: sendMessage,
     );
@@ -126,15 +143,16 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
 
   //发送消息
   sendMessage(String text) {
-    String toSomebody="0000000";//发消息的对象
     if (text.isEmpty) return;
-    //username表示聊天对象，由上一个界面传入
-    widget.activeCommunication.userID==Account.account?toSomebody=widget.activeCommunication.friend:toSomebody=widget.activeCommunication.userID;//辨别谁是自己谁是对方
+    //username表示聊天对象，由上一个界面传入，存在toSomebody里
     EMMessage message = EMMessage.createTxtSendMessage(username:toSomebody, content: text);//消息构建，发给谁发什么
     EMClient.getInstance.chatManager.sendMessage(message);//把消息发到第三方平台
-    print(text);
+    String send="{\"senderID\":\""+Account.account+"\","+"\"receiverID\":\""+toSomebody+"\","+"\"content\":\""+text+"\"}";
+    Future<String> back=NetUtils.postJson('http://1.117.239.54:8080/message',send);
+    back.then((value) => print(value));
+    //print(text);
     setState(() {//重新执行页面的build函数，在消息列表中增加
-      messageList.add(Message("我", text));
+      messageList.add(MessageModel(senderID:Account.account,receiverID:toSomebody,content:text));
     });
     textEditingController.clear();
   }
@@ -238,7 +256,8 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
   void onMessagesReceived(List<EMMessage> messages) {//当接收到消息时自动调用的函数，重新构建页面，把消息加入消息列表
     for(var item in messages){
       setState(() {
-        messageList.add(Message("小Q",item.toJson()["body"]["content"].toString()));
+        // messageList.add(Message("小Q",item.toJson()["body"]["content"].toString()));
+        messageList.add(MessageModel(senderID:toSomebody,receiverID:Account.account,content:item.toJson()["body"]["content"].toString()));
       });
     }
   }
