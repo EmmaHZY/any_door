@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:any_door/Pages/Message/MessagePage.dart';
 import 'package:any_door/models/communication_model.dart';
 import 'package:flutter/material.dart';
 import 'package:im_flutter_sdk/im_flutter_sdk.dart';
@@ -72,7 +73,7 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
           list.map((model) => MessageModel.fromMap(model)).toList();
       // 重新加载页面
       setState(() {
-        // print("setstate");
+        //print("setstate");
       });
     });
   }
@@ -165,8 +166,8 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start, //对齐方式，左上对齐
         children: <Widget>[
-          const CircleAvatar(
-              backgroundImage: NetworkImage("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-1186626d03951712212bfdf449132934_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654617191&t=44685cb2d28c271a83481479e9bcd2c4")),
+          CircleAvatar(
+              backgroundImage: NetworkImage(widget.activeCommunication.personImage)),
           Flexible(
               child: Container(
                 margin: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
@@ -210,8 +211,8 @@ class _CommunicationPageState extends State<CommunicationPage> implements EMChat
                   BorderRadius.only(bottomRight: Radius.circular(10.0)),
                 ),
               )),
-          const CircleAvatar(
-              backgroundImage: NetworkImage("https://img0.baidu.com/it/u=129884950,1165288552&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500")),
+          CircleAvatar(
+              backgroundImage: NetworkImage(Account.image)),
         ],
 
       ),

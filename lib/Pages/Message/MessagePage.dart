@@ -52,7 +52,7 @@ class _MessagePageState extends State<MessagePage> {
           list.map((model) => CommunicationModel.fromMap(model)).toList();
       // 重新加载页面
       setState(() {
-        // print("setstate");
+        //print("setstate");
       });
     });
   }
