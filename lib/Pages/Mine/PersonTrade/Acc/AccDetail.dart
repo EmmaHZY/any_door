@@ -14,10 +14,10 @@ import 'package:flutter/material.dart';
 
 // 任务详情页面
 class AccDetailPage extends StatefulWidget {
-  final DealModel activeTask;
+  final DealModel activeTrade;
   AccDetailPage({
     Key? key,
-    required this.activeTask,
+    required this.activeTrade,
   }) : super(key: key);
 
   @override
@@ -33,9 +33,9 @@ class _AccDetailPageState extends State<AccDetailPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 头像+用户名+发布时间
-            PubAvatar(activeTask: widget.activeTask),
+            PubAvatar(activeTrade: widget.activeTrade),
             // 任务信息：任务要求+任务图标+截止时间...
-            Expanded(child: PubInfo(activeTask: widget.activeTask)),
+            Expanded(child: PubInfo(activeTrade: widget.activeTrade)),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

@@ -21,7 +21,7 @@ class PubList extends StatefulWidget {
 
 class _PubListState extends State<PubList> {
 
-  var activeTasks = <DealModel>[];
+  var activeTrade = <DealModel>[];
   Widget _getListData(context, index) {
     List tagImageList = [
       "assets/run1.png",
@@ -33,7 +33,7 @@ class _PubListState extends State<PubList> {
       onTap: (() => {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PubDetailPage(
-              activeTask: activeTasks[index],
+              activeTrade: activeTrade[index],
             )))
       }),
       child: Card(
@@ -45,7 +45,7 @@ class _PubListState extends State<PubList> {
             child: AspectRatio(
               aspectRatio: 14 / 9,
               child: Image.network(
-                activeTasks[index].dealImage,  //这里应该是tag对应的图片，而不是任务图片
+                activeTrade[index].dealImage,  //这里应该是tag对应的图片，而不是任务图片
                 fit: BoxFit.cover,
               ),
             ),
@@ -53,7 +53,7 @@ class _PubListState extends State<PubList> {
           // 任务标签
           Expanded(
             child: Text(
-              activeTasks[index].dealTitle,
+              activeTrade[index].dealTitle,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: Adapt.px(25)),
               maxLines: 1,
@@ -73,7 +73,7 @@ class _PubListState extends State<PubList> {
                       // 状态
                       Text("交易状态：",style: TextStyle(fontSize: Adapt.px(19))),
                       Text(
-                        activeTasks[index].dealState,
+                        activeTrade[index].dealState,
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: Adapt.px(19)),
                       ),
@@ -99,7 +99,7 @@ class _PubListState extends State<PubList> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTasks[index].dealPrice}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTrade[index].dealPrice}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
@@ -122,7 +122,7 @@ class _PubListState extends State<PubList> {
         mainAxisSpacing: 5.0,
         crossAxisCount: 2,
       ),
-      itemCount: activeTasks.length,
+      itemCount: activeTrade.length,
       itemBuilder: _getListData,
     );
   }
@@ -146,7 +146,7 @@ class _PubListState extends State<PubList> {
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
       // print(result);
       Iterable list = result["data"];
-      activeTasks = list.map((model) => DealModel.fromMap(model)).toList();
+      activeTrade = list.map((model) => DealModel.fromMap(model)).toList();
       // 重新加载页面
       setState(() {
         // print("setstate");

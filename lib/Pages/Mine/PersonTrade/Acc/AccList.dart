@@ -24,14 +24,14 @@ class AccList extends StatefulWidget {
 
 class _AccListState extends State<AccList> {
 
-  var activeTask = <DealModel>[];
+  var activeTrade = <DealModel>[];
   Widget _getListData(context, index) {
 
     return GestureDetector(
       onTap: (() => {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => AccDetailPage(
-              activeTask: activeTask[index],
+              activeTrade: activeTrade[index],
             )))
       }),
       child: Card(
@@ -43,7 +43,7 @@ class _AccListState extends State<AccList> {
             child: AspectRatio(
               aspectRatio: 14 / 9,
               child: Image.network(
-                activeTask[index].dealImage,  //这里应该是tag对应的图片，而不是任务图片
+                activeTrade[index].dealImage,  //这里应该是tag对应的图片，而不是任务图片
                 fit: BoxFit.cover,
               ),
             ),
@@ -51,7 +51,7 @@ class _AccListState extends State<AccList> {
           // 任务标签
           Expanded(
             child: Text(
-              activeTask[index].dealTitle,
+              activeTrade[index].dealTitle,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: Adapt.px(25)),
               maxLines: 1,
@@ -71,7 +71,7 @@ class _AccListState extends State<AccList> {
                       // 状态
                       Text("交易状态：",style: TextStyle(fontSize: Adapt.px(19))),
                       Text(
-                        activeTask[index].dealState,
+                        activeTrade[index].dealState,
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: Adapt.px(19)),
                       ),
@@ -97,7 +97,7 @@ class _AccListState extends State<AccList> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTask[index].dealPrice}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeTrade[index].dealPrice}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
@@ -120,7 +120,7 @@ class _AccListState extends State<AccList> {
         mainAxisSpacing: 5.0,
         crossAxisCount: 2,
       ),
-      itemCount: activeTask.length,
+      itemCount: activeTrade.length,
       itemBuilder: _getListData,
     );
   }
@@ -147,7 +147,7 @@ class _AccListState extends State<AccList> {
       Iterable list = result["data"];
       // log(jsonEncode(result["data"][0]["price"]));
       // log(jsonEncode(list));
-      activeTask = list.map((model) => DealModel.fromMap(model)).toList();
+      activeTrade = list.map((model) => DealModel.fromMap(model)).toList();
       //log(jsonEncode(activeTask[0].taskCoin));
       // log((activeTask[0].price).toString());
       // 重新加载页面

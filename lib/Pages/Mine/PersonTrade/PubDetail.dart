@@ -15,10 +15,10 @@ import 'Published.dart';
 
 // 任务详情页面
 class PubDetailPage extends StatefulWidget {
-  final DealModel activeTask;
+  final DealModel activeTrade;
   PubDetailPage({
     Key? key,
-    required this.activeTask,
+    required this.activeTrade,
   }) : super(key: key);
 
   @override
@@ -34,9 +34,9 @@ class _PubDetailPageState extends State<PubDetailPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 头像+用户名+发布时间
-            PubAvatar(activeTask: widget.activeTask),
+            PubAvatar(activeTrade: widget.activeTrade),
             // 任务信息：任务要求+任务图标+截止时间...
-            Expanded(child: PubInfo(activeTask: widget.activeTask)),
+            Expanded(child: PubInfo(activeTrade: widget.activeTrade)),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -62,7 +62,7 @@ class _PubDetailPageState extends State<PubDetailPage> {
                                 onPressed: () {
                                   // 接受任务接口
                                   Navigator.of(context).pop();
-                                  String send = "{\"tradeID\":\"" + widget.activeTask.dealID.toString()+ "\"}";
+                                  String send = "{\"tradeID\":\"" + widget.activeTrade.dealID.toString()+ "\"}";
                                   print(send);
                                   Future<Uint8List> back = NetUtils.putJsonBytes(
                                       'http://1.117.239.54:8080/trade?operation=cancel',

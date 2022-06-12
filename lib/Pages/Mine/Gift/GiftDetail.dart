@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 // 礼品详情页面
 class GiftDetailPage extends StatefulWidget {
-  final GiftModel activeTask;
+  final GiftModel activeGift;
   GiftDetailPage({
     Key? key,
-    required this.activeTask,
+    required this.activeGift,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class _GiftDetailPageState extends State<GiftDetailPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 礼品信息：礼品要求+礼品图标+截止时间...
-            Expanded(child: GiftInfo(activeTask: widget.activeTask)),
+            Expanded(child: GiftInfo(activeGift: widget.activeGift)),
           ],
         ));
   }

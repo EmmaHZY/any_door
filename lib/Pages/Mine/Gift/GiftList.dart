@@ -23,19 +23,13 @@ class GiftList extends StatefulWidget {
 
 class _GiftListState extends State<GiftList> {
 
-  var activeTasks = <GiftModel>[];
+  var activeGift = <GiftModel>[];
   Widget _getListData(context, index) {
-    List tagImageList = [
-      "assets/run1.png",
-      "assets/study.png",
-      "assets/entertain1.png",
-      "assets/else.png",
-    ];
     return GestureDetector(
       onTap: (() => {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => GiftDetailPage(
-              activeTask: activeTasks[index],
+              activeGift: activeGift[index],
             )))
       }),
       child: Card(
@@ -47,7 +41,7 @@ class _GiftListState extends State<GiftList> {
             child: AspectRatio(
               aspectRatio: 14 / 9,
               child: Image.network(
-                activeTasks[index].giftImage,
+                activeGift[index].giftImage,
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,7 +49,7 @@ class _GiftListState extends State<GiftList> {
           // 任务标签
           Expanded(
             child: Text(
-              activeTasks[index].giftName,
+              activeGift[index].giftName,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: Adapt.px(25)),
               maxLines: 1,
@@ -75,7 +69,7 @@ class _GiftListState extends State<GiftList> {
                       // 状态
                       Text("库存：",style: TextStyle(fontSize: Adapt.px(19))),
                       Text(
-                        activeTasks[index].storage.toString(),
+                        activeGift[index].storage.toString(),
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: Adapt.px(19)),
                       ),
@@ -101,7 +95,7 @@ class _GiftListState extends State<GiftList> {
                       SizedBox(
                         width: Adapt.px(15.5),
                       ),
-                      Text("￥ "+"${activeTasks[index].giftPrice.toString()}",style: TextStyle(fontSize: Adapt.px(19))),
+                      Text("￥ "+"${activeGift[index].giftPrice.toString()}",style: TextStyle(fontSize: Adapt.px(19))),
                     ],
                   ),
                 ],
@@ -124,7 +118,7 @@ class _GiftListState extends State<GiftList> {
         mainAxisSpacing: 5.0,
         crossAxisCount: 2,
       ),
-      itemCount: activeTasks.length,
+      itemCount: activeGift.length,
       itemBuilder: _getListData,
     );
   }
@@ -148,7 +142,7 @@ class _GiftListState extends State<GiftList> {
       Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
       // print(result);
       Iterable list = result["data"];
-      activeTasks = list.map((model) => GiftModel.fromMap(model)).toList();
+      activeGift = list.map((model) => GiftModel.fromMap(model)).toList();
       // 重新加载页面
       //log("hhh");
       setState(() {

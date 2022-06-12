@@ -8,8 +8,8 @@ import '../Other/OtherPage.dart';
 // 头像+用户名+发布时间
 
 class PubAvatar extends StatefulWidget {
-  final DealModel activeTask;
-  PubAvatar({Key? key, required this.activeTask}) : super(key: key);
+  final DealModel activeTrade;
+  PubAvatar({Key? key, required this.activeTrade}) : super(key: key);
 
   @override
   State<PubAvatar> createState() => _PubAvatarState();
@@ -22,17 +22,17 @@ class _PubAvatarState extends State<PubAvatar> {
         onTap: (() => {
           // 跳转
           // print("跳转啦"),
-          if(widget.activeTask.publisherID!=Account.account)
+          if(widget.activeTrade.publisherID!=Account.account)
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
-                  OtherPage(userID: widget.activeTask.publisherID)))
+                  OtherPage(userID: widget.activeTrade.publisherID)))
         }),
         child: ListTile(
           leading: CircleAvatar(
-              backgroundImage: NetworkImage(widget.activeTask.personImage)),
+              backgroundImage: NetworkImage(widget.activeTrade.personImage)),
           title: Text(
-              widget.activeTask.publisherID + "   " + widget.activeTask.userName),
-          subtitle: Text("发布于" + widget.activeTask.publishTime),
+              widget.activeTrade.publisherID + "   " + widget.activeTrade.userName),
+          subtitle: Text("发布于" + widget.activeTrade.publishTime),
         )
       // child: Text(widget.imageUrl),
     );

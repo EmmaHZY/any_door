@@ -7,8 +7,8 @@ import '../../../models/deal_model.dart';
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
 
 class PubInfo extends StatefulWidget {
-  final DealModel activeTask;
-  PubInfo({Key? key, required this.activeTask}) : super(key: key);
+  final DealModel activeTrade;
+  PubInfo({Key? key, required this.activeTrade}) : super(key: key);
 
   @override
   State<PubInfo> createState() => _PubInfoState();
@@ -35,7 +35,7 @@ class _PubInfoState extends State<PubInfo> {
               // 任务标题
               Expanded(
                 child: Text(
-                  widget.activeTask.dealTitle,
+                  widget.activeTrade.dealTitle,
                   style: TextStyle(
                     fontSize: Adapt.px(30.5),
                     fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class _PubInfoState extends State<PubInfo> {
               SizedBox(
                 width: Adapt.px(21),
               ),
-              Text("${widget.activeTask.dealPrice}"),
+              Text("${widget.activeTrade.dealPrice}"),
               SizedBox(
                 width: Adapt.px(21),
               ),
@@ -75,7 +75,7 @@ class _PubInfoState extends State<PubInfo> {
           ),
           // 任务状态
           Text(
-            '交易状态：'+widget.activeTask.dealState,
+            '交易状态：'+widget.activeTrade.dealState,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -85,7 +85,7 @@ class _PubInfoState extends State<PubInfo> {
           ),
           // 任务内容
           Text(
-            widget.activeTask.dealContent,
+            widget.activeTrade.dealContent,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -97,7 +97,7 @@ class _PubInfoState extends State<PubInfo> {
           AspectRatio(
             aspectRatio: 14 / 9,
             child: Image.network(
-              widget.activeTask.dealImage,
+              widget.activeTrade.dealImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -109,7 +109,7 @@ class _PubInfoState extends State<PubInfo> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "截止时间" + widget.activeTask.deadline,
+                "截止时间" + widget.activeTrade.deadline,
                 style: const TextStyle(color: Colors.grey),
               ),
             ],
@@ -118,7 +118,7 @@ class _PubInfoState extends State<PubInfo> {
             height: Adapt.px(31),
           ),
           Text(
-            '接取者ID：'+widget.activeTask.receiverID,
+            '接取者ID：'+widget.activeTrade.receiverID,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),

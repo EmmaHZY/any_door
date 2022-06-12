@@ -14,8 +14,8 @@ import 'MineGift.dart';
 // 礼品详细信息：名称+库存+价格+描述+礼品图片+截止时间
 
 class GiftInfo extends StatefulWidget {
-  final GiftModel activeTask;
-  GiftInfo({Key? key, required this.activeTask}) : super(key: key);
+  final GiftModel activeGift;
+  GiftInfo({Key? key, required this.activeGift}) : super(key: key);
 
   @override
   State<GiftInfo> createState() => _GiftInfoState();
@@ -37,7 +37,7 @@ class _GiftInfoState extends State<GiftInfo> {
               // 礼品名称
               Expanded(
                 child: Text(
-                  widget.activeTask.giftName,
+                  widget.activeGift.giftName,
                   style: TextStyle(
                     fontSize: Adapt.px(30.5),
                     fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class _GiftInfoState extends State<GiftInfo> {
             children: [
               // 库存
                 Text(
-                  "库存："+widget.activeTask.storage.toString(),
+                  "库存："+widget.activeGift.storage.toString(),
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: Adapt.px(21)),
               ),
@@ -79,7 +79,7 @@ class _GiftInfoState extends State<GiftInfo> {
               SizedBox(
                 width: Adapt.px(21),
               ),
-              Text("${widget.activeTask.giftPrice.toString()}"),
+              Text("${widget.activeGift.giftPrice.toString()}"),
               SizedBox(
                 width: Adapt.px(21),
               ),
@@ -90,7 +90,7 @@ class _GiftInfoState extends State<GiftInfo> {
           ),
           // 礼品描述
           Text(
-            widget.activeTask.giftIntroduction,
+            widget.activeGift.giftIntroduction,
             style: TextStyle(
               fontSize: Adapt.px(25.5),
             ),
@@ -102,7 +102,7 @@ class _GiftInfoState extends State<GiftInfo> {
           AspectRatio(
             aspectRatio: 14 / 14,
             child: Image.network(
-              widget.activeTask.giftImage,
+              widget.activeGift.giftImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -114,7 +114,7 @@ class _GiftInfoState extends State<GiftInfo> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "截止时间" + widget.activeTask.downTime,
+                "截止时间" + widget.activeGift.downTime,
                 style: const TextStyle(color: Colors.grey),
               ),
             ],
@@ -149,7 +149,7 @@ class _GiftInfoState extends State<GiftInfo> {
                                 String send = "";
                                 print(send);
                                 Future<Uint8List> back = NetUtils.putJsonBytes(
-                                    'http://1.117.239.54:8080/gift?giftID='+widget.activeTask.giftID.toString()+'&userID='+Account.account,
+                                    'http://1.117.239.54:8080/gift?giftID='+widget.activeGift.giftID.toString()+'&userID='+Account.account,
                                     send);
                                 back.then((value){
                                   Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
