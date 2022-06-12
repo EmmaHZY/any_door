@@ -1,3 +1,7 @@
+import 'package:any_door/Pages/Deal/BookPage.dart';
+import 'package:any_door/Pages/Deal/DailyPage.dart';
+import 'package:any_door/Pages/Deal/FoodPage.dart';
+import 'package:any_door/Pages/Deal/OthersPage.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -10,42 +14,70 @@ class DealTag extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.local_mall, description: "日用"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到页面
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DailyPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.local_mall, description: "日用"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.book, description: "书籍"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到页面
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => BookPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.book, description: "书籍"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.restaurant, description: "饮食"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到页面
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => FoodPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.restaurant, description: "饮食"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),
         Expanded(
-          child: Container(
-            child: TagContainer(Icons.donut_small, description: "其他"),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromRGBO(250, 250, 250, 1),
-                    width: Adapt.px(1.55))),
+          child: GestureDetector(
+            onTap: (() => {
+                  // 跳转到页面
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => OthersPage()))
+                }),
+            child: Container(
+              child: TagContainer(Icons.donut_small, description: "其他"),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromRGBO(250, 250, 250, 1),
+                      width: Adapt.px(1.55))),
+            ),
           ),
           flex: 1,
         ),

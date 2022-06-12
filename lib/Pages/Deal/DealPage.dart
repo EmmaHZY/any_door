@@ -39,29 +39,6 @@ class _DealPageState extends State<DealPage> {
   }
 }
 
-
-
-
-
-// class DealPage extends StatelessWidget {
-//   const DealPage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         automaticallyImplyLeading : false,//去掉leading位置的返回箭头
-//         titleSpacing: 0,
-//         toolbarHeight: Adapt.padTopH() + Adapt.px(31),
-//         backgroundColor: MyColors.mDealColor,
-//         elevation: 0,
-//         title: const SearchAppBar(hintLabel: "请输入要搜索的内容"),
-//       ),
-//       body: const DealHome(),
-//     );
-//   }
-// }
-
 class DealHome extends StatelessWidget {
   const DealHome({Key? key}) : super(key: key);
 
@@ -105,26 +82,12 @@ class DealHome extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(Adapt.px(31), 0, 20, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "闲置好物",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 94, 92, 92),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // 跳到全部交易
-                        },
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              left: Adapt.px(24.8), right: Adapt.px(24.8)),
-                          child: const Text("更多 >>",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 94, 92, 92),
-                              )),
                         ),
                       ),
                     ],

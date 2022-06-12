@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:any_door/HttpTools.dart';
+import 'package:any_door/Pages/Deal/DealPage.dart';
+import 'package:any_door/account.dart';
 import 'package:any_door/adapt.dart';
 import 'package:any_door/models/deal_model.dart';
 import 'package:any_door/my_colors.dart';
@@ -121,28 +127,87 @@ class _DealInfoState extends State<DealInfo> {
                 style: ElevatedButton.styleFrom(
                   primary: MyColors.mDealColor
                 ),
-                onPressed: () {
-                  var dialog = CupertinoAlertDialog(
-                    content:
-                        Text("确定购买？", style: TextStyle(fontSize: Adapt.px(31))),
-                    actions: <Widget>[
-                      CupertinoButton(
-                          child: Text("取消"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
-                      CupertinoButton(
-                          child: Text("确定"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          })
-                    ],
-                  );
-                  showDialog(context: context, builder: (_) => dialog);
-                },
-                child: Text("购买")),
+                  onPressed: () {
+                    showCupertinoDialog(
+                      //点击空白处取消
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (context) {
+                        return CupertinoAlertDialog(
+                          title: Text("提示"),
+                          content: Text("确定接取此交易？"),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: Text("取消"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text("确定"),
+                              onPressed: () {
+                                // 接取交易接口
+                                Navigator.of(context).pop();
+                                String send = "{\"tradeID\":\"" +
+                                    widget.activeDeal.dealID.toString() +
+                                    "\"," +
+                                    "\"receiverID\":\"" +
+                                    Account.account +
+                                    "\"}";
+                                print(send);
+                                Future<Uint8List> back = NetUtils.putJsonBytes(
+                                    'http://1.117.239.54:8080/trade?operation=accept',
+                                    send);
+                                back.then((value){
+                                  Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
+                                  print(result);
+                                  if(result["meta"]["status"] == "202")
+                                  {
+                                    showCupertinoDialog(
+                                      context: context, 
+                                      builder: (BuildContext context){
+                                        return CupertinoAlertDialog(
+                                          title: const Text("提示"),
+                                          content: const Text("接取交易成功"),
+                                          actions: [
+                                            FlatButton(onPressed: (() {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context){
+                                                  return const DealPage();
+                                                }));
+                                            }), child: const Text("确定"))
+                                          ],
+                                        );
+                                      });
+                                  }
+                                  else{
+                                    showCupertinoDialog(
+                                      context: context, 
+                                      builder: (BuildContext context){
+                                        return CupertinoAlertDialog(
+                                          title: const Text("提示"),
+                                          content: const Text("接取交易失败，请重试"),
+                                          actions: [
+                                            FlatButton(onPressed: (() {
+                                               Navigator.of(context).pop();
+                                            }), child: const Text("确定"))
+                                          ],
+                                        );
+                                      });
+                                  }
+                                });
+
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text("接取")),
             ],
-          ),
+          )
         ],
       ),
     );
