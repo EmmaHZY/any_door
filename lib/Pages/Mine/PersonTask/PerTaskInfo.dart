@@ -283,6 +283,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
                 height: Adapt.px(31),
               ),
               Container(
+                // alignment: Alignment.center,
                   margin: EdgeInsets.only(left: 25),
                   child: Row(
                     children: [

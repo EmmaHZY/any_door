@@ -576,7 +576,6 @@ class _ModifyPageState extends State<ModifyPage> {
           onPressed: () {
             // print(_part);
             if(_image!=null) {
-              log("aaaa");
               Future<String> back = NetUtils.postFile(_image!.path);
               back.then((value) => publishTaskFinal(value));
             }
