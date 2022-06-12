@@ -171,11 +171,8 @@ class _DealInfoState extends State<DealInfo> {
                                           content: const Text("接取交易成功"),
                                           actions: [
                                             FlatButton(onPressed: (() {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context){
-                                                  return const DealPage();
-                                                }));
+                                              Navigator.pop(context,true);
+                                              Navigator.pop(context,true);
                                             }), child: const Text("确定"))
                                           ],
                                         );

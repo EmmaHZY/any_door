@@ -166,8 +166,8 @@ class _TaskInfoState extends State<TaskInfo> {
                                           content: const Text("接受任务成功"),
                                           actions: [
                                             FlatButton(onPressed: (() {
-                                               Navigator.of(context).pop();
-                                               Navigator.of(context).pop();
+                                              Navigator.pop(context,true);
+                                              Navigator.pop(context,true);
                                             }), child: const Text("确定"))
                                           ],
                                         );

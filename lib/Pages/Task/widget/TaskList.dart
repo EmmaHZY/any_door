@@ -48,7 +48,7 @@ class _TaskListState extends State<TaskList> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => TaskDetailPage(
                       activeTask: activeTasks[index],
-                    )))
+                    ))).then((val)=>val?getdata():null)
           }),
       child: Card(
         color: MyColors.mTaskColorLight,

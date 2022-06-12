@@ -25,7 +25,7 @@ class _DealListState extends State<DealList> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => DealDetailPage(
                       activeDeal: activeDeals[index],
-                    )))
+                    ))).then((val)=>val?getdata():null)
           }),
       child: Card(
         color: MyColors.mDealColorLight,
