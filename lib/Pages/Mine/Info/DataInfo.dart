@@ -166,7 +166,7 @@ class _DataInfoState extends State<DataInfo> {
                           return ModifyPage(image:image,sex:sex,name: name, userID: Account.account, autograph: autograph, school: school, QQ: QQ, wechat: wechat, tel: tel);
                         },
                       ),
-                    );
+                    ).then((val) => getdata());
                   },
                 ),
               ),
@@ -314,7 +314,6 @@ class _DataInfoState extends State<DataInfo> {
       // activeTasks = list.map((model) => TaskModel.fromMap(model)).toList();
       //重新加载页面
       setState(() {
-        // print("setstate");
       });
     });
   }
