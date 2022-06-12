@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:any_door/adapt.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../../../HttpTools.dart';
 import '../../../account.dart';
 import '../../../models/task_model.dart';
+import '../../../my_colors.dart';
 import 'Released.dart';
 
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
@@ -22,10 +24,12 @@ class PerTaskInfo extends StatefulWidget {
 }
 
 class _PerTaskInfoState extends State<PerTaskInfo> {
+  int _part = 0;//记录tag的选择
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10),
+    child: SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,6 +139,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           _Button(),
         ],
       ),
+     )
     );
   }
 
@@ -243,6 +248,77 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
         // color: Colors.white,
         child: Column(
             children: <Widget>[
+              Text(
+                '请为本次任务接受者评分',
+                style: TextStyle(
+                  fontSize: Adapt.px(25.5),
+                ),
+              ),
+              SizedBox(
+                height: Adapt.px(31),
+              ),
+              Container(
+                  margin: EdgeInsets.only(left: 25),
+                  child: Row(
+                    children: [
+                      Radio(
+                          value: 1,
+                          groupValue: _part,
+                          activeColor: MyColors.mPrimaryColor,
+                          onChanged: (value) {
+                            debugPrint(value.toString());
+                            setState(() {
+                              _part = 1;
+                            });
+                          }),
+                      const Text("1"),
+                      Radio(
+                          value: 2,
+                          groupValue: _part,
+                          activeColor: MyColors.mPrimaryColor,
+                          onChanged: (value) {
+                            debugPrint(value.toString());
+                            setState(() {
+                              _part = 2;
+                            });
+                          }),
+                      const Text("2"),
+                      Radio(
+                          value: 3,
+                          groupValue: _part,
+                          activeColor: MyColors.mPrimaryColor,
+                          onChanged: (value) {
+                            debugPrint(value.toString());
+                            setState(() {
+                              _part = 3;
+                            });
+                          }),
+                      const Text("3"),
+                      Radio(
+                          value: 4,
+                          groupValue: _part,
+                          activeColor: MyColors.mPrimaryColor,
+                          onChanged: (value) {
+                            debugPrint(value.toString());
+                            setState(() {
+                              _part = 4;
+                            });
+                          }),
+                      const Text("4"),
+                      Radio(
+                          value: 5,
+                          groupValue: _part,
+                          activeColor: MyColors.mPrimaryColor,
+                          onChanged: (value) {
+                            debugPrint(value.toString());
+                            setState(() {
+                              _part = 5;
+                            });
+                          }),
+                      const Text("5"),
+                    ],
+                  )
+              ),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -332,6 +408,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
                     ),
                     ElevatedButton(
                         onPressed: () {
+                          log(_part.toString());
                           showCupertinoDialog(
                             //点击空白处取消
                             barrierDismissible: true,
@@ -350,57 +427,75 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
                                   CupertinoDialogAction(
                                     child: Text("确定"),
                                     onPressed: () {
-                                      // 接受任务接口
-                                      Navigator.of(context).pop();
-                                      String send = "{\"taskID\":\"" +
-                                          widget.activeTask.taskID.toString() +
-                                          "\"," +
-                                          "\"publisherID\":\"" +
-                                          Account.account +
-                                          "\"}";
-                                      print(send);
-                                      Future<Uint8List> back = NetUtils.putJsonBytes(
-                                          'http://1.117.239.54:8080/task?operation=cancel',
-                                          send);
-                                      back.then((value){
-                                        Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
-                                        print(result);
-                                        if(result["meta"]["status"] == "202")
-                                        {
-                                          showCupertinoDialog(
-                                              context: context,
-                                              builder: (BuildContext context){
-                                                return CupertinoAlertDialog(
-                                                  title: const Text("提示"),
-                                                  content: const Text("完成任务成功"),
-                                                  actions: [
-                                                    FlatButton(onPressed: (() {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(builder: (context){
-                                                            return ReleasedPage();
-                                                          }));
-                                                    }), child: const Text("确定"))
-                                                  ],
-                                                );
-                                              });
-                                        }
-                                        else{
-                                          showCupertinoDialog(
-                                              context: context,
-                                              builder: (BuildContext context){
-                                                return CupertinoAlertDialog(
-                                                  title: const Text("提示"),
-                                                  content: const Text("完成任务失败，请重试"),
-                                                  actions: [
-                                                    FlatButton(onPressed: (() {
-                                                      Navigator.of(context).pop();
-                                                    }), child: const Text("确定"))
-                                                  ],
-                                                );
-                                              });
-                                        }
-                                      });
+                                      // 完成任务接口
+                                      if(_part==0){
+                                        showCupertinoDialog(
+                                            context: context,
+                                            builder: (BuildContext context){
+                                              return CupertinoAlertDialog(
+                                                title: const Text("提示"),
+                                                content: const Text("请完成评分"),
+                                                actions: [
+                                                  FlatButton(onPressed: (() {
+                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context).pop();
+                                                  }), child: const Text("确定"))
+                                                ],
+                                              );
+                                            });
+                                      }
+                                      else {
+                                        Navigator.of(context).pop();
+                                        String send = "{\"taskID\":\"" +
+                                            widget.activeTask.taskID.toString() +
+                                            "\"," +
+                                            "\"score\":\"" +
+                                            _part.toString() +
+                                            "\"}";
+                                        Future<Uint8List> back = NetUtils.putJsonBytes(
+                                            'http://1.117.239.54:8080/task?operation=finish',
+                                            send);
+                                        back.then((value){
+                                          Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
+                                          print(result);
+                                          if(result["meta"]["status"] == "202")
+                                          {
+                                            showCupertinoDialog(
+                                                context: context,
+                                                builder: (BuildContext context){
+                                                  return CupertinoAlertDialog(
+                                                    title: const Text("提示"),
+                                                    content: const Text("完成任务成功"),
+                                                    actions: [
+                                                      FlatButton(onPressed: (() {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(builder: (context){
+                                                              return ReleasedPage();
+                                                            }));
+                                                      }), child: const Text("确定"))
+                                                    ],
+                                                  );
+                                                });
+                                          }
+                                          else{
+                                            showCupertinoDialog(
+                                                context: context,
+                                                builder: (BuildContext context){
+                                                  return CupertinoAlertDialog(
+                                                    title: const Text("提示"),
+                                                    content: const Text("完成任务失败，请重试"),
+                                                    actions: [
+                                                      FlatButton(onPressed: (() {
+                                                        Navigator.of(context).pop();
+                                                      }), child: const Text("确定"))
+                                                    ],
+                                                  );
+                                                });
+                                          }
+                                        });
+                                      }
+
 
                                     },
                                   ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:any_door/Pages/Home/BottomTabBar.dart';
 import 'package:flutter/material.dart';
@@ -100,6 +101,12 @@ class _LoginPageState extends State<LoginPage> {
         debugPrint("error code: ${e.code}, desc: ${e.description}");
       }
       Account.account = _account; //账号赋值，用于传参
+      Future<Uint8List> back1 = NetUtils.getJsonBytes(
+          'http://1.117.239.54:8080/user?operation=getMe&index='+Account.account);
+      back1.then((value1) {
+        Map<String, dynamic> result1 = json.decode(utf8.decode(value1)); //结果的map对象
+        Account.image=(result1["data"][0]["personimage"]);
+      });
       Navigator.push(
         context,
         MaterialPageRoute(
