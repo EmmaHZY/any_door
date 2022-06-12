@@ -11,6 +11,7 @@ import '../../../HttpTools.dart';
 import '../../../account.dart';
 import '../../../models/task_model.dart';
 import '../../../my_colors.dart';
+import '../Other/OtherPage.dart';
 import 'Released.dart';
 
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
@@ -27,6 +28,12 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
   int _part = 0;//记录tag的选择
   @override
   Widget build(BuildContext context) {
+    List tagList = [
+      "跑腿",
+      "学习",
+      "娱乐",
+      "其他",
+    ];
     return Padding(
       padding: EdgeInsets.all(10),
     child: SingleChildScrollView(
@@ -39,9 +46,9 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 任务标签
-              // Card(
-              //   child: Text("#" + widget.activeTask.tag - 1]),
-              // ),
+              Card(
+                child: Text("#" + tagList[int.parse(widget.activeTask.tag) - 1]),
+              ),
               // 任务标题
               Expanded(
                 child: Text(
@@ -127,12 +134,30 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
           SizedBox(
             height: Adapt.px(31),
           ),
-          Text(
-            '接取者ID：'+widget.activeTask.receiverID,
-            style: TextStyle(
-              fontSize: Adapt.px(25.5),
+          Container(
+            child: Row(
+              children: [
+                TextButton(
+                  child: Text(
+                      "接取者ID："+ widget.activeTask.receiverID,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () {
+                    if(widget.activeTask.receiverID!=Account.account&&widget.activeTask.receiverID!='暂无接收者')
+                      Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                      OtherPage(userID: widget.activeTask.receiverID)));
+                  },
+                ),
+              ],
             ),
           ),
+          // Text(
+          //   '接取者ID：'+widget.activeTask.receiverID,
+          //   style: TextStyle(
+          //     fontSize: Adapt.px(25.5),
+          //   ),
+          // ),
           SizedBox(
             height: Adapt.px(21),
           ),
@@ -457,7 +482,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
                                             send);
                                         back.then((value){
                                           Map<String, dynamic> result = json.decode(utf8.decode(value)); //结果的map对象
-                                          print(result);
+
                                           if(result["meta"]["status"] == "202")
                                           {
                                             showCupertinoDialog(

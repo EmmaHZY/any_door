@@ -27,6 +27,7 @@ class _PerTaskAvatarState extends State<PerTaskAvatar> {
               builder: (context) =>
                   OtherPage(userID: widget.activeTask.publisherID)))
         }),
+    child: Container(
         child: ListTile(
           leading: CircleAvatar(
               backgroundImage: NetworkImage(widget.activeTask.personImage)),
@@ -34,6 +35,7 @@ class _PerTaskAvatarState extends State<PerTaskAvatar> {
               widget.activeTask.publisherID + "   " + widget.activeTask.username),
           subtitle: Text("发布于" + widget.activeTask.publishTime),
         )
+    )
       // child: Text(widget.imageUrl),
     );
   }

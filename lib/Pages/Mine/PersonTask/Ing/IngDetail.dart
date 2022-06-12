@@ -37,7 +37,8 @@ class _IngDetailPageState extends State<IngDetailPage> {
             // 头像+用户名+发布时间
             PerTaskAvatar(activeTask: widget.activeTask),
             // 任务信息：任务要求+任务图标+截止时间...
-            Expanded(child: PerTaskInfo2(activeTask: widget.activeTask)),
+            // Expanded(child: PerTaskInfo2(activeTask: widget.activeTask)),
+            judge(),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.end,
             //   children: [
@@ -131,6 +132,11 @@ class _IngDetailPageState extends State<IngDetailPage> {
             // )
           ],
         ));
+  }
+
+  Widget judge(){
+    if(widget.activeTask.publisherID==Account.account)return Expanded(child: PerTaskInfo(activeTask: widget.activeTask));
+    else return Expanded(child: PerTaskInfo2(activeTask: widget.activeTask));
   }
 }
 

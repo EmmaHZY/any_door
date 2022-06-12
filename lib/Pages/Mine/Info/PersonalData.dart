@@ -32,6 +32,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,//防止键盘溢出
         appBar: AppBar(
           //automaticallyImplyLeading: false,//去掉leading位置的返回箭头
           centerTitle: true,

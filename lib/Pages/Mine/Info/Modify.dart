@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:any_door/my_colors.dart';
+import 'package:date_format/date_format.dart';
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../HttpTools.dart';
 import '../../../account.dart';
 
@@ -23,7 +27,7 @@ class ModifyPage extends StatefulWidget {
 }
 
 class _ModifyPageState extends State<ModifyPage> {
-  late String name1,autograph1,QQ1,wechat1,tel1,school1,image1,sex1;
+  late String name1,autograph1,QQ1,wechat1,tel1,school1,image1=widget.image,sex1;
   final GlobalKey _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController emailController1 = new TextEditingController();
@@ -53,7 +57,8 @@ class _ModifyPageState extends State<ModifyPage> {
           child: Column(
             children: <Widget>[
               DataEdit(),
-              SaveButton(),
+              buildPublishButton(), //修改按钮
+              // SaveButton(),
               Expanded(
                   child: Container(
                     color: Colors.white,
@@ -73,7 +78,24 @@ class _ModifyPageState extends State<ModifyPage> {
           child: Column(
             children: <Widget>[
               blank(),
-              HeadImage(),
+              Container(
+                child: Row(
+                  children: [
+                    HeadImage(),
+                    Spacer(),
+                    buildPhoto(),
+                    Container(
+                      width: 10,
+                    )
+                  ],
+                ),
+              ),
+              // HeadImage(),
+              // buildPhoto(), //图片上传函数
+              Container(
+                  margin: EdgeInsets.only(right: 10, left: 10),
+                  color: Colors.grey,
+                  height: 1), //分割线
               // blank(),
               // itemCell("学号", widget.userID),
               blank(),
@@ -510,6 +532,142 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+  //图片函数
+  File? _image;
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  Widget Img() {
+    // print(_image);
+    if (_image == null) {
+      return Text('上传头像  ');
+    } else {
+      return Image.file(_image!,width: 60);
+    }
+  }
+
+
+
+  Widget buildPhoto() {
+    return InkWell(
+      child: Row(children: [
+        Img(),
+        Container(
+          width: 5,
+        ),
+        ElevatedButton(onPressed: getImage, child: Icon(Icons.add_a_photo))
+      ]),
+    );
+  }
+
+  //确认修改的按钮
+  Widget buildPublishButton() {
+    return Align(
+      child: SizedBox(
+        height: 45,
+        width: 270,
+        child: ElevatedButton(
+          child: const Text('确认修改',
+              style: TextStyle(fontSize: 20, color: Colors.white)),
+          onPressed: () {
+            // print(_part);
+            if(_image!=null) {
+              log("aaaa");
+              Future<String> back = NetUtils.postFile(_image!.path);
+              back.then((value) => publishTaskFinal(value));
+            }
+            else {
+              publishTaskFinal(image1);
+             // log(image1);
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  publishTaskFinal(String value) async {
+    log(value);
+    String send = "{\"userID\":\"" +
+        Account.account +
+        "\"," +
+        "\"personlabel\":\"" +
+        emailController3.text.toString() +
+        "\"," +
+        "\"personimage\":\"" +
+        value +
+        "\"," +
+        "\"name\":\"" +
+        emailController1.text.toString() +
+        "\"," +
+        "\"Place\":\"" +
+        emailController4.text.toString() +
+        "\"," +
+        "\"QQ\":\"" +
+        emailController5.text.toString() +
+        "\"," +
+        "\"weChat\":\"" +
+        emailController6.text.toString() +
+        "\"," +
+        "\"tel_num\":\"" +
+        emailController7.text.toString() +
+        "\"," +
+        "\"sex\":\"" +
+        emailController2.text.toString() +
+        "\"}";
+    // print(send);
+
+    Future<Uint8List> back = NetUtils.putJsonBytes(
+        'http://1.117.239.54:8080/user?operation=changeMe', send);
+
+    back.then((res) {
+      Map<String, dynamic> result = json.decode(utf8.decode(res)); //结果的map对象
+
+      // log(result["meta"]);
+      // log("aaa");
+    log(result["meta"]["status"]);
+      //result["meta"]["status"] == "202"
+      if (result["meta"]["status"] == "202") {
+        showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: const Text("提示"),
+                content: const Text("修改资料成功"),
+                actions: [
+                  FlatButton(
+                      onPressed: (() {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      }),
+                      child: const Text("确定"))
+                ],
+              );
+            });
+      } else {
+        showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: const Text("提示"),
+                content: const Text("修改资料失败，请重试"),
+                actions: [
+                  FlatButton(
+                      onPressed: (() {
+                        Navigator.of(context).pop();
+                      }),
+                      child: const Text("确定"))
+                ],
+              );
+            });
+      }
+    });
+  }
+
   Widget HeadImage() {
     return Container(
         color: Colors.white,
@@ -534,27 +692,23 @@ class _ModifyPageState extends State<ModifyPage> {
                         margin: EdgeInsets.only(left: 16),
                         child: ClipOval(
                           child:Image.network(
-                            widget.image,
+                            image1,
                             width: 50,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
 
-                      Spacer(),
+                      // Spacer(),
 
-                      IconButton(onPressed: () { },
-                        icon: Icon(
-                          Icons.upload_outlined,
-                          color: Colors.grey,
-                        ),),
+                      // IconButton(onPressed: () { },
+                      //   icon: Icon(
+                      //     Icons.upload_outlined,
+                      //     color: Colors.grey,
+                      //   ),),
                     ]
                 )
             ),
-            Container(
-                margin: EdgeInsets.only(right: 10, left: 10),
-                color: Colors.black,
-                height: 0.5),
           ],
         )
     );

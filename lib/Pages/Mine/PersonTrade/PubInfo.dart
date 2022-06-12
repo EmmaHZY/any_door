@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../HttpTools.dart';
 import '../../../account.dart';
 import '../../../models/deal_model.dart';
+import '../Other/OtherPage.dart';
 
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
 
@@ -123,12 +124,30 @@ class _PubInfoState extends State<PubInfo> {
           SizedBox(
             height: Adapt.px(31),
           ),
-          Text(
-            '接取者ID：'+widget.activeTrade.receiverID,
-            style: TextStyle(
-              fontSize: Adapt.px(25.5),
+          Container(
+            child: Row(
+              children: [
+                TextButton(
+                  child: Text(
+                    "接取者ID："+ widget.activeTrade.receiverID,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () {
+                    if(widget.activeTrade.receiverID!=Account.account&&widget.activeTrade.receiverID!='暂无接收者')
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              OtherPage(userID: widget.activeTrade.receiverID)));
+                  },
+                ),
+              ],
             ),
           ),
+          // Text(
+          //   '接取者ID：'+widget.activeTrade.receiverID,
+          //   style: TextStyle(
+          //     fontSize: Adapt.px(25.5),
+          //   ),
+          // ),
           SizedBox(
             height: Adapt.px(31),
           ),

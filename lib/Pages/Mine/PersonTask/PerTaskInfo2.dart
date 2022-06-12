@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../HttpTools.dart';
 import '../../../account.dart';
 import '../../../models/task_model.dart';
+import '../Other/OtherPage.dart';
 import 'Released.dart';
 
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
@@ -123,10 +124,22 @@ class _PerTaskInfo2State extends State<PerTaskInfo2> {
           SizedBox(
             height: Adapt.px(31),
           ),
-          Text(
-            '接取者ID：'+widget.activeTask.receiverID,
-            style: TextStyle(
-              fontSize: Adapt.px(25.5),
+          Container(
+            child: Row(
+              children: [
+                TextButton(
+                  child: Text(
+                    "接取者ID："+ widget.activeTask.receiverID,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () {
+                    if(widget.activeTask.receiverID!=Account.account&&widget.activeTask.receiverID!='暂无接收者')
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              OtherPage(userID: widget.activeTask.receiverID)));
+                  },
+                ),
+              ],
             ),
           ),
           SizedBox(

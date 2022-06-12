@@ -126,13 +126,8 @@ class Home extends StatelessWidget {
 
             // 任务列表
             Container(
-              height: 600,
-              // Adapt.screenH() -
-              // 2 * Adapt.px(62) -
-              // Adapt.px(186) -
-              // 2 * Adapt.padTopH() -
-              // 90 -
-              // 3 * Adapt.padBotH(),
+              height: 650,
+
               child: PerTaskList(),
             ),
             // TaskList(),
