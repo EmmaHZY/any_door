@@ -689,6 +689,7 @@ class _ModifyPageState extends State<ModifyPage> {
                           child:Image.network(
                             image1,
                             width: 50,
+                            height: 50,
                             fit: BoxFit.cover,
                           ),
                         ),

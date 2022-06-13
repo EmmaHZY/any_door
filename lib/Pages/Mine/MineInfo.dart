@@ -48,11 +48,11 @@ class _MineInfoState extends State<MineInfo> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(left: 16),
-
-              child: CircleAvatar(
+              child: ClipOval(
                   child:Image.network(
                     image,
                     width: 65,
+                    height: 65,
                     fit: BoxFit.cover,
                   ),
                   // Image(
