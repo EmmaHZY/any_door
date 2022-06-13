@@ -369,7 +369,7 @@ class _PublishTaskPageState extends State<PublishTaskPage> {
             builder: (BuildContext context) {
               return CupertinoAlertDialog(
                 title: const Text("提示"),
-                content: const Text("发布任务失败，请重试"),
+                content: const Text("金币不足，发布任务失败！"),
                 actions: [
                   FlatButton(
                       onPressed: (() {
