@@ -32,7 +32,7 @@ class _AccListState extends State<AccList> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => AccDetailPage(
               activeTrade: activeTrade[index],
-            )))
+            ))).then((val) => getdata())
       }),
       child: Card(
         color: Colors.white,

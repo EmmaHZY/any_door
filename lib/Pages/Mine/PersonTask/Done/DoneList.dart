@@ -37,7 +37,7 @@ class _DoneListState extends State<DoneList> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => AcceptDetailPage(
               activeTask: activeTask[index],
-            )))
+            ))).then((val) => getdata())
       }),
       child: Card(
         color: Colors.white,

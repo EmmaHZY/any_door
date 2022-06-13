@@ -34,7 +34,7 @@ class _PerTaskListState extends State<PerTaskList> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PerTaskDetailPage(
               activeTask: activeTasks[index],
-            )))
+            ))).then((val) => getdata())
       }),
       child: Card(
         color: Colors.white,

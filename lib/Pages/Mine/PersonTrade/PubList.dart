@@ -34,7 +34,7 @@ class _PubListState extends State<PubList> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PubDetailPage(
               activeTrade: activeTrade[index],
-            )))
+            ))).then((val) => getdata())
       }),
       child: Card(
         color: Colors.white,
