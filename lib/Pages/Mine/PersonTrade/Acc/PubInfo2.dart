@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../../HttpTools.dart';
 import '../../../../account.dart';
 import '../../../../models/deal_model.dart';
+import '../../../../my_colors.dart';
 import '../../Other/OtherPage.dart';
 
 // 任务详细信息：标签+标题+赏金数目+描述+任务图片+截止时间
@@ -24,7 +25,12 @@ class PubInfo2 extends StatefulWidget {
 class _PubInfo2State extends State<PubInfo2> {
   @override
   Widget build(BuildContext context) {
-
+    List tagList = [
+      "日用品",
+      "书籍",
+      "饮食",
+      "其他",
+    ];
     return Padding(
       padding: EdgeInsets.all(10),
         child: SingleChildScrollView(
@@ -36,11 +42,12 @@ class _PubInfo2State extends State<PubInfo2> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 任务标签
-              // Card(
-              //   child: Text("#" + widget.activeTask.tag - 1]),
-              // ),
-              // 任务标题
+              // 交易标签
+              Card(
+                child:
+                Text("#" + tagList[int.parse(widget.activeTrade.tag) - 1]),
+              ),
+              // 交易标题
               Expanded(
                 child: Text(
                   widget.activeTrade.dealTitle,
@@ -54,25 +61,22 @@ class _PubInfo2State extends State<PubInfo2> {
           ),
           // 任务赏金
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // 金币数
-              Container(
-                width: Adapt.px(31),
-                height: Adapt.px(31),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                ),
-                child: Image.asset(
-                  "assets/coin.png",
-                  fit: BoxFit.cover,
-                ),
-              ),
+              // 金币数
+              Text("￥",
+                  style: TextStyle(
+                      fontSize: Adapt.px(25), color: MyColors.mDealColor)),
 
               SizedBox(
-                width: Adapt.px(21),
+                width: Adapt.px(18),
               ),
-              Text("${widget.activeTrade.dealPrice}"),
+              Text("${widget.activeTrade.dealPrice}",
+                  style: TextStyle(
+                      fontSize: Adapt.px(31),
+                      fontWeight: FontWeight.bold,
+                      color: MyColors.mDealColor)),
               SizedBox(
                 width: Adapt.px(21),
               ),
