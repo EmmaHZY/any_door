@@ -26,6 +26,7 @@ class _GiftInfoState extends State<GiftInfo> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10),
+        child: SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,6 +202,6 @@ class _GiftInfoState extends State<GiftInfo> {
 
         ],
       ),
-    );
+    ));
   }
 }

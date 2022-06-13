@@ -27,6 +27,7 @@ class _PubInfoState extends State<PubInfo> {
 
     return Padding(
       padding: EdgeInsets.all(10),
+    child: SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,14 +101,14 @@ class _PubInfoState extends State<PubInfo> {
           SizedBox(
             height: Adapt.px(31),
           ),
-          // 任务图片
-          AspectRatio(
-            aspectRatio: 14 / 9,
+
+          Container(
             child: Image.network(
               widget.activeTrade.dealImage,
               fit: BoxFit.cover,
             ),
-          ),
+          ),// 任务图片
+
           SizedBox(
             height: Adapt.px(31),
           ),
@@ -154,7 +155,7 @@ class _PubInfoState extends State<PubInfo> {
           _Button(),
         ],
       ),
-    );
+    ));
   }
   Widget _Button(){
     if(widget.activeTrade.dealState=='待接收') {
@@ -188,7 +189,7 @@ class _PubInfoState extends State<PubInfo> {
                                       onPressed: () {
                                         // 接受任务接口
                                         Navigator.of(context).pop();
-                                        String send = "{\"taskID\":\"" +
+                                        String send = "{\"tradeID\":\"" +
                                             widget.activeTrade.dealID.toString() +
                                             "\"}";
                                         print(send);
@@ -282,7 +283,7 @@ class _PubInfoState extends State<PubInfo> {
                                       onPressed: () {
                                         // 接受任务接口
                                         Navigator.of(context).pop();
-                                        String send = "{\"taskID\":\"" +
+                                        String send = "{\"tradeID\":\"" +
                                             widget.activeTrade.dealID.toString() +
                                             "\"}";
                                         print(send);

@@ -111,8 +111,7 @@ class _PerTaskInfoState extends State<PerTaskInfo> {
             height: Adapt.px(31),
           ),
           // 任务图片
-          AspectRatio(
-            aspectRatio: 14 / 9,
+          Container(
             child: Image.network(
               widget.activeTask.taskImage,
               fit: BoxFit.cover,

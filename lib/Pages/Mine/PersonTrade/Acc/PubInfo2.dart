@@ -27,6 +27,7 @@ class _PubInfo2State extends State<PubInfo2> {
 
     return Padding(
       padding: EdgeInsets.all(10),
+        child: SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,8 +102,7 @@ class _PubInfo2State extends State<PubInfo2> {
             height: Adapt.px(31),
           ),
           // 任务图片
-          AspectRatio(
-            aspectRatio: 14 / 9,
+          Container(
             child: Image.network(
               widget.activeTrade.dealImage,
               fit: BoxFit.cover,
@@ -147,7 +147,7 @@ class _PubInfo2State extends State<PubInfo2> {
           ),
         ],
       ),
-    );
+      ));
   }
 
 }
