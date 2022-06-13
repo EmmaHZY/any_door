@@ -236,7 +236,7 @@ class _DataInfoState extends State<DataInfo> {
 
                       Container(
                         margin: EdgeInsets.only(left: 16),
-                        child: ClipOval(
+                        child: CircleAvatar(
                           child:Image.network(
                             image,
                             width: 50,
